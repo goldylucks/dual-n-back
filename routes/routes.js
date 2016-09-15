@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navigator } from 'react-native';
 
 import Home from '../components/Home';
-import Game from '../components/Game';
+import Play from '../components/Play';
 
 export default class Routes extends Component {
 
@@ -26,7 +26,7 @@ export default class Routes extends Component {
 
     if (route.index === 1) {
       return (
-        <Game />
+        <Play />
       );
     }
 
