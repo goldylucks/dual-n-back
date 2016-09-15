@@ -4,16 +4,32 @@
 		"selected_items":
 		[
 			[
-				"n",
-				"nextIdx"
+				"get",
+				"getContainerStyle"
+			],
+			[
+				"acti",
+				"activeSquareColor"
 			],
 			[
 				"active",
-				"activeSquareIdx〔variable〕"
+				"activeSquareIdx"
+			],
+			[
+				"Pla",
+				"PlayContainer"
+			],
+			[
+				"conf",
+				"configureStore"
 			],
 			[
 				"render",
-				"renderScore"
+				"renderScene"
+			],
+			[
+				"n",
+				"nextIdx"
 			],
 			[
 				"class",
@@ -36,10 +52,6 @@
 				"BASE_URL"
 			],
 			[
-				"get",
-				"getByText"
-			],
-			[
 				"u",
 				"userId"
 			],
@@ -59,10 +71,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 72.0,
-		"last_filter": "synbabe",
+		"height": 52.0,
+		"last_filter": "synbabel",
 		"selected_items":
 		[
+			[
+				"synbabel",
+				"Set Syntax: JavaScript (Babel)"
+			],
 			[
 				"synbabe",
 				"Set Syntax: JavaScript (Babel)"
@@ -163,22 +179,54 @@
 	},
 	"expanded_folders":
 	[
-		"/home/adam/apps/dualMobile"
+		"/home/adam/apps/dualMobile",
+		"/home/adam/apps/dualMobile/actions",
+		"/home/adam/apps/dualMobile/components",
+		"/home/adam/apps/dualMobile/components/Board",
+		"/home/adam/apps/dualMobile/components/Square",
+		"/home/adam/apps/dualMobile/pages",
+		"/home/adam/apps/dualMobile/pages/Home",
+		"/home/adam/apps/dualMobile/pages/Play",
+		"/home/adam/apps/dualMobile/routes"
 	],
 	"file_history":
 	[
-		"/home/adam/apps/dualMobile/package.json",
-		"/home/adam/apps/dualMobile/index.android.js",
 		"/home/adam/apps/dualMobile/pages/Home/Home.js",
-		"/home/adam/apps/dualMobile/pages/Home/index.js",
+		"/home/adam/apps/dualMobile/components/Board/Board.js",
+		"/home/adam/apps/dualMobile/components/Square/Square.js",
+		"/home/adam/apps/dualMobile/pages/Play/Play.js",
+		"/home/adam/apps/dualMobile/components/Board/Board.css",
+		"/home/adam/apps/dualMobile/components/Square/Square.css",
 		"/home/adam/apps/dualMobile/routes/routes.js",
+		"/home/adam/apps/dualMobile/actions/play.js",
+		"/home/adam/apps/dualMobile/pages/Play/Play.css",
+		"/home/adam/apps/dualMobile/components/Square/index.js",
+		"/home/adam/apps/dualMobile/components/Board/index.js",
+		"/home/adam/apps/dualMobile/App.js",
+		"/home/adam/apps/dualMobile/utils/logger.js",
+		"/home/adam/apps/dualMobile/reducers/reducers.js",
+		"/home/adam/apps/dualMobile/store/store.js",
+		"/home/adam/apps/dualMobile/package.json",
+		"/home/adam/apps/dualMobile/middlewares/index.js",
+		"/home/adam/apps/dualMobile/reducers/index.js",
+		"/home/adam/apps/dualMobile/middlewares/middlewares.js",
+		"/home/adam/apps/dualMobile/components/Play/index.js",
+		"/home/adam/apps/dualMobile/components/Play/Play.js",
+		"/home/adam/apps/dualMobile/index.android.js",
+		"/home/adam/apps/dualMobile/app.js",
+		"/home/adam/apps/dualMobile/store/index.js",
 		"/home/adam/apps/dualMobile/routes/index.js",
+		"/home/adam/apps/dualMobile/components/Game/index.js",
+		"/home/adam/apps/dualMobile/components/Game/Game.js",
+		"/home/adam/apps/dualMobile/components/Home/index.js",
+		"/home/adam/apps/dualMobile/components/Home/Home.js",
+		"/home/adam/apps/dualMobile/components/Game.Game.js",
+		"/home/adam/apps/dualMobile/Home.js",
+		"/home/adam/apps/dualMobile/pages/Home/index.js",
 		"/home/adam/apps/dualMobile/.eslintrc.json",
 		"/home/adam/apps/dualMobile/.babelrc",
 		"/home/adam/apps/dualMobile/pages/Home/Home.css",
-		"/home/adam/apps/dualMobile/components/Home/Home.js",
 		"/home/adam/apps/dualMobile/components/Home/Home.css",
-		"/home/adam/apps/dualMobile/components/Home/index.js",
 		"/home/adam/.zshrc",
 		"/home/adam/apps/dualMobile/android/app/src/main/AndroidManifest.xml",
 		"/home/adam/apps/mamawidget_client/README.md",
@@ -270,35 +318,11 @@
 		"/home/adam/apps/typing/server/api/history/historyRoutes.js",
 		"/home/adam/apps/typing/server/api/api.js",
 		"/home/adam/apps/typing/server/utils/seed.js",
-		"/home/adam/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
-		"/home/adam/.config/sublime-text-3/Packages/User/file reset_font_size_commad.py",
-		"/home/adam/.config/sublime-text-3/file reset_font_size_commad.py",
-		"/home/adam/apps/typing/client/pages/FinishPage/FinishPage.css",
-		"/home/adam/apps/typing/client/components/Header/Header.js",
-		"/home/adam/apps/typing/client/pages/AddTextPage/AddTextPage.js",
-		"/home/adam/apps/typing/server/server.js",
-		"/home/adam/apps/typing/client/pages/NavPage/NavPage.js",
-		"/home/adam/apps/typing/client/pages/HistoryPage/index.js",
-		"/home/adam/apps/typing/server/api/users/usersModel.js",
-		"/home/adam/apps/typing/client/components/AuthModal/AuthModal.css",
-		"/home/adam/apps/typing/server/api/users/usersController.js",
-		"/home/adam/apps/typing/client/pages/MainPage/MainPage.js",
-		"/home/adam/apps/typing/client/services/httpService.js",
-		"/home/adam/apps/typing/test/e2e/add.spec.js",
-		"/home/adam/apps/typing/test/e2e/main.spec.js",
-		"/home/adam/apps/typing/client/index.html",
-		"/home/adam/apps/typing/.editorconfig",
-		"/home/adam/apps/typing/webpack.config.js",
-		"/home/adam/apps/typing/client/constants/constants.js",
-		"/home/adam/apps/typing/client/pages/NavPage/NavPage.css",
-		"/home/adam/apps/typing/client/pages/AddTextPage/AddTextPage.css",
-		"/home/adam/apps/typing/client/pages/MainPage/MainPage.css",
-		"/home/adam/apps/typing/client/components/Header/index.js",
-		"/home/adam/apps/typing/client/index.css"
+		"/home/adam/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 41.0
 	},
 	"find_in_files":
 	{
@@ -314,6 +338,44 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"whgreenite",
+			"StyleSheet",
+			"style",
+			"white",
+			";",
+			".",
+			"View",
+			"cons",
+			".",
+			"200",
+			";",
+			"className",
+			"px",
+			"Home",
+			"Container",
+			"onClick",
+			"TouchableHighlight",
+			"Touchable",
+			"react-natve",
+			"div",
+			"button",
+			"div",
+			"button",
+			"TouchableHighlight",
+			"button",
+			"PlayContainer",
+			"auto",
+			"'50%'",
+			"className",
+			"classN",
+			"className",
+			"components",
+			"Game",
+			"Gmae",
+			"Game",
+			"HighlightedTouchable",
+			"Home",
+			"style",
 			"SimpleNavigationApp",
 			"class",
 			"pre-git",
@@ -403,45 +465,7 @@
 			"0",
 			"users",
 			"accuracy",
-			"wpm",
-			"textId",
-			"body",
-			"text",
-			"_text",
-			"text",
-			"history",
-			"Texts",
-			"texts",
-			"56f045a7cab8bfde77c236d4",
-			"56f04089cab8bfde77c236d3",
-			"font",
-			"stats",
-			"wpm",
-			"#history",
-			"AddText",
-			"fetch",
-			"Text",
-			"getOne",
-			"texts",
-			"Texts",
-			"get",
-			"Texts",
-			"Schema.Types.ObjectId",
-			"objectId",
-			"Schema.Types",
-			"onPublicToggle",
-			".preventDefault()",
-			"email",
-			"space",
-			"localStorage",
-			"$('#header').html(this.header.render());",
-			"Header",
-			"userService.isLogged",
-			"onSignup",
-			"$(document)",
-			"click",
-			"document",
-			"always"
+			"wpm"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -449,6 +473,10 @@
 		"regex": false,
 		"replace_history":
 		[
+			"Page",
+			"react-native",
+			"View",
+			"TouchableHighlight",
 			"this.header.render('#header');",
 			"this.header.render('#header\")",
 			""
@@ -469,7 +497,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 34.0
+		"height": 41.0
 	},
 	"input":
 	{
@@ -506,7 +534,7 @@
 	"project": "dual-mobile.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -516,6 +544,122 @@
 		"selected_items":
 		[
 			[
+				"pagplajs",
+				"pages/Play/Play.js"
+			],
+			[
+				"pahome",
+				"pages/Home/Home.js"
+			],
+			[
+				"home",
+				"pages/Home/Home.js"
+			],
+			[
+				"pagplayjs",
+				"pages/Play/Play.js"
+			],
+			[
+				"rourou",
+				"routes/routes.js"
+			],
+			[
+				"squarejs",
+				"components/Square/Square.js"
+			],
+			[
+				"pagplpljs",
+				"pages/Play/Play.js"
+			],
+			[
+				"playjs",
+				"actions/play.js"
+			],
+			[
+				"paghome",
+				"pages/Home/Home.js"
+			],
+			[
+				"homejs",
+				"pages/Home/Home.js"
+			],
+			[
+				"comsqin",
+				"components/Square/index.js"
+			],
+			[
+				"comsqsqjs",
+				"components/Square/Square.js"
+			],
+			[
+				"boardindex",
+				"components/Board/index.js"
+			],
+			[
+				"route",
+				"routes/routes.js"
+			],
+			[
+				"appjs",
+				"App.js"
+			],
+			[
+				"utilslo",
+				"utils/logger.js"
+			],
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"stst",
+				"store/store.js"
+			],
+			[
+				"redred",
+				"reducers/index.js"
+			],
+			[
+				"middlin",
+				"middlewares/index.js"
+			],
+			[
+				"action",
+				"actions/play.js"
+			],
+			[
+				"middle",
+				"middlewares/middlewares.js"
+			],
+			[
+				"app",
+				"App.js"
+			],
+			[
+				"indejs",
+				"index.android.js"
+			],
+			[
+				"index",
+				"index.android.js"
+			],
+			[
+				"compgame",
+				"components/Game/Game.js"
+			],
+			[
+				"homehome",
+				"components/Home/Home.js"
+			],
+			[
+				"indean",
+				"index.android.js"
+			],
+			[
+				"indexjs",
+				"index.android.js"
+			],
+			[
 				"routeinde",
 				"routes/index.js"
 			],
@@ -524,16 +668,8 @@
 				"pages/Home/Home.js"
 			],
 			[
-				"rourou",
-				"routes/routes.js"
-			],
-			[
 				"eslin",
 				".eslintrc.json"
-			],
-			[
-				"indexjs",
-				"index.android.js"
 			],
 			[
 				"babel",
@@ -554,10 +690,6 @@
 			[
 				"anroid",
 				"android/app/src/main/AndroidManifest.xml"
-			],
-			[
-				"pack",
-				"package.json"
 			],
 			[
 				"readme",
@@ -598,10 +730,6 @@
 			[
 				"store",
 				"src/store/store.js"
-			],
-			[
-				"redred",
-				"src/reducers/reducers.js"
 			],
 			[
 				"conpojs",
@@ -652,10 +780,6 @@
 				"components/src/middlewares/Logger.js"
 			],
 			[
-				"middle",
-				"components/src/docs/middlewares/middlewares.js"
-			],
-			[
 				"clientindexjs",
 				"status/web/client/index.js"
 			],
@@ -688,10 +812,6 @@
 				"client/containers/App/App.css"
 			],
 			[
-				"appjs",
-				"client/containers/App/App.js"
-			],
-			[
 				"squacss",
 				"client/components/Square/Square.css"
 			],
@@ -700,20 +820,12 @@
 				"client/components/Board/index.js"
 			],
 			[
-				"playjs",
-				"client/containers/Play/Play.js"
-			],
-			[
 				"suqare",
 				"client/components/Square/Square.js"
 			],
 			[
 				"choos",
 				"client/containers/ChooseAmount/ChooseAmount.js"
-			],
-			[
-				"route",
-				"client/routes/routes.js"
 			],
 			[
 				"statmiddlmiddl",
@@ -750,10 +862,6 @@
 			[
 				"comtejs",
 				"client/components/Text/Text.js"
-			],
-			[
-				"indejs",
-				"client/index.js"
 			],
 			[
 				"tepajs",
@@ -946,86 +1054,6 @@
 			[
 				"mainspec",
 				"test/e2e/main.spec.js"
-			],
-			[
-				"indehtml",
-				"client/index.html"
-			],
-			[
-				"mainpajs",
-				"client/pages/MainPage/MainPage.js"
-			],
-			[
-				"e2emainjs",
-				"test/e2e/main.spec.js"
-			],
-			[
-				"e2eaddp",
-				"test/e2e/add.spec.js"
-			],
-			[
-				"mainpag",
-				"client/pages/MainPage/MainPage.js"
-			],
-			[
-				"mainpagjs",
-				"client/pages/MainPage/MainPage.js"
-			],
-			[
-				"addpagjs",
-				"client/pages/AddTextPage/AddTextPage.js"
-			],
-			[
-				"editorcon",
-				".editorconfig"
-			],
-			[
-				"finijs",
-				"client/pages/FinishPage/FinishPage.js"
-			],
-			[
-				"textcss",
-				"server/api/texts/textsController.js"
-			],
-			[
-				"navpagejs",
-				"client/pages/NavPage/NavPage.js"
-			],
-			[
-				"mainpage",
-				"client/pages/MainPage/MainPage.js"
-			],
-			[
-				"addtepajs",
-				"client/pages/AddTextPage/AddTextPage.js"
-			],
-			[
-				"webpack",
-				"webpack.config.js"
-			],
-			[
-				"navpajs",
-				"client/pages/NavPage/NavPage.js"
-			],
-			[
-				"conscons",
-				"client/constants/constants.js"
-			],
-			[
-				"mainpagejs",
-				"client/pages/MainPage/MainPage.js"
-			],
-			[
-				"adtejs",
-				"client/pages/AddTextPage/AddTextPage.js"
-			],
-			[
-				"addpajs",
-				"client/pages/AddTextPage/AddTextPage.js"
-			],
-			[
-				"addtecss",
-				"client/pages/AddTextPage/AddTextPage.css"
 			]
 		],
 		"width": 0.0
