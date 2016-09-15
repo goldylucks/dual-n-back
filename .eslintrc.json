@@ -1,0 +1,19 @@
+{
+  "extends": ["semistandard", "standard-react"],
+  "parser": "babel-eslint",
+  "env": {
+    "mocha": true,
+    "node": true
+  },
+  "globals": {
+    "expect": true
+  },
+  "rules": {
+    "object-curly-spacing": ["error", "always"],
+    "arrow-parens": ["error", "as-needed"],
+    "no-debugger": "error",
+    "no-alert": "error",
+    "jsx-quotes": ["error", "prefer-single"],
+    "react/jsx-curly-spacing": ["error", "always"]
+  }
+}
