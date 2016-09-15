@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Navigator } from 'react-native';
 
-import Home from '../components/Home/Home';
-import Game from '../components/Game/Game';
+import Home from '../components/Home';
+import Game from '../components/Game';
 
 export default class Routes extends Component {
 

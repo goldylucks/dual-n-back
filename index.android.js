@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-import Routes from './routes/routes';
+import Routes from './routes';
 
 class dualMobile extends Component {
   render() {
