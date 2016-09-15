@@ -1,25 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import { AppRegistry } from 'react-native';
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import App from './App';
 
-import Routes from './routes';
-
-class dualMobile extends Component {
-  render() {
-    return (
-      <Routes />
-    );
-  }
-}
-
-AppRegistry.registerComponent('dualMobile', () => dualMobile);
+AppRegistry.registerComponent('dualMobile', () => App);
