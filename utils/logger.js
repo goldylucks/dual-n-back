@@ -1,4 +1,4 @@
-const isLogging = process.env.LOGGING;
+const isLogging = __DEV__;
 
 export default logger();
 

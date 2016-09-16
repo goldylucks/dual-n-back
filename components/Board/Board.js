@@ -16,13 +16,13 @@ export default class Board extends Component {
         <View style={ styles.row }>
           <Square
             idx={ 1 }
-            style={ { marginRight: 2 } }
+            style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
             activeSquareIdx={ activeSquareIdx }
           />
           <Square
             idx={ 2 }
-            style={ { marginRight: 2 } }
+            style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
             activeSquareIdx={ activeSquareIdx }
           />
@@ -34,38 +34,38 @@ export default class Board extends Component {
         </View>
         <View style={ styles.row }>
           <Square
-            idx={ 1 }
-            style={ { marginRight: 2 } }
+            idx={ 4 }
+            style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
             activeSquareIdx={ activeSquareIdx }
           />
           <Square
-            idx={ 2 }
-            style={ { marginRight: 2 } }
+            idx={ 5 }
+            style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
             activeSquareIdx={ activeSquareIdx }
           />
           <Square
-            idx={ 3 }
+            idx={ 6 }
             activeSquareColor={ activeSquareColor }
             activeSquareIdx={ activeSquareIdx }
           />
         </View>
         <View style={ styles.row }>
           <Square
-            idx={ 1 }
-            style={ { marginRight: 2 } }
+            idx={ 7 }
+            style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
             activeSquareIdx={ activeSquareIdx }
           />
           <Square
-            idx={ 2 }
-            style={ { marginRight: 2 } }
+            idx={ 8 }
+            style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
             activeSquareIdx={ activeSquareIdx }
           />
           <Square
-            idx={ 3 }
+            idx={ 9 }
             activeSquareColor={ activeSquareColor }
             activeSquareIdx={ activeSquareIdx }
           />
@@ -89,11 +89,11 @@ const styles = {
     // flex: 1,
     // height: 100,
     flexDirection: 'row',
-    marginBottom: 2,
+    marginBottom: 3,
     justifyContent: 'center',
     borderColor: 'black',
     borderStyle: 'solid',
-    borderWidth: 2,
+    borderWidth: 3,
   }
 
 };

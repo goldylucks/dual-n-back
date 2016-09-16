@@ -3,41 +3,36 @@ import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import FaIcon from 'react-native-vector-icons/FontAwesome';
+import FdIcon from 'react-native-vector-icons/Foundation';
+
 import { startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor } from '../../actions/play';
 
 import Board from '../../components/Board';
 
-// import styles from './Play.css';
-
 class PlayPage extends Component {
 
   static propTypes = {
-    intervalMillis: PropTypes.number.isRequired,
-    colors: PropTypes.arrayOf(PropTypes.string).isRequired,
     activeSquareColor: PropTypes.string.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
-    started: PropTypes.bool.isRequired
-    // startGame: PropTypes.function.isRequired,
-    // endGame: PropTypes.function.isRequired,
-    // guessColor: PropTypes.function.isRequired,
-    // guessPosition: PropTypes.function.isRequired
+    started: PropTypes.bool.isRequired,
+    startGame: PropTypes.func.isRequired,
+    endGame: PropTypes.func.isRequired,
+    guessColor: PropTypes.func.isRequired,
+    guessPosition: PropTypes.func.isRequired,
   }
 
   render () {
-    const { intervalMillis, colors, activeSquareColor, activeSquareIdx } = this.props;
+    const { activeSquareColor, activeSquareIdx } = this.props;
     return (
       <View style={ styles.container }>
         { this.renderScore() }
         <Board
-          intervalMillis={ intervalMillis }
-          colors={ colors }
           activeSquareColor={ activeSquareColor }
           activeSquareIdx={ activeSquareIdx }
         />
-        <View style={ styles.control }>
-          { this.renderControls() }
-        </View>
+        { this.renderControls() }
         { this.renderActions() }
       </View>
     );
@@ -53,12 +48,12 @@ class PlayPage extends Component {
 
   renderControls () {
     return (
-      <View>
-        <TouchableHighlight style={ styles.control } onClick={ this.guessPosition }>
-          <Text>Position</Text>
+      <View style={ styles.controls }>
+        <TouchableHighlight style={ styles.firstControl } onPress={ this.guessPosition }>
+          <FaIcon style={ styles.controlIcon } name='th' />
         </TouchableHighlight>
-        <TouchableHighlight style={ styles.control } onClick={ this.guessColor }>
-          <Text>Color</Text>
+        <TouchableHighlight style={ styles.control } onPress={ this.guessColor }>
+          <FdIcon style={ styles.controlIcon } name='paint-bucket' />
         </TouchableHighlight>
       </View>
     );
@@ -69,7 +64,7 @@ class PlayPage extends Component {
 
     if (!started) {
       return (
-        <TouchableHighlight onClick={ this.startGame }>
+        <TouchableHighlight onPress={ this.startGame }>
           <Text>Start</Text>
         </TouchableHighlight>
       );
@@ -77,7 +72,7 @@ class PlayPage extends Component {
 
     if (started) {
       return (
-        <TouchableHighlight onClick={ this.endGame }>
+        <TouchableHighlight onPress={ this.endGame }>
           <Text>End</Text>
         </TouchableHighlight>
       );
@@ -126,10 +121,37 @@ const styles = {
   },
 
   score: {
+    flex: .2,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 40,
+    backgroundColor: 'gray',
+    justifyContent: 'center',
+  },
 
+  controls: {
+    flex: .2,
+    flexDirection: 'row',
+  },
+
+  firstControl: {
+    flex: 1,
+    alignItems: 'center',
+    marginRight: 2,
+    justifyContent: 'center',
+    backgroundColor: 'green',
   },
 
   control: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'green',
+  },
+
+  controlIcon: {
+    fontSize: 45,
+    color: 'white',
   },
 
 };

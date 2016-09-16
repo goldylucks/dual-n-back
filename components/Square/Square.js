@@ -30,7 +30,7 @@ export default class Square extends Component {
 
   render () {
     return (
-      <View style={ this.getContainerStyle() } />
+      <Text style={ this.getContainerStyle() } > {this.props.idx}</Text>
     );
   }
 
@@ -38,7 +38,7 @@ export default class Square extends Component {
     const _style = Object.assign({}, this.props.style, style);
 
     if (this.props.activeSquareIdx === this.props.idx) {
-      _style.background = this.props.activeSquareColor;
+      _style.backgroundColor = this.props.activeSquareColor;
     }
 
     return _style;
