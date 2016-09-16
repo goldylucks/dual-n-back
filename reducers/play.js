@@ -6,8 +6,8 @@ const initialState = {
   active: false,
   activeSquareColor: '',
   activeSquareIdx: 0,
-  intervalMillis: 1000,
-  colors: ['red', 'yellow', 'purple'],
+  intervalMillis: 1500,
+  colors: ['red', 'purple'],
   history: [],
   score: 0
 };

@@ -113,11 +113,6 @@ export default connect(
 const styles = {
   container: {
     flex: 1,
-    borderColor: 'red',
-    borderWidth: 5,
-    borderStyle: 'solid',
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
 
   score: {

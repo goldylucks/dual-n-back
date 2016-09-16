@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 export default class Square extends Component {
 
@@ -9,39 +9,24 @@ export default class Square extends Component {
     activeSquareColor: PropTypes.string.isRequired
   }
 
-  // state = {
-  //   style: {}
-  // }
-
-  // componentWillReceiveProps (nextProps) {
-  //   if (nextProps.activeSquareIdx === this.props.idx) {
-  //     this.setState({
-  //       style: {
-  //         background: nextProps.activeSquareColor
-  //       }
-  //     });
-  //     return;
-  //   }
-
-  //   this.setState({
-  //     style: {}
-  //   });
-  // }
-
   render () {
     return (
-      <Text style={ this.getContainerStyle() } > {this.props.idx}</Text>
+      <View style={ this.getContainerStyle() } />
     );
   }
 
   getContainerStyle () {
     const _style = Object.assign({}, this.props.style, style);
 
-    if (this.props.activeSquareIdx === this.props.idx) {
+    if (this.isActive()) {
       _style.backgroundColor = this.props.activeSquareColor;
     }
 
     return _style;
+  }
+
+  isActive () {
+    return this.props.activeSquareIdx === this.props.idx;
   }
 }
 

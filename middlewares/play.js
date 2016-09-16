@@ -49,7 +49,8 @@ export default class PlayMiddleware {
 
   onGuessColor (store) {
     const { history, activeSquareColor, nBack } = store.getState().play;
-    if (history[history.length - 1 - nBack].activeSquareColor !== activeSquareColor) {
+    console.log('COLOR: last:', history[history.length - 1 - nBack].activeSquareColor, 'current:', activeSquareColor)
+    if (history[history.length - 1 - nBack].activeSquareColor !== history[history.length - 1].activeSquareColor) {
       store.dispatch(guessColorWrong());
       this.onEndGame();
       return;
@@ -60,7 +61,8 @@ export default class PlayMiddleware {
 
   onGuessPosition (store) {
     const { history, activeSquareIdx, nBack } = store.getState().play;
-    if (history[history.length - 1 - nBack].activeSquareIdx !== activeSquareIdx) {
+    console.log('IDX: last:', history[history.length - 1 - nBack].activeSquareIdx, 'current:', activeSquareIdx)
+    if (history[history.length - 1 - nBack].activeSquareIdx !== history[history.length - 1 - nBack].activeSquareIdx) {
       store.dispatch(guessPositionWrong());
       this.onEndGame();
       return;
@@ -71,7 +73,7 @@ export default class PlayMiddleware {
 
   onEndGame () {
     clearInterval(this.interval);
-    clearTimeout(this.resetBoardTimeout);
+    // clearTimeout(this.resetBoardTimeout);
   }
 
 }

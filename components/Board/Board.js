@@ -80,9 +80,6 @@ const styles = {
   container: {
     flex: 1,
     justifyContent: 'center',
-    borderColor: 'yellow',
-    borderStyle: 'solid',
-    borderWidth: 3,
   },
 
   row: {
@@ -91,9 +88,6 @@ const styles = {
     flexDirection: 'row',
     marginBottom: 3,
     justifyContent: 'center',
-    borderColor: 'black',
-    borderStyle: 'solid',
-    borderWidth: 3,
   }
 
 };

@@ -4,16 +4,16 @@
 		"selected_items":
 		[
 			[
+				"active",
+				"activeSquareIdx〔variable〕"
+			],
+			[
 				"get",
 				"getContainerStyle"
 			],
 			[
 				"acti",
 				"activeSquareColor"
-			],
-			[
-				"active",
-				"activeSquareIdx"
 			],
 			[
 				"Pla",
@@ -181,20 +181,33 @@
 	[
 		"/home/adam/apps/dualMobile",
 		"/home/adam/apps/dualMobile/actions",
+		"/home/adam/apps/dualMobile/android",
+		"/home/adam/apps/dualMobile/android/app",
 		"/home/adam/apps/dualMobile/components",
 		"/home/adam/apps/dualMobile/components/Board",
 		"/home/adam/apps/dualMobile/components/Square",
+		"/home/adam/apps/dualMobile/middlewares",
 		"/home/adam/apps/dualMobile/pages",
 		"/home/adam/apps/dualMobile/pages/Home",
 		"/home/adam/apps/dualMobile/pages/Play",
-		"/home/adam/apps/dualMobile/routes"
+		"/home/adam/apps/dualMobile/reducers",
+		"/home/adam/apps/dualMobile/routes",
+		"/home/adam/apps/dualMobile/utils"
 	],
 	"file_history":
 	[
+		"/etc/sysctl.conf",
+		"/home/adam/apps/dualMobile/reducers/play.js",
+		"/home/adam/apps/dualMobile/middlewares/play.js",
 		"/home/adam/apps/dualMobile/components/Square/Square.js",
-		"/home/adam/apps/dualMobile/components/Board/Board.js",
-		"/home/adam/apps/dualMobile/pages/Home/Home.js",
+		"/home/adam/.zshrc",
 		"/home/adam/apps/dualMobile/pages/Play/Play.js",
+		"/home/adam/apps/dualMobile/utils/logger.js",
+		"/home/adam/apps/dualMobile/components/Board/Board.js",
+		"/home/adam/apps/dualMobile/android/app/build.gradle",
+		"/home/adam/apps/dualMobile/pages/Home/Home.js",
+		"/home/adam/apps/dualMobile/App.js",
+		"/home/adam/apps/dualMobile/index.android.js",
 		"/home/adam/apps/dualMobile/components/Board/Board.css",
 		"/home/adam/apps/dualMobile/components/Square/Square.css",
 		"/home/adam/apps/dualMobile/routes/routes.js",
@@ -202,8 +215,6 @@
 		"/home/adam/apps/dualMobile/pages/Play/Play.css",
 		"/home/adam/apps/dualMobile/components/Square/index.js",
 		"/home/adam/apps/dualMobile/components/Board/index.js",
-		"/home/adam/apps/dualMobile/App.js",
-		"/home/adam/apps/dualMobile/utils/logger.js",
 		"/home/adam/apps/dualMobile/reducers/reducers.js",
 		"/home/adam/apps/dualMobile/store/store.js",
 		"/home/adam/apps/dualMobile/package.json",
@@ -212,7 +223,6 @@
 		"/home/adam/apps/dualMobile/middlewares/middlewares.js",
 		"/home/adam/apps/dualMobile/components/Play/index.js",
 		"/home/adam/apps/dualMobile/components/Play/Play.js",
-		"/home/adam/apps/dualMobile/index.android.js",
 		"/home/adam/apps/dualMobile/app.js",
 		"/home/adam/apps/dualMobile/store/index.js",
 		"/home/adam/apps/dualMobile/routes/index.js",
@@ -227,7 +237,6 @@
 		"/home/adam/apps/dualMobile/.babelrc",
 		"/home/adam/apps/dualMobile/pages/Home/Home.css",
 		"/home/adam/apps/dualMobile/components/Home/Home.css",
-		"/home/adam/.zshrc",
 		"/home/adam/apps/dualMobile/android/app/src/main/AndroidManifest.xml",
 		"/home/adam/apps/mamawidget_client/README.md",
 		"/home/adam/apps/mamawidget_client/.git/hooks/pre-commit",
@@ -314,11 +323,7 @@
 		"/home/adam/apps/typing/client/pages/HistoryPage/HistoryPage.js",
 		"/home/adam/apps/typing/server/api/history/historyController.js",
 		"/home/adam/apps/typing/server/api/texts/textsModel.js",
-		"/home/adam/apps/typing/server/api/texts/textsController.js",
-		"/home/adam/apps/typing/server/api/history/historyRoutes.js",
-		"/home/adam/apps/typing/server/api/api.js",
-		"/home/adam/apps/typing/server/utils/seed.js",
-		"/home/adam/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap"
+		"/home/adam/apps/typing/server/api/texts/textsController.js"
 	],
 	"find":
 	{
@@ -338,6 +343,21 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"reset",
+			"Color",
+			"activeSquareIdx",
+			"marginRight: 2",
+			"2",
+			"styles",
+			"name",
+			"verticalAlign",
+			"function",
+			"onClick",
+			"80",
+			"style",
+			"_style",
+			"style",
+			"container",
 			"intervalMillis",
 			"key",
 			"{ i }",
@@ -450,22 +470,7 @@
 			"httpService.POST",
 			"56f04089cab8bfde77c236d3",
 			"fetchHistory",
-			"_history.text._id",
-			"_history[1].text._id",
-			"textTitle",
-			"textId",
-			"_history[0].text._id",
-			".textId",
-			"res",
-			"history",
-			"_text",
-			"adam",
-			"to.be.an.instanceof(Date)",
-			"adam",
-			"text 1",
-			"accuracy",
-			"time",
-			"wpm"
+			"_history.text._id"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -473,6 +478,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"onPress",
 			"Page",
 			"react-native",
 			"View",
@@ -544,12 +550,56 @@
 		"selected_items":
 		[
 			[
-				"square",
+				"squarejs",
 				"components/Square/Square.js"
+			],
+			[
+				"redplay",
+				"reducers/play.js"
+			],
+			[
+				"middle",
+				"middlewares/play.js"
+			],
+			[
+				"utlogg",
+				"utils/logger.js"
+			],
+			[
+				"boarjs",
+				"components/Board/Board.js"
+			],
+			[
+				"android/app/build.gradle",
+				"android/app/build.gradle"
 			],
 			[
 				"boardjs",
 				"components/Board/Board.js"
+			],
+			[
+				"homejs",
+				"pages/Home/Home.js"
+			],
+			[
+				"pagpljs",
+				"pages/Play/Play.js"
+			],
+			[
+				"appjs",
+				"App.js"
+			],
+			[
+				"indexjs",
+				"index.android.js"
+			],
+			[
+				"boarjds",
+				"components/Board/Board.js"
+			],
+			[
+				"square",
+				"components/Square/Square.js"
 			],
 			[
 				"pagplajs",
@@ -572,10 +622,6 @@
 				"routes/routes.js"
 			],
 			[
-				"squarejs",
-				"components/Square/Square.js"
-			],
-			[
 				"pagplpljs",
 				"pages/Play/Play.js"
 			],
@@ -585,10 +631,6 @@
 			],
 			[
 				"paghome",
-				"pages/Home/Home.js"
-			],
-			[
-				"homejs",
 				"pages/Home/Home.js"
 			],
 			[
@@ -606,10 +648,6 @@
 			[
 				"route",
 				"routes/routes.js"
-			],
-			[
-				"appjs",
-				"App.js"
 			],
 			[
 				"utilslo",
@@ -636,10 +674,6 @@
 				"actions/play.js"
 			],
 			[
-				"middle",
-				"middlewares/middlewares.js"
-			],
-			[
 				"app",
 				"App.js"
 			],
@@ -661,10 +695,6 @@
 			],
 			[
 				"indean",
-				"index.android.js"
-			],
-			[
-				"indexjs",
 				"index.android.js"
 			],
 			[
@@ -760,10 +790,6 @@
 				"scripts/hooks.sh"
 			],
 			[
-				"redplay",
-				"client/reducers/play.js"
-			],
-			[
 				"actions",
 				"client/actions/play.js"
 			],
@@ -810,10 +836,6 @@
 			[
 				"reducer",
 				"home/web/client/reducers/rpc.js"
-			],
-			[
-				"boarjs",
-				"client/components/Board/Board.js"
 			],
 			[
 				"app.css",
@@ -1038,22 +1060,6 @@
 			[
 				"userservi",
 				"client/services/userService.js"
-			],
-			[
-				"httpserv",
-				"client/services/httpService.js"
-			],
-			[
-				"e2eadd",
-				"test/e2e/add.spec.js"
-			],
-			[
-				"addpagejs",
-				"client/pages/AddTextPage/AddTextPage.js"
-			],
-			[
-				"authmodjs",
-				"client/components/AuthModal/AuthModal.js"
 			]
 		],
 		"width": 0.0
