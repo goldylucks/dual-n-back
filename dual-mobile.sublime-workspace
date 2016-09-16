@@ -191,9 +191,9 @@
 	],
 	"file_history":
 	[
-		"/home/adam/apps/dualMobile/pages/Home/Home.js",
-		"/home/adam/apps/dualMobile/components/Board/Board.js",
 		"/home/adam/apps/dualMobile/components/Square/Square.js",
+		"/home/adam/apps/dualMobile/components/Board/Board.js",
+		"/home/adam/apps/dualMobile/pages/Home/Home.js",
 		"/home/adam/apps/dualMobile/pages/Play/Play.js",
 		"/home/adam/apps/dualMobile/components/Board/Board.css",
 		"/home/adam/apps/dualMobile/components/Square/Square.css",
@@ -338,6 +338,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"intervalMillis",
+			"key",
+			"{ i }",
+			"i",
+			"colors",
+			"50",
 			"whgreenite",
 			"StyleSheet",
 			"style",
@@ -459,12 +465,6 @@
 			"text 1",
 			"accuracy",
 			"time",
-			"wpm",
-			"textId",
-			"_text",
-			"0",
-			"users",
-			"accuracy",
 			"wpm"
 		],
 		"highlight": true,
@@ -543,6 +543,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"square",
+				"components/Square/Square.js"
+			],
+			[
+				"boardjs",
+				"components/Board/Board.js"
+			],
 			[
 				"pagplajs",
 				"pages/Play/Play.js"
@@ -1046,14 +1054,6 @@
 			[
 				"authmodjs",
 				"client/components/AuthModal/AuthModal.js"
-			],
-			[
-				"e2mainjs",
-				"test/e2e/main.spec.js"
-			],
-			[
-				"mainspec",
-				"test/e2e/main.spec.js"
 			]
 		],
 		"width": 0.0

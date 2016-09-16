@@ -5,7 +5,6 @@ export default class Square extends Component {
 
   static propTypes = {
     idx: PropTypes.number.isRequired,
-    style: PropTypes.object.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     activeSquareColor: PropTypes.string.isRequired
   }
@@ -36,14 +35,18 @@ export default class Square extends Component {
   }
 
   getContainerStyle () {
-    const style = Object.assign({}, this.props.style, {
-      backgroundColor: 'blue',
-    });
+    const _style = Object.assign({}, this.props.style, style);
 
     if (this.props.activeSquareIdx === this.props.idx) {
-      style.background = this.props.activeSquareColor;
+      _style.background = this.props.activeSquareColor;
     }
 
-    return style;
+    return _style;
   }
 }
+
+const style = {
+  backgroundColor: 'blue',
+  width: 100,
+  height: 100,
+};
