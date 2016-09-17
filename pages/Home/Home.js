@@ -35,6 +35,17 @@ class HomePage extends Component {
             <FaIcon onPress={ this.toggleMode } name='caret-right' style={ styles.rightSettingIcon } /> 
           </View>
         </View>
+        <View style={ styles.settings }>
+          <View style={ styles.leftSetting }>
+            <FaIcon onPress={ this.decrementN } name='minus' style={ styles.leftSettingIcon } /> 
+          </View>
+          <View style={ styles.middleSetting }>
+            <Text style={ styles.middleSettingText }>{ nBack }</Text>
+          </View>
+          <View style={ styles.rightSetting }>
+            <FaIcon onPress={ this.incrementN } name='plus' style={ styles.rightSettingIcon } /> 
+          </View>
+        </View>
         <View style={ styles.play }>
           <TouchableHighlight onPress={ this.routeToGame }>
             <FaIcon name='play-circle' style={ styles.playIcon } />
@@ -54,6 +65,15 @@ class HomePage extends Component {
   toggleMode = evt => {
     this.props.actions.toggleMode();
   }
+
+  incrementN = evt => {
+    this.props.actions.incrementN();
+  }
+
+  decrementN = evt => {
+    this.props.actions.decrementN();
+  }
+
 }
 
 function mapStateToProps (state) {
@@ -87,15 +107,11 @@ const styles = {
   },
 
   settings: {
-    flex: .3,
+    flex: .15,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
     borderBottomColor: 'white',
-    borderTopColor: 'white',
-    borderStyle: 'solid',
-    borderBottomWidth: 1,
     borderTopWidth: 1,
+    borderTopColor: 'white',
   },
 
   leftSetting: {
@@ -145,6 +161,11 @@ const styles = {
     flex: .2,
     justifyContent: 'center',
     alignItems: 'center',
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
+    borderTopColor: 'white',
+    borderTopWidth: 1,
+    borderStyle: 'solid',
   },
 
   playIcon: {
