@@ -1,25 +1,27 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
+import { View, Text, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
 
-import { startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor } from '../../actions/play'
+import { startGame, pauseGame, resumeGame, guessPosition, guessColor } from '../../actions/play'
 
 import Board from '../../components/Board'
 
 class PlayPage extends Component {
 
   static propTypes = {
+    history: PropTypes.arrayOf(PropTypes.object).isRequired,
+    gameOver: PropTypes.bool.isRequired,
+    nBack: PropTypes.number.isRequired,
     activeSquareColor: PropTypes.string.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
     started: PropTypes.bool.isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,
-      endGame: PropTypes.func.isRequired,
       guessColor: PropTypes.func.isRequired,
       guessPosition: PropTypes.func.isRequired,
     }).isRequired,
@@ -35,6 +37,18 @@ class PlayPage extends Component {
           activeSquareIdx={ activeSquareIdx }
         />
         { this.renderControls() }
+        { this.renderGameOverOverlay() }
+      </View>
+    )
+  }
+
+  renderGameOverOverlay () {
+    if (!this.props.gameOver) {
+      return
+    }
+    return (
+      <View style={ styles.gameOverOverlay }>
+        <Text onPress={ this.startGame }>GAME OVER</Text>
       </View>
     )
   }
@@ -43,7 +57,7 @@ class PlayPage extends Component {
     if (!this.props.started) {
       return (
         <Text onPress={ this.startGame } style={ styles.score }>Start</Text>
-      );
+      )
     }
     return (
       <Text style={ styles.score }>
@@ -69,10 +83,6 @@ class PlayPage extends Component {
     this.props.actions.startGame()
   }
 
-  endGame = () => {
-    this.props.actions.endGame()
-  }
-
   guessPosition = () => {
     this.props.actions.guessPosition()
   }
@@ -83,7 +93,7 @@ class PlayPage extends Component {
 
   guessDisabled () {
     const { history, nBack } = this.props
-    return history.length -1 < nBack;
+    return history.length - 1 < nBack
   }
 
 }
@@ -94,7 +104,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor }, dispatch)
+    actions: bindActionCreators({ startGame, pauseGame, resumeGame, guessPosition, guessColor }, dispatch),
   }
 }
 
@@ -109,7 +119,7 @@ const styles = {
   },
 
   score: {
-    flex: .2,
+    flex: 0.2,
     textAlign: 'center',
     textAlignVertical: 'center',
     fontSize: 40,
@@ -118,7 +128,7 @@ const styles = {
   },
 
   controls: {
-    flex: .2,
+    flex: 0.2,
     flexDirection: 'row',
   },
 
@@ -140,6 +150,16 @@ const styles = {
   controlIcon: {
     fontSize: 45,
     color: 'white',
+  },
+
+  gameOverOverlay: {
+    position: 'absolute',
+    zIndex: 10,
+    right: 0,
+    left: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(120, 120, 120, .7)',
   },
 
 }

@@ -4,8 +4,20 @@
 		"selected_items":
 		[
 			[
+				"Toucha",
+				"TouchableHighlight〔variable〕"
+			],
+			[
 				"text",
-				"textAlignVertical"
+				"textAlign"
+			],
+			[
+				"start",
+				"startGame"
+			],
+			[
+				"middle",
+				"middleSettingText"
 			],
 			[
 				"active",
@@ -63,6 +75,25 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "import React, { Component, PropTypes } from 'react'\nimport { View, Text, TouchableHighlight, StyleSheet } from 'react-native'\nimport { connect } from 'react-redux'\nimport { bindActionCreators } from 'redux'\n\nimport FaIcon from 'react-native-vector-icons/FontAwesome'\nimport FdIcon from 'react-native-vector-icons/Foundation'\n\nimport { startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor } from '../../actions/play'\n\nimport Board from '../../components/Board'\nconst f;\nclass PlayPage extends Component {\n\n  static propTypes = {\n    activeSquareColor: PropTypes.string.isRequired,\n    activeSquareIdx: PropTypes.number.isRequired,\n    score: PropTypes.number.isRequired,\n    started: PropTypes.bool.isRequired,\n    actions: PropTypes.shape({\n      startGame: PropTypes.func.isRequired,\n      endGame: PropTypes.func.isRequired,\n      guessColor: PropTypes.func.isRequired,\n      guessPosition: PropTypes.func.isRequired,\n    }).isRequired,\n  }\n\n  render () {\n    const { activeSquareColor, activeSquareIdx } = this.props\n    return (\n      <View style={ styles.container }>\n        { this.renderScore() }\n        <Board\n          activeSquareColor={ activeSquareColor }\n          activeSquareIdx={ activeSquareIdx }\n        />\n        { this.renderControls() }\n        { this.renderGameOverOverlay() }\n      </View>\n    )\n  }\n\n  renderGameOverOverlay () {\n    console.log(this.props.gameOver)\n    if (!this.props.gameOver) {\n      return\n    }\n    console.log(this.props.gameOver)\n    <View style={ styles.gameOverOverlay }>\n      <Text>GAME OVER</Text>\n    </View>\n  }\n\n  renderScore () {\n    if (!this.props.started) {\n      return (\n        <Text onPress={ this.startGame } style={ styles.score }>Start</Text>\n      );\n    }\n    return (\n      <Text style={ styles.score }>\n        { this.props.score }\n      </Text>\n    )\n  }\n\n  renderControls () {\n    return (\n      <View style={ styles.controls }>\n        <TouchableHighlight style={ styles.firstControl } onPress={ this.guessPosition } disabled={ this.guessDisabled() }>\n          <FaIcon style={ styles.controlIcon } name='th' />\n        </TouchableHighlight>\n        <TouchableHighlight style={ styles.control } onPress={ this.guessColor } disabled={ this.guessDisabled() }>\n          <FdIcon style={ styles.controlIcon } name='paint-bucket' />\n        </TouchableHighlight>\n      </View>\n    )\n  }\n\n  startGame = () => {\n    this.props.actions.startGame()\n  }\n\n  endGame = () => {\n    this.props.actions.endGame()\n  }\n\n  guessPosition = () => {\n    this.props.actions.guessPosition()\n  }\n\n  guessColor = () => {\n    this.props.actions.guessColor()\n  }\n\n  guessDisabled () {\n    const { history, nBack } = this.props\n    return history.length -1 < nBack;\n  }\n\n}\n\nfunction mapStateToProps (state) {\n  return state.play\n}\n\nfunction mapDispatchToProps (dispatch) {\n  return {\n    actions: bindActionCreators({ startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor }, dispatch)\n  }\n}\n\nexport default connect(\n  mapStateToProps,\n  mapDispatchToProps\n)(PlayPage)\n\nconst styles = {\n  container: {\n    flex: 1,\n  },\n\n  score: {\n    flex: .2,\n    textAlign: 'center',\n    textAlignVertical: 'center',\n    fontSize: 40,\n    backgroundColor: 'gray',\n    justifyContent: 'center',\n  },\n\n  controls: {\n    flex: .2,\n    flexDirection: 'row',\n  },\n\n  firstControl: {\n    flex: 1,\n    alignItems: 'center',\n    marginRight: 2,\n    justifyContent: 'center',\n    backgroundColor: 'green',\n    sadfsadf\n  },\n\n  control: {\n    flex: 1,\n    alignItems: 'center',\n    justifyContent: 'center',\n    backgroundColor: 'green',\n  },\n\n  controlIcon: {\n    fontSize: 45,\n    color: 'white',\n  },\n\n  gameOverOverlay: {\n    position: 'absolute',\n    zIndex: 10,\n    right: 0,\n    left: 0,\n    top: 0,\n    bottom: 0,\n    backgroundColor: 'rgba(120, 120, 120, .7)',\n  },\n\n}\n",
+			"file": "pages/Play/Play.js",
+			"file_size": 3812,
+			"file_write_time": 131185856824085646,
+			"settings":
+			{
+				"buffer_size": 3833,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".eslintrc.json",
+			"settings":
+			{
+				"buffer_size": 428,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -163,6 +194,7 @@
 		"height": 547.0,
 		"history":
 		[
+			"reload sublimeLinter",
 			"import sublime import sublime_plugin class ResetFontSizeToUserDefaultsCommand(sublime_plugin.ApplicationCommand): def run(self): s = sublime.load_settings(\"Preferences.sublime-settings\") if s.has('default_font_size'): s.set('font_size', s.get('default_font_size')) sublime.save_settings(\"Preferences.sublime-settings\")",
 			"import sublime",
 			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
@@ -196,16 +228,18 @@
 	],
 	"file_history":
 	[
-		"/home/adam/apps/dualMobile/pages/Home/Home.js",
+		"/home/adam/apps/dualMobile/pages/Play/Play.js",
+		"/home/adam/apps/dualMobile/package.json",
+		"/home/adam/apps/dualMobile/.eslintrc.json",
 		"/home/adam/apps/dualMobile/reducers/play.js",
 		"/home/adam/apps/dualMobile/actions/play.js",
-		"/home/adam/apps/dualMobile/components/Board/Board.js",
+		"/home/adam/apps/dualMobile/middlewares/play.js",
 		"/home/adam/apps/dualMobile/routes/routes.js",
-		"/home/adam/apps/dualMobile/pages/Play/Play.js",
+		"/home/adam/apps/dualMobile/pages/Home/Home.js",
+		"/home/adam/.zshrc",
+		"/home/adam/apps/dualMobile/components/Board/Board.js",
 		"/home/adam/apps/dualMobile/components/Square/Square.js",
 		"/etc/sysctl.conf",
-		"/home/adam/apps/dualMobile/middlewares/play.js",
-		"/home/adam/.zshrc",
 		"/home/adam/apps/dualMobile/utils/logger.js",
 		"/home/adam/apps/dualMobile/android/app/build.gradle",
 		"/home/adam/apps/dualMobile/App.js",
@@ -217,7 +251,6 @@
 		"/home/adam/apps/dualMobile/components/Board/index.js",
 		"/home/adam/apps/dualMobile/reducers/reducers.js",
 		"/home/adam/apps/dualMobile/store/store.js",
-		"/home/adam/apps/dualMobile/package.json",
 		"/home/adam/apps/dualMobile/middlewares/index.js",
 		"/home/adam/apps/dualMobile/reducers/index.js",
 		"/home/adam/apps/dualMobile/middlewares/middlewares.js",
@@ -233,7 +266,6 @@
 		"/home/adam/apps/dualMobile/components/Game.Game.js",
 		"/home/adam/apps/dualMobile/Home.js",
 		"/home/adam/apps/dualMobile/pages/Home/index.js",
-		"/home/adam/apps/dualMobile/.eslintrc.json",
 		"/home/adam/apps/dualMobile/.babelrc",
 		"/home/adam/apps/dualMobile/pages/Home/Home.css",
 		"/home/adam/apps/dualMobile/components/Home/Home.css",
@@ -343,6 +375,50 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"renderGameOverOverlay",
+			"gameOver",
+			"gameOverOverlay",
+			"abosolute",
+			"started",
+			"TouchableHighlight",
+			"this.props.",
+			";",
+			"guessPosition",
+			"this.props.",
+			"endGame",
+			"started",
+			"end",
+			"over",
+			"startGame",
+			"overlay",
+			"View",
+			"startGame",
+			"overlay",
+			"()",
+			"width",
+			"Toucha",
+			"Text",
+			"state",
+			"this.props.",
+			"console",
+			"this.props.started",
+			"width",
+			";",
+			"start",
+			"Bottom",
+			"increment",
+			"resetBoard",
+			"console",
+			"increase",
+			"TouchableHighlight",
+			"Right",
+			"Top",
+			"borderBottomStyle",
+			"carot",
+			"onToggleMode",
+			"left",
+			"yle={ styles.leftSetting }",
+			"alias",
 			"TouchableHighlight",
 			"View",
 			"decreaseN",
@@ -426,51 +502,7 @@
 			"Link",
 			"direction",
 			"classNameArrowUp",
-			"margin",
-			"() {",
-			"()",
-			"function",
-			"open",
-			"props",
-			"classNameArrow",
-			"Down",
-			":global ",
-			"_",
-			"'",
-			"arrowLink",
-			"style={ margin } ",
-			"files",
-			"remember_open_files",
-			"window",
-			"session",
-			"last",
-			"export ",
-			"PATH",
-			"this.props.play",
-			"mapStateToProps",
-			"connect(",
-			"connect",
-			"activeSquareIdx",
-			"resetBoard",
-			"intervalProp",
-			"intervalInstance",
-			"intervalMethod",
-			"50",
-			"Square",
-			"Footer",
-			"popup",
-			"Popup",
-			"src",
-			"client",
-			"src",
-			"setCall",
-			"localStore",
-			"PATH",
-			"60",
-			"height",
-			"ethos",
-			"Qu",
-			"httpService.POST('history'"
+			"margin"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -498,8 +530,71 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "pages/Play/Play.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3833,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								171,
+								171
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai (SL).tmTheme",
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": ".eslintrc.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 428,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								47,
+								47
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -552,7 +647,43 @@
 		"selected_items":
 		[
 			[
-				"redpla",
+				"eslint",
+				".eslintrc.json"
+			],
+			[
+				"papla",
+				"pages/Play/Play.js"
+			],
+			[
+				"pagepla",
+				"pages/Play/Play.js"
+			],
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"eslin",
+				".eslintrc.json"
+			],
+			[
+				"playjs",
+				"pages/Play/Play.js"
+			],
+			[
+				"red",
+				"reducers/play.js"
+			],
+			[
+				"paplajs",
+				"pages/Play/Play.js"
+			],
+			[
+				"midpla",
+				"middlewares/play.js"
+			],
+			[
+				"redpl",
 				"reducers/play.js"
 			],
 			[
@@ -560,12 +691,28 @@
 				"routes/routes.js"
 			],
 			[
-				"boardjs",
-				"components/Board/Board.js"
+				"papljs",
+				"pages/Play/Play.js"
+			],
+			[
+				"middl",
+				"middlewares/play.js"
+			],
+			[
+				"redpla",
+				"reducers/play.js"
+			],
+			[
+				"action",
+				"actions/play.js"
 			],
 			[
 				"homejs",
 				"pages/Home/Home.js"
+			],
+			[
+				"boardjs",
+				"components/Board/Board.js"
 			],
 			[
 				"reduplay",
@@ -582,10 +729,6 @@
 			[
 				"reducer",
 				"reducers/play.js"
-			],
-			[
-				"paplajs",
-				"pages/Play/Play.js"
 			],
 			[
 				"pagpla",
@@ -660,10 +803,6 @@
 				"pages/Play/Play.js"
 			],
 			[
-				"playjs",
-				"actions/play.js"
-			],
-			[
 				"paghome",
 				"pages/Home/Home.js"
 			],
@@ -684,10 +823,6 @@
 				"utils/logger.js"
 			],
 			[
-				"pack",
-				"package.json"
-			],
-			[
 				"stst",
 				"store/store.js"
 			],
@@ -698,10 +833,6 @@
 			[
 				"middlin",
 				"middlewares/index.js"
-			],
-			[
-				"action",
-				"actions/play.js"
 			],
 			[
 				"app",
@@ -734,10 +865,6 @@
 			[
 				"homehomejs",
 				"pages/Home/Home.js"
-			],
-			[
-				"eslin",
-				".eslintrc.json"
 			],
 			[
 				"babel",
@@ -834,10 +961,6 @@
 			[
 				"contplay",
 				"client/containers/Play/Play.css"
-			],
-			[
-				"eslint",
-				".eslintrc.json"
 			],
 			[
 				"middlelogger",
@@ -1034,34 +1157,6 @@
 			[
 				"servjs",
 				"server/server.js"
-			],
-			[
-				"headerjs",
-				"client/components/Header/Header.js"
-			],
-			[
-				"navpage",
-				"client/pages/NavPage/NavPage.js"
-			],
-			[
-				"historycontr",
-				"server/api/history/historyController.js"
-			],
-			[
-				"histomodel",
-				"server/api/history/historyModel.js"
-			],
-			[
-				"napagjs",
-				"client/pages/NavPage/NavPage.js"
-			],
-			[
-				"headjs",
-				"client/components/Header/Header.js"
-			],
-			[
-				"hisopajs",
-				"client/pages/HistoryPage/HistoryPage.js"
 			]
 		],
 		"width": 0.0
@@ -1074,7 +1169,7 @@
 		[
 			[
 				"",
-				"~/apps/mamawidget_client/mama.sublime-project"
+				"~/apps/parity-ui/parity-ui.sublime-project"
 			],
 			[
 				"mama",

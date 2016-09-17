@@ -3,6 +3,7 @@ import { handleActions } from 'redux-actions'
 const initialState = {
   nBack: 2,
   mode: 'dual',
+  gameOver: false,
   started: false,
   active: false,
   activeSquareColor: '',
@@ -19,14 +20,14 @@ export default handleActions({
   'increment n' (state, action) {
     return {
       ...state,
-      nBack: state.nBack + 1
+      nBack: state.nBack + 1,
     }
   },
 
   'decrement n' (state, action) {
     return {
       ...state,
-      nBack: Math.max(1, state.nBack - 1)
+      nBack: Math.max(1, state.nBack - 1),
     }
   },
 
@@ -41,7 +42,7 @@ export default handleActions({
     return {
       ...state,
       activeSquareColor: '',
-      activeSquareIdx: 0
+      activeSquareIdx: 0,
     }
   },
 
@@ -50,18 +51,12 @@ export default handleActions({
       ...state,
       started: true,
       active: true,
+      gameOver: false,
       // reset in case an old game had highlighted square
       history: [],
       score: 0,
       activeSquareColor: '',
-      activeSquareIdx: 0
-    }
-  },
-
-  'end game' (state, action) {
-    return {
-      ...state,
-      active: false
+      activeSquareIdx: 0,
     }
   },
 
@@ -72,35 +67,37 @@ export default handleActions({
       ...state,
       activeSquareColor,
       activeSquareIdx,
-      history: state.history.concat({ activeSquareIdx, activeSquareColor })
+      history: state.history.concat({ activeSquareIdx, activeSquareColor }),
     }
   },
 
   'guess colorCorrect' (state, action) {
     return {
       ...state,
-      score: state.score + 1
+      score: state.score + 1,
     }
   },
 
   'guess colorWrong' (state, action) {
     return {
       ...state,
-      active: false
+      active: false,
+      gameOver: true,
     }
   },
 
   'guess positionCorrect' (state, action) {
     return {
       ...state,
-      score: state.score + 1
+      score: state.score + 1,
     }
   },
 
   'guess positionWrong' (state, action) {
     return {
       ...state,
-      active: false
+      active: false,
+      gameOver: true,
     }
   },
 
