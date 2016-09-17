@@ -1,14 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { Component, PropTypes } from 'react'
+import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import FaIcon from 'react-native-vector-icons/FontAwesome';
-import FdIcon from 'react-native-vector-icons/Foundation';
+import FaIcon from 'react-native-vector-icons/FontAwesome'
+import FdIcon from 'react-native-vector-icons/Foundation'
 
-import { startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor } from '../../actions/play';
+import { startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor } from '../../actions/play'
 
-import Board from '../../components/Board';
+import Board from '../../components/Board'
 
 class PlayPage extends Component {
 
@@ -17,14 +17,16 @@ class PlayPage extends Component {
     activeSquareIdx: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
     started: PropTypes.bool.isRequired,
-    startGame: PropTypes.func.isRequired,
-    endGame: PropTypes.func.isRequired,
-    guessColor: PropTypes.func.isRequired,
-    guessPosition: PropTypes.func.isRequired,
+    actions: PropTypes.shape({
+      startGame: PropTypes.func.isRequired,
+      endGame: PropTypes.func.isRequired,
+      guessColor: PropTypes.func.isRequired,
+      guessPosition: PropTypes.func.isRequired,
+    }).isRequired,
   }
 
   render () {
-    const { activeSquareColor, activeSquareIdx } = this.props;
+    const { activeSquareColor, activeSquareIdx } = this.props
     return (
       <View style={ styles.container }>
         { this.renderScore() }
@@ -33,82 +35,73 @@ class PlayPage extends Component {
           activeSquareIdx={ activeSquareIdx }
         />
         { this.renderControls() }
-        { this.renderActions() }
       </View>
-    );
+    )
   }
 
   renderScore () {
+    if (!this.props.started) {
+      return (
+        <Text onPress={ this.startGame } style={ styles.score }>Start</Text>
+      );
+    }
     return (
       <Text style={ styles.score }>
         { this.props.score }
       </Text>
-    );
+    )
   }
 
   renderControls () {
     return (
       <View style={ styles.controls }>
-        <TouchableHighlight style={ styles.firstControl } onPress={ this.guessPosition }>
+        <TouchableHighlight style={ styles.firstControl } onPress={ this.guessPosition } disabled={ this.guessDisabled() }>
           <FaIcon style={ styles.controlIcon } name='th' />
         </TouchableHighlight>
-        <TouchableHighlight style={ styles.control } onPress={ this.guessColor }>
+        <TouchableHighlight style={ styles.control } onPress={ this.guessColor } disabled={ this.guessDisabled() }>
           <FdIcon style={ styles.controlIcon } name='paint-bucket' />
         </TouchableHighlight>
       </View>
-    );
-  }
-
-  renderActions () {
-    const { started } = this.props;
-
-    if (!started) {
-      return (
-        <TouchableHighlight onPress={ this.startGame }>
-          <Text>Start</Text>
-        </TouchableHighlight>
-      );
-    }
-
-    if (started) {
-      return (
-        <TouchableHighlight onPress={ this.endGame }>
-          <Text>End</Text>
-        </TouchableHighlight>
-      );
-    }
+    )
   }
 
   startGame = () => {
-    this.props.startGame();
+    this.props.actions.startGame()
   }
 
   endGame = () => {
-    this.props.endGame();
+    this.props.actions.endGame()
   }
 
   guessPosition = () => {
-    this.props.guessPosition();
+    this.props.actions.guessPosition()
   }
 
   guessColor = () => {
-    this.props.guessColor();
+    this.props.actions.guessColor()
+  }
+
+  guessDisabled () {
+    const { history, nBack } = this.props
+    return history.length -1 < nBack;
   }
 
 }
 
 function mapStateToProps (state) {
-  return state.play;
+  return state.play
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor }, dispatch);
+  return {
+    actions: bindActionCreators({ startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor }, dispatch)
+  }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PlayPage);
+)(PlayPage)
 
 const styles = {
   container: {
@@ -149,4 +142,4 @@ const styles = {
     color: 'white',
   },
 
-};
+}

@@ -61,7 +61,6 @@ export default handleActions({
   'end game' (state, action) {
     return {
       ...state,
-      started: false,
       active: false
     }
   },
@@ -87,7 +86,6 @@ export default handleActions({
   'guess colorWrong' (state, action) {
     return {
       ...state,
-      started: false,
       active: false
     }
   },
@@ -102,7 +100,6 @@ export default handleActions({
   'guess positionWrong' (state, action) {
     return {
       ...state,
-      started: false,
       active: false
     }
   },
