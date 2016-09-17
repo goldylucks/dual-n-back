@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { View, Text } from 'react-native';
-import Square from '../Square';
+import React, { Component, PropTypes } from 'react'
+import { View, Text } from 'react-native'
+import Square from '../Square'
 
 export default class Board extends Component {
 
@@ -10,7 +10,7 @@ export default class Board extends Component {
   }
 
   render () {
-    const { activeSquareIdx, activeSquareColor } = this.props;
+    const { activeSquareIdx, activeSquareColor } = this.props
     return (
       <View style={ styles.container }>
         <View style={ styles.row }>
@@ -71,7 +71,7 @@ export default class Board extends Component {
           />
         </View>
       </View>
-    );
+    )
   }
 
 }
@@ -83,11 +83,9 @@ const styles = {
   },
 
   row: {
-    // flex: 1,
-    // height: 100,
     flexDirection: 'row',
     marginBottom: 3,
     justifyContent: 'center',
-  }
+  },
 
-};
+}

@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"text",
+				"textAlignVertical"
+			],
+			[
 				"active",
 				"activeSquareIdx〔variable〕"
 			],
@@ -42,10 +46,6 @@
 			[
 				"seed",
 				"seedTexts"
-			],
-			[
-				"text",
-				"textId"
 			],
 			[
 				"B",
@@ -196,22 +196,22 @@
 	],
 	"file_history":
 	[
-		"/etc/sysctl.conf",
-		"/home/adam/apps/dualMobile/reducers/play.js",
-		"/home/adam/apps/dualMobile/middlewares/play.js",
-		"/home/adam/apps/dualMobile/components/Square/Square.js",
-		"/home/adam/.zshrc",
-		"/home/adam/apps/dualMobile/pages/Play/Play.js",
-		"/home/adam/apps/dualMobile/utils/logger.js",
-		"/home/adam/apps/dualMobile/components/Board/Board.js",
-		"/home/adam/apps/dualMobile/android/app/build.gradle",
 		"/home/adam/apps/dualMobile/pages/Home/Home.js",
+		"/home/adam/apps/dualMobile/reducers/play.js",
+		"/home/adam/apps/dualMobile/actions/play.js",
+		"/home/adam/apps/dualMobile/components/Board/Board.js",
+		"/home/adam/apps/dualMobile/routes/routes.js",
+		"/home/adam/apps/dualMobile/pages/Play/Play.js",
+		"/home/adam/apps/dualMobile/components/Square/Square.js",
+		"/etc/sysctl.conf",
+		"/home/adam/apps/dualMobile/middlewares/play.js",
+		"/home/adam/.zshrc",
+		"/home/adam/apps/dualMobile/utils/logger.js",
+		"/home/adam/apps/dualMobile/android/app/build.gradle",
 		"/home/adam/apps/dualMobile/App.js",
 		"/home/adam/apps/dualMobile/index.android.js",
 		"/home/adam/apps/dualMobile/components/Board/Board.css",
 		"/home/adam/apps/dualMobile/components/Square/Square.css",
-		"/home/adam/apps/dualMobile/routes/routes.js",
-		"/home/adam/apps/dualMobile/actions/play.js",
 		"/home/adam/apps/dualMobile/pages/Play/Play.css",
 		"/home/adam/apps/dualMobile/components/Square/index.js",
 		"/home/adam/apps/dualMobile/components/Board/index.js",
@@ -343,6 +343,18 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"TouchableHighlight",
+			"View",
+			"decreaseN",
+			"increaseN",
+			";",
+			"play",
+			";",
+			"Text",
+			"score",
+			"styles",
+			"{styles",
+			"border",
 			"reset",
 			"Color",
 			"activeSquareIdx",
@@ -458,19 +470,7 @@
 			"height",
 			"ethos",
 			"Qu",
-			"httpService.POST('history'",
-			"httpService",
-			"http",
-			"logout",
-			"renderHistory",
-			"userService",
-			"httpService",
-			"onChange",
-			"idFromWindow",
-			"httpService.POST",
-			"56f04089cab8bfde77c236d3",
-			"fetchHistory",
-			"_history.text._id"
+			"httpService.POST('history'"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -478,6 +478,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"decrementN",
+			"incrementN",
 			"onPress",
 			"Page",
 			"react-native",
@@ -550,6 +552,50 @@
 		"selected_items":
 		[
 			[
+				"redpla",
+				"reducers/play.js"
+			],
+			[
+				"route",
+				"routes/routes.js"
+			],
+			[
+				"boardjs",
+				"components/Board/Board.js"
+			],
+			[
+				"homejs",
+				"pages/Home/Home.js"
+			],
+			[
+				"reduplay",
+				"reducers/play.js"
+			],
+			[
+				"actplay",
+				"actions/play.js"
+			],
+			[
+				"paplaj",
+				"pages/Play/Play.js"
+			],
+			[
+				"reducer",
+				"reducers/play.js"
+			],
+			[
+				"paplajs",
+				"pages/Play/Play.js"
+			],
+			[
+				"pagpla",
+				"pages/Play/Play.js"
+			],
+			[
+				"home",
+				"pages/Home/Home.js"
+			],
+			[
 				"squarejs",
 				"components/Square/Square.js"
 			],
@@ -572,14 +618,6 @@
 			[
 				"android/app/build.gradle",
 				"android/app/build.gradle"
-			],
-			[
-				"boardjs",
-				"components/Board/Board.js"
-			],
-			[
-				"homejs",
-				"pages/Home/Home.js"
 			],
 			[
 				"pagpljs",
@@ -607,10 +645,6 @@
 			],
 			[
 				"pahome",
-				"pages/Home/Home.js"
-			],
-			[
-				"home",
 				"pages/Home/Home.js"
 			],
 			[
@@ -644,10 +678,6 @@
 			[
 				"boardindex",
 				"components/Board/index.js"
-			],
-			[
-				"route",
-				"routes/routes.js"
 			],
 			[
 				"utilslo",
@@ -832,10 +862,6 @@
 			[
 				"middlogger",
 				"components/src/middlewares/Logger.js"
-			],
-			[
-				"reducer",
-				"home/web/client/reducers/rpc.js"
 			],
 			[
 				"app.css",
@@ -1036,30 +1062,6 @@
 			[
 				"hisopajs",
 				"client/pages/HistoryPage/HistoryPage.js"
-			],
-			[
-				"textmodel",
-				"server/api/texts/textsModel.js"
-			],
-			[
-				"addtext",
-				"client/pages/AddTextPage/AddTextPage.js"
-			],
-			[
-				"authmodajs",
-				"client/components/AuthModal/AuthModal.js"
-			],
-			[
-				"authmodal",
-				"client/components/AuthModal/AuthModal.css"
-			],
-			[
-				"seruscont",
-				"server/api/users/usersController.js"
-			],
-			[
-				"userservi",
-				"client/services/userService.js"
 			]
 		],
 		"width": 0.0

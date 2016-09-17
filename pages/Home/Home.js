@@ -1,44 +1,163 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import React, { Component, PropTypes } from 'react'
+import { View, Text, TouchableHighlight } from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-export default class HomePage extends Component {
+import FaIcon from 'react-native-vector-icons/FontAwesome'
+
+import { toggleMode, incrementN, decrementN } from '../../actions/play';
+
+class HomePage extends Component {
+
+  static propTypes = {
+    routeToGame: PropTypes.func.isRequired,
+    actions: PropTypes.shape({
+      toggleMode: PropTypes.func.isRequired,
+      incrementN: PropTypes.func.isRequired,
+      decrementN: PropTypes.func.isRequired,
+    }).isRequired,
+    routeToGame: PropTypes.func.isRequired,
+  }
+
   render() {
+    const { mode, bestScore, nBack } = this.props;
     return (
-      <View style={styles.container}>
-        <TouchableHighlight onPress={ this.props.routeToGame }>
-          <Text>Click here to go to Game!</Text>
-        </TouchableHighlight>
-        <Text style={styles.welcome}>
-          Welcome to React Native IMPORTED!!!!!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu TouchableHighlight for dev menu
+      <View style={ styles.container }>
+        <Text style={ styles.headline }>MEMORY N-BACK</Text>
+        <View style={ styles.settings }>
+          <View style={ styles.leftSetting }>
+            <FaIcon onPress={ this.toggleMode } name='caret-left' style={ styles.leftSettingIcon } /> 
+          </View>
+          <View style={ styles.middleSetting }>
+            <Text style={ styles.middleSettingText }>{ mode }</Text>
+          </View>
+          <View style={ styles.rightSetting }>
+            <FaIcon onPress={ this.toggleMode } name='caret-right' style={ styles.rightSettingIcon } /> 
+          </View>
+        </View>
+        <View style={ styles.play }>
+          <TouchableHighlight onPress={ this.routeToGame }>
+            <FaIcon name='play-circle' style={ styles.playIcon } />
+          </TouchableHighlight>
+        </View>
+        <Text style={ styles.record }>
+          BEST SCORE: { bestScore }
         </Text>
       </View>
-    );
+    )
+  }
+
+  routeToGame = evt => {
+    this.props.routeToGame()
+  }
+
+  toggleMode = evt => {
+    this.props.actions.toggleMode();
   }
 }
 
+function mapStateToProps (state) {
+  return state.play
+}
 
-const styles = StyleSheet.create({
+function mapDispatchToProps (dispatch) {
+  return {
+    actions: bindActionCreators({ toggleMode, incrementN, decrementN }, dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HomePage)
+
+const styles = {
+
   container: {
     flex: 1,
+    backgroundColor: 'blue',
+  },
+
+  headline: {
+    flex: .5,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: 'white',
+    fontSize: 80,
+  },
+
+  settings: {
+    flex: .3,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomColor: 'white',
+    borderTopColor: 'white',
+    borderStyle: 'solid',
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+  },
+
+  leftSetting: {
+    flex: .2,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    borderRightColor: 'white',
+    borderRightWidth: 1,
+    borderLeftColor: 'white',
+    borderLeftWidth: 1,
+    borderStyle: 'solid',
   },
-  welcome: {
-    fontSize: 20,
+
+  leftSettingIcon: {
+    color: 'white',
+    fontSize: 50,
+  },
+
+  middleSetting: {
+    flex: .6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  middleSettingText: {
+    fontSize: 50,
+    color: 'white',
+  },
+
+  rightSetting: {
+    flex: .2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRightColor: 'white',
+    borderRightWidth: 1,
+    borderLeftColor: 'white',
+    borderLeftWidth: 1,
+    borderStyle: 'solid',
+  },
+
+  rightSettingIcon: {
+    color: 'white',
+    fontSize: 50,
+  },
+
+  play: {
+    flex: .2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  playIcon: {
+    color: 'white',
+    fontSize: 60,
+  },
+
+  record: {
+    flex: .1,
     textAlign: 'center',
-    margin: 10,
+    textAlignVertical: 'center',
+    color: 'white',
+    fontSize: 25,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+
+}
