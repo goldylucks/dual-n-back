@@ -27,16 +27,22 @@ export default class Routes extends Component {
 
     if (route.index === 1) {
       return (
-        <Play />
+        <Play routeToHome={ this.routeToHome.bind(this, route, navigator) } />
       )
     }
-
   }
 
   routeToGame (route, navigator) {
     navigator.push({
       title: 'Game title',
-      index: 1
+      index: 1,
+    })
+  }
+
+  routeToHome (route, navigator) {
+    navigator.push({
+      title: 'Home title',
+      index: 0,
     })
   }
 

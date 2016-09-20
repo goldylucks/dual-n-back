@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
 
-import { startGame, pauseGame, resumeGame, guessPosition, guessColor } from '../../actions/play'
+import { capitalize } from '../../utils'
+import { startGame, guessPosition, guessColor } from '../../actions/play'
 
 import Board from '../../components/Board'
 
@@ -16,10 +17,13 @@ class PlayPage extends Component {
     history: PropTypes.arrayOf(PropTypes.object).isRequired,
     gameOver: PropTypes.bool.isRequired,
     nBack: PropTypes.number.isRequired,
+    mode: PropTypes.string.isRequired,
     activeSquareColor: PropTypes.string.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
+    bestScore: PropTypes.number.isRequired,
     started: PropTypes.bool.isRequired,
+    routeToHome: PropTypes.func.isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,
       guessColor: PropTypes.func.isRequired,
@@ -42,17 +46,6 @@ class PlayPage extends Component {
     )
   }
 
-  renderGameOverOverlay () {
-    if (!this.props.gameOver) {
-      return
-    }
-    return (
-      <View style={ styles.gameOverOverlay }>
-        <Text onPress={ this.startGame }>GAME OVER</Text>
-      </View>
-    )
-  }
-
   renderScore () {
     if (!this.props.started) {
       return (
@@ -69,12 +62,35 @@ class PlayPage extends Component {
   renderControls () {
     return (
       <View style={ styles.controls }>
-        <TouchableHighlight style={ styles.firstControl } onPress={ this.guessPosition } disabled={ this.guessDisabled() }>
+        <TouchableHighlight style={ styles.firstControl } onPress={ this.guessPosition } disabled={ this.isGuessDisabled() }>
           <FaIcon style={ styles.controlIcon } name='th' />
         </TouchableHighlight>
-        <TouchableHighlight style={ styles.control } onPress={ this.guessColor } disabled={ this.guessDisabled() }>
+        <TouchableHighlight style={ styles.control } onPress={ this.guessColor } disabled={ this.isGuessDisabled() }>
           <FdIcon style={ styles.controlIcon } name='paint-bucket' />
         </TouchableHighlight>
+      </View>
+    )
+  }
+
+  renderGameOverOverlay () {
+    const { mode, gameOver, bestScore, score, nBack } = this.props
+    if (!gameOver) {
+      return
+    }
+    return (
+      <View style={ styles.gameOverOverlay }>
+        <Text style={ styles.gameOverHeadline }>GAME OVER</Text>
+        <Text style={ styles.gameOverText }>
+          <Text style={ styles.strong }>{ capitalize(mode) } { nBack }-Back </Text>
+          { '\n' }
+          Score: { score }
+          { '\n' }
+          Best Score: { bestScore }
+        </Text>
+        <View style={ styles.gameOverControls }>
+          <Text style={ styles.gameOverControl } onPress={ this.routeToHome }>MENU</Text>
+          <Text style={ styles.gameOverControl } onPress={ this.startGame }>RETRY</Text>
+        </View>
       </View>
     )
   }
@@ -91,9 +107,13 @@ class PlayPage extends Component {
     this.props.actions.guessColor()
   }
 
-  guessDisabled () {
+  isGuessDisabled () {
     const { history, nBack } = this.props
     return history.length - 1 < nBack
+  }
+
+  routeToHome = () => {
+    this.props.routeToHome()
   }
 
 }
@@ -104,7 +124,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ startGame, pauseGame, resumeGame, guessPosition, guessColor }, dispatch),
+    actions: bindActionCreators({ startGame, guessPosition, guessColor }, dispatch),
   }
 }
 
@@ -154,12 +174,47 @@ const styles = {
 
   gameOverOverlay: {
     position: 'absolute',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     zIndex: 10,
     right: 0,
     left: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: 'rgba(120, 120, 120, .7)',
+    backgroundColor: 'rgba(120, 120, 120, .9)',
+  },
+
+  gameOverHeadline: {
+    color: 'red',
+    fontSize: 45,
+  },
+
+  gameOverText: {
+    color: 'white',
+    fontSize: 30,
+  },
+
+  gameOverControls: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+  },
+
+  gameOverControl: {
+    width: 150,
+    marginRight: 5,
+    marginTop: 5,
+    height: 60,
+    fontSize: 25,
+    textAlign: 'center',
+    padding: 10,
+    textAlignVertical: 'center',
+    backgroundColor: 'gray',
+    color: 'black',
+  },
+
+  strong: {
+    fontWeight: 'bold',
   },
 
 }
