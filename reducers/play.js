@@ -101,6 +101,17 @@ export default handleActions({
     }
   },
 
+  'route home' (state, action) {
+    return {
+      ...state,
+      gameOver: false,
+      activeSquareIdx: 0,
+      activeSquareColor: '',
+      score: 0,
+      started: false,
+    }
+  },
+
 }, initialState)
 
 function randomizeActiveSquareColor (colors) {

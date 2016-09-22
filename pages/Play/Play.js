@@ -7,7 +7,7 @@ import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
 
 import { capitalize } from '../../utils'
-import { startGame, guessPosition, guessColor } from '../../actions/play'
+import { startGame, guessPosition, guessColor, routeHome } from '../../actions/play'
 
 import Board from '../../components/Board'
 
@@ -88,7 +88,7 @@ class PlayPage extends Component {
           Best Score: { bestScore }
         </Text>
         <View style={ styles.gameOverControls }>
-          <Text style={ styles.gameOverControl } onPress={ this.routeToHome }>MENU</Text>
+          <Text style={ styles.gameOverControl } onPress={ this.onMenuPress }>MENU</Text>
           <Text style={ styles.gameOverControl } onPress={ this.startGame }>RETRY</Text>
         </View>
       </View>
@@ -112,7 +112,8 @@ class PlayPage extends Component {
     return history.length - 1 < nBack
   }
 
-  routeToHome = () => {
+  onMenuPress = () => {
+    this.props.actions.routeHome()
     this.props.routeToHome()
   }
 
@@ -124,7 +125,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ startGame, guessPosition, guessColor }, dispatch),
+    actions: bindActionCreators({ startGame, guessPosition, guessColor, routeHome }, dispatch),
   }
 }
 
