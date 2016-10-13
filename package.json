@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "react-native start",
-    "lint": "eslint . --ignore-path .gitignore",
+    "lint": "eslint src --ignore-path .gitignore",
     "startOld": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {

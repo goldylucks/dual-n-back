@@ -7,7 +7,7 @@ import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
 
 import { capitalize } from '../../utils'
-import { startGame, guessPosition, guessColor, routeHome } from '../../actions/play'
+import { startGame, guessPosition, guessColor, routeToHome } from '../../actions/play'
 
 import Board from '../../components/Board'
 
@@ -25,6 +25,7 @@ class PlayPage extends Component {
     started: PropTypes.bool.isRequired,
     routeToHome: PropTypes.func.isRequired,
     actions: PropTypes.shape({
+      routeToHome: PropTypes.func.isRequired,
       startGame: PropTypes.func.isRequired,
       guessColor: PropTypes.func.isRequired,
       guessPosition: PropTypes.func.isRequired,
@@ -113,7 +114,7 @@ class PlayPage extends Component {
   }
 
   onMenuPress = () => {
-    this.props.actions.routeHome()
+    this.props.actions.routeToHome()
     this.props.routeToHome()
   }
 
@@ -125,7 +126,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ startGame, guessPosition, guessColor, routeHome }, dispatch),
+    actions: bindActionCreators({ startGame, guessPosition, guessColor, routeToHome }, dispatch),
   }
 }
 

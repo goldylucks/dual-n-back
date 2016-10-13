@@ -16,4 +16,4 @@ export const toggleMode = createAction('toggle mode')
 export const incrementN = createAction('increment n')
 export const decrementN = createAction('decrement n')
 
-export const routeHome = createAction('route home')
+export const routeToHome = createAction('route toHome')

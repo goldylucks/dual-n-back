@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
-import play from './play';
+import play from './play'
 
 export default combineReducers({
-  play
-});
+  play,
+})

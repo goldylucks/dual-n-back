@@ -1,2 +1,2 @@
-import middlewares from './middlewares';
-export default middlewares;
+import middlewares from './middlewares'
+export default middlewares

@@ -9,6 +9,7 @@
     "expect": true
   },
   "rules": {
+    "react/jsx-no-bind": ["off"],
     "object-curly-spacing": ["error", "always"],
     "arrow-parens": ["error", "as-needed"],
     "no-debugger": "error",

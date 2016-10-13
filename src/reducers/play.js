@@ -101,7 +101,7 @@ export default handleActions({
     }
   },
 
-  'route home' (state, action) {
+  'route toHome' (state, action) {
     return {
       ...state,
       gameOver: false,

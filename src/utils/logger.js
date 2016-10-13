@@ -1,9 +1,9 @@
-const isLogging = __DEV__;
+const isLogging = global.__DEV__
 
-export default logger();
+export default logger()
 
 function logger () {
-  return isLogging ? devLogger() : prodLogger();
+  return isLogging ? devLogger() : prodLogger()
 }
 
 function prodLogger () {
@@ -11,12 +11,12 @@ function prodLogger () {
     log: noop,
     info: noop,
     error: noop,
-    warn: noop
-  };
+    warn: noop,
+  }
 }
 
 function devLogger () {
-  return console;
+  return console
 }
 
 function noop () {}

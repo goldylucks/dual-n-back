@@ -1,2 +1,2 @@
-import Square from './Square';
-export default Square;
+import Square from './Square'
+export default Square

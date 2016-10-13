@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import Square from '../Square'
 
 export default class Board extends Component {
 
   static propTypes = {
     activeSquareColor: PropTypes.string.isRequired,
-    activeSquareIdx: PropTypes.number.isRequired
+    activeSquareIdx: PropTypes.number.isRequired,
   }
 
   render () {
