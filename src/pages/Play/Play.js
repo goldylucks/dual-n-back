@@ -194,22 +194,21 @@ const styles = {
     left: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: 'rgba(120, 120, 120, .9)',
+    backgroundColor: 'rgba(0, 0, 0, .9)',
   },
 
   gameOverHeadline: {
     color: 'red',
-    fontSize: 45,
+    fontSize: 55,
   },
 
   gameOverText: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 39,
   },
 
   gameOverControls: {
     flexDirection: 'row',
-    // justifyContent: 'space-between',
   },
 
   gameOverControl: {
