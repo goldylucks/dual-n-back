@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
 
-import { capitalize } from '../../utils'
+import { capitalize, renderIf } from '../../utils'
 import { startGame, guessPosition, guessColor, routeToHome } from '../../actions/play'
 
 import Board from '../../components/Board'
@@ -61,14 +61,19 @@ class PlayPage extends Component {
   }
 
   renderControls () {
+    const isDualMode = this.props.mode === 'dual'
     return (
       <View style={ styles.controls }>
         <TouchableHighlight style={ styles.firstControl } onPress={ this.guessPosition } disabled={ this.isGuessDisabled() }>
           <FaIcon style={ styles.controlIcon } name='th' />
         </TouchableHighlight>
-        <TouchableHighlight style={ styles.control } onPress={ this.guessColor } disabled={ this.isGuessDisabled() }>
-          <FdIcon style={ styles.controlIcon } name='paint-bucket' />
-        </TouchableHighlight>
+        {
+          renderIf(isDualMode)(
+            <TouchableHighlight style={ [styles.control] } onPress={ this.guessColor } disabled={ this.isGuessDisabled() }>
+              <FdIcon style={ styles.controlIcon } name='paint-bucket' />
+            </TouchableHighlight>
+          )
+        }
       </View>
     )
   }

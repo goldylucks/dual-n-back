@@ -61,7 +61,7 @@ export default handleActions({
   },
 
   'play interval' (state, action) {
-    const activeSquareColor = randomizeActiveSquareColor(state.colors)
+    const activeSquareColor = state.mode === 'dual' ? randomizeActiveSquareColor(state.colors) : state.colors[0]
     const activeSquareIdx = randomizeActiveSquareIdx()
     return {
       ...state,
