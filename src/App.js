@@ -6,6 +6,8 @@ import Routes from './routes'
 import configureStore from './store'
 import middlewares from './middlewares'
 
+import { initApp } from './actions/play'
+
 const store = configureStore(middlewares())
 
 export default class dualMobile extends Component {
@@ -17,3 +19,5 @@ export default class dualMobile extends Component {
     )
   }
 }
+
+store.dispatch(initApp())

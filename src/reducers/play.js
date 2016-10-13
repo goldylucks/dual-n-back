@@ -11,7 +11,7 @@ const initialState = {
   intervalMillis: 1500,
   colors: ['red', 'purple', 'yellow'],
   history: [],
-  bestScore: 0,
+  bestScore: {},
   score: 0,
 }
 
@@ -79,8 +79,11 @@ export default handleActions({
   },
 
   'guess colorWrong' (state, action) {
+    const { bestScore, mode, nBack, score } = state
+    bestScore[mode + nBack] = Math.max(score, bestScore[mode + nBack])
     return {
       ...state,
+      bestScore,
       active: false,
       gameOver: true,
     }
@@ -94,8 +97,11 @@ export default handleActions({
   },
 
   'guess positionWrong' (state, action) {
+    const { bestScore, mode, nBack, score } = state
+    bestScore[mode + nBack] = Math.max(score, bestScore[mode + nBack])
     return {
       ...state,
+      bestScore,
       active: false,
       gameOver: true,
     }
@@ -109,6 +115,13 @@ export default handleActions({
       activeSquareColor: '',
       score: 0,
       started: false,
+    }
+  },
+
+  'sync bestScore' (state, action) {
+    return {
+      ...state,
+      bestScore: action.payload,
     }
   },
 

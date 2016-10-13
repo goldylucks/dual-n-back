@@ -1,5 +1,7 @@
 import { createAction } from 'redux-actions'
 
+export const initApp = createAction('init app')
+
 export const playInterval = createAction('play interval')
 export const resetBoard = createAction('reset board')
 export const startGame = createAction('start game')
@@ -17,3 +19,4 @@ export const incrementN = createAction('increment n')
 export const decrementN = createAction('decrement n')
 
 export const routeToHome = createAction('route toHome')
+export const syncBestScore = createAction('sync bestScore')

@@ -12,7 +12,7 @@ class HomePage extends Component {
   static propTypes = {
     mode: PropTypes.string.isRequired,
     nBack: PropTypes.number.isRequired,
-    bestScore: PropTypes.number.isRequired,
+    bestScore: PropTypes.object.isRequired,
     routeToGame: PropTypes.func.isRequired,
     actions: PropTypes.shape({
       toggleMode: PropTypes.func.isRequired,
@@ -22,7 +22,7 @@ class HomePage extends Component {
   }
 
   render () {
-    const { mode, bestScore, nBack } = this.props
+    const { mode, nBack } = this.props
     return (
       <View style={ styles.container }>
         <Text style={ styles.headline }>MEMORY N-BACK</Text>
@@ -54,7 +54,7 @@ class HomePage extends Component {
           </TouchableHighlight>
         </View>
         <Text style={ styles.record }>
-          BEST SCORE: { bestScore }
+          BEST SCORE: { this.getBestScore() }
         </Text>
       </View>
     )
@@ -74,6 +74,11 @@ class HomePage extends Component {
 
   decrementN = evt => {
     this.props.actions.decrementN()
+  }
+
+  getBestScore () {
+    const { mode, bestScore, nBack } = this.props
+    return bestScore[mode + nBack] || 0
   }
 
 }

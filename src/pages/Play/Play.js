@@ -21,7 +21,7 @@ class PlayPage extends Component {
     activeSquareColor: PropTypes.string.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
-    bestScore: PropTypes.number.isRequired,
+    bestScore: PropTypes.object.isRequired,
     started: PropTypes.bool.isRequired,
     routeToHome: PropTypes.func.isRequired,
     actions: PropTypes.shape({
@@ -74,7 +74,7 @@ class PlayPage extends Component {
   }
 
   renderGameOverOverlay () {
-    const { mode, gameOver, bestScore, score, nBack } = this.props
+    const { mode, gameOver, score, nBack } = this.props
     if (!gameOver) {
       return
     }
@@ -86,7 +86,7 @@ class PlayPage extends Component {
           { '\n' }
           Score: { score }
           { '\n' }
-          Best Score: { bestScore }
+          Best Score: { this.getBestScore() }
         </Text>
         <View style={ styles.gameOverControls }>
           <Text style={ styles.gameOverControl } onPress={ this.onMenuPress }>MENU</Text>
@@ -116,6 +116,11 @@ class PlayPage extends Component {
   onMenuPress = () => {
     this.props.actions.routeToHome()
     this.props.routeToHome()
+  }
+
+  getBestScore () {
+    const { mode, bestScore, nBack } = this.props
+    return bestScore[mode + nBack] || 0
   }
 
 }
