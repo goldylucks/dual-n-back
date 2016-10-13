@@ -5,45 +5,47 @@ import { connect } from 'react-redux'
 
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 
-import { toggleMode, incrementN, decrementN } from '../../actions/play';
+import { toggleMode, incrementN, decrementN } from '../../actions/play'
 
 class HomePage extends Component {
 
   static propTypes = {
+    mode: PropTypes.string.isRequired,
+    nBack: PropTypes.number.isRequired,
+    bestScore: PropTypes.number.isRequired,
     routeToGame: PropTypes.func.isRequired,
     actions: PropTypes.shape({
       toggleMode: PropTypes.func.isRequired,
       incrementN: PropTypes.func.isRequired,
       decrementN: PropTypes.func.isRequired,
     }).isRequired,
-    routeToGame: PropTypes.func.isRequired,
   }
 
-  render() {
-    const { mode, bestScore, nBack } = this.props;
+  render () {
+    const { mode, bestScore, nBack } = this.props
     return (
       <View style={ styles.container }>
         <Text style={ styles.headline }>MEMORY N-BACK</Text>
         <View style={ styles.settings }>
           <View style={ styles.leftSetting }>
-            <FaIcon onPress={ this.toggleMode } name='caret-left' style={ styles.leftSettingIcon } /> 
+            <FaIcon onPress={ this.toggleMode } name='caret-left' style={ styles.leftSettingIcon } />
           </View>
           <View style={ styles.middleSetting }>
             <Text style={ styles.middleSettingText }>{ mode }</Text>
           </View>
           <View style={ styles.rightSetting }>
-            <FaIcon onPress={ this.toggleMode } name='caret-right' style={ styles.rightSettingIcon } /> 
+            <FaIcon onPress={ this.toggleMode } name='caret-right' style={ styles.rightSettingIcon } />
           </View>
         </View>
         <View style={ styles.settings }>
           <View style={ styles.leftSetting }>
-            <FaIcon onPress={ this.decrementN } name='minus' style={ styles.leftSettingIcon } /> 
+            <FaIcon onPress={ this.decrementN } name='minus' style={ styles.leftSettingIcon } />
           </View>
           <View style={ styles.middleSetting }>
             <Text style={ styles.middleSettingText }>{ nBack }</Text>
           </View>
           <View style={ styles.rightSetting }>
-            <FaIcon onPress={ this.incrementN } name='plus' style={ styles.rightSettingIcon } /> 
+            <FaIcon onPress={ this.incrementN } name='plus' style={ styles.rightSettingIcon } />
           </View>
         </View>
         <View style={ styles.play }>
@@ -63,15 +65,15 @@ class HomePage extends Component {
   }
 
   toggleMode = evt => {
-    this.props.actions.toggleMode();
+    this.props.actions.toggleMode()
   }
 
   incrementN = evt => {
-    this.props.actions.incrementN();
+    this.props.actions.incrementN()
   }
 
   decrementN = evt => {
-    this.props.actions.decrementN();
+    this.props.actions.decrementN()
   }
 
 }
@@ -82,7 +84,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ toggleMode, incrementN, decrementN }, dispatch)
+    actions: bindActionCreators({ toggleMode, incrementN, decrementN }, dispatch),
   }
 }
 
@@ -99,7 +101,7 @@ const styles = {
   },
 
   headline: {
-    flex: .5,
+    flex: 0.5,
     textAlign: 'center',
     textAlignVertical: 'center',
     color: 'white',
@@ -107,7 +109,7 @@ const styles = {
   },
 
   settings: {
-    flex: .15,
+    flex: 0.15,
     flexDirection: 'row',
     borderBottomColor: 'white',
     borderTopWidth: 1,
@@ -115,7 +117,7 @@ const styles = {
   },
 
   leftSetting: {
-    flex: .2,
+    flex: 0.2,
     justifyContent: 'center',
     alignItems: 'center',
     borderRightColor: 'white',
@@ -131,7 +133,7 @@ const styles = {
   },
 
   middleSetting: {
-    flex: .6,
+    flex: 0.6,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -142,7 +144,7 @@ const styles = {
   },
 
   rightSetting: {
-    flex: .2,
+    flex: 0.2,
     justifyContent: 'center',
     alignItems: 'center',
     borderRightColor: 'white',
@@ -158,7 +160,7 @@ const styles = {
   },
 
   play: {
-    flex: .2,
+    flex: 0.2,
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomColor: 'white',
@@ -174,7 +176,7 @@ const styles = {
   },
 
   record: {
-    flex: .1,
+    flex: 0.1,
     textAlign: 'center',
     textAlignVertical: 'center',
     color: 'white',
