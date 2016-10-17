@@ -21,3 +21,11 @@ export default class dualMobile extends Component {
 }
 
 store.dispatch(initApp())
+
+// DEBUG STUFF
+// TODO [AdGo] - move to own file
+const isDebuggingInChrome = global.__DEV__ && !!window.navigator.userAgent
+
+if (isDebuggingInChrome) {
+  global.store = store
+}
