@@ -23,6 +23,8 @@ export default class StorageMiddleware {
     try {
       const bestScore = await AsyncStorage.getItem('bestScore')
       if (!bestScore) {
+        // initialize empty object on first run
+        await AsyncStorage.setItem('bestScore', JSON.stringify({}))
         return
       }
       store.dispatch(syncBestScore(JSON.parse(bestScore)))
