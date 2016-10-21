@@ -1,0 +1,81 @@
+.container {
+  flex: 1;
+  background-color: blue;
+}
+
+.headline {
+  flex: 0.5;
+  text-align: center;
+  text-align-vertical: center;
+  color: white;
+  font-size: 80;
+}
+
+.settings {
+  display: flex;
+  flex: 0.15;
+  flex-direction: row;
+  border-top: 1px solid white;
+}
+
+.leftSetting {
+  display: flex;
+  flex: 0.2;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+}
+
+.leftSettingIcon {
+  color: white;
+  font-size: 50;
+}
+
+.middleSetting {
+  display: flex;
+  flex: 0.6;
+  align-items: center;
+  justify-content: center;
+}
+
+.middleSettingText {
+  font-size: 50;
+  color: white;
+}
+
+.rightSetting {
+  display: flex;
+  flex: 0.2;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+}
+
+.rightSettingIcon {
+  color: white;
+  font-size: 50;
+}
+
+.play {
+  display: flex;
+  flex: 0.2;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+}
+
+.playIcon {
+  color: white;
+  font-size: 60;
+}
+
+.record {
+  flex: 0.1;
+  text-align: center;
+  text-align-vertical: center;
+  color: white;
+  font-size: 25;
+}
