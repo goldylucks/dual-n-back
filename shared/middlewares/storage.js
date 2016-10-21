@@ -1,6 +1,3 @@
-import { AsyncStorage } from 'react-native'
-import logger from '../utils/logger'
-
 import { syncBestScore } from '../actions/play'
 
 export default class StorageMiddleware {
@@ -19,30 +16,24 @@ export default class StorageMiddleware {
     }
   }
 
-  async onInitApp (store) {
-    try {
-      const bestScore = await AsyncStorage.getItem('bestScore')
-      if (!bestScore) {
-        // initialize empty object on first run
-        await AsyncStorage.setItem('bestScore', JSON.stringify({}))
-        return
-      }
-      store.dispatch(syncBestScore(JSON.parse(bestScore)))
-    } catch (err) {
-      logger.warn('[StorageMiddleware] Error fetching bestScore:', err)
+  onInitApp (store) {
+    const bestScore = global.localStorage.getItem('bestScore')
+    // initialize empty object on first run
+    if (!bestScore) {
+      global.localStorage.setItem('bestScore', JSON.stringify({}))
+      return
     }
+    store.dispatch(syncBestScore(JSON.parse(bestScore)))
   }
 
-  async onEndGame (store) {
+  onEndGame (store) {
     const { bestScore, mode, nBack, score } = store.getState().play
     if (bestScore[mode + nBack] >= score) {
       return
     }
-    try {
-      await AsyncStorage.mergeItem('bestScore', JSON.stringify({ [mode + nBack]: score }))
-    } catch (err) {
-      logger.warn('[StorageMIddleware] Error saving bestScore:', err)
-    }
+    const prevBestScore = JSON.parse(global.localStorage.getItem('bestScore'))
+    const newBestScore = prevBestScore[mode + nBack] = score
+    global.localStorage.setItem('bestScore', JSON.stringify(newBestScore))
   }
 
 }
