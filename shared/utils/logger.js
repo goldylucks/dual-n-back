@@ -1,4 +1,6 @@
-const isLogging = global.__DEV__
+// __DEV__ for native
+// IS_DEV for web
+const isLogging = global.__DEV__ || process.env.IS_DEV
 
 export default logger()
 

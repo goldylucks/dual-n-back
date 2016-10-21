@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor } from '../../../shared/actions/play'
+import { startGame, pauseGame, resumeGame, guessPosition, guessColor } from '../../../shared/actions/play'
 
 import Board from '../../components/Board'
 
@@ -18,7 +18,6 @@ class PlayContainer extends Component {
     score: PropTypes.number.isRequired,
     started: PropTypes.bool.isRequired,
     startGame: PropTypes.func.isRequired,
-    endGame: PropTypes.func.isRequired,
     guessColor: PropTypes.func.isRequired,
     guessPosition: PropTypes.func.isRequired,
   }
@@ -62,29 +61,19 @@ class PlayContainer extends Component {
   renderActions () {
     const { started } = this.props
 
-    if (!started) {
-      return (
-        <div>
-          <button onClick={ this.startGame }>Start</button>
-        </div>
-      )
+    if (started) {
+      return
     }
 
-    if (started) {
-      return (
-        <div>
-          <button onClick={ this.endGame }>End</button>
-        </div>
-      )
-    }
+    return (
+      <div>
+        <button onClick={ this.startGame }>Start</button>
+      </div>
+    )
   }
 
   startGame = () => {
     this.props.startGame()
-  }
-
-  endGame = () => {
-    this.props.endGame()
   }
 
   guessPosition = () => {
@@ -102,7 +91,7 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ startGame, pauseGame, resumeGame, endGame, guessPosition, guessColor }, dispatch)
+  return bindActionCreators({ startGame, pauseGame, resumeGame, guessPosition, guessColor }, dispatch)
 }
 
 export default connect(

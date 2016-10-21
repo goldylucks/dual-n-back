@@ -31,9 +31,8 @@ export default class StorageMiddleware {
     if (bestScore[mode + nBack] >= score) {
       return
     }
-    const prevBestScore = JSON.parse(global.localStorage.getItem('bestScore'))
-    const newBestScore = prevBestScore[mode + nBack] = score
-    global.localStorage.setItem('bestScore', JSON.stringify(newBestScore))
+    bestScore[mode + nBack] = score
+    global.localStorage.setItem('bestScore', JSON.stringify(bestScore))
   }
 
 }

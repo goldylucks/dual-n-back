@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import Square from '../Square'
 
+import styles from './Board.css'
+
 export default class Board extends Component {
 
   static propTypes = {
@@ -11,8 +13,8 @@ export default class Board extends Component {
   render () {
     const { activeSquareIdx, activeSquareColor } = this.props
     return (
-      <div style={ styles.container }>
-        <div style={ styles.row }>
+      <div className={ styles.container }>
+        <div className={ styles.row }>
           <Square
             idx={ 1 }
             style={ { marginRight: 3 } }
@@ -31,7 +33,7 @@ export default class Board extends Component {
             activeSquareIdx={ activeSquareIdx }
           />
         </div>
-        <div style={ styles.row }>
+        <div className={ styles.row }>
           <Square
             idx={ 4 }
             style={ { marginRight: 3 } }
@@ -50,7 +52,7 @@ export default class Board extends Component {
             activeSquareIdx={ activeSquareIdx }
           />
         </div>
-        <div style={ styles.row }>
+        <div className={ styles.row }>
           <Square
             idx={ 7 }
             style={ { marginRight: 3 } }
@@ -72,19 +74,5 @@ export default class Board extends Component {
       </div>
     )
   }
-
-}
-
-const styles = {
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-
-  row: {
-    flexDirection: 'row',
-    marginBottom: 3,
-    justifyContent: 'center',
-  },
 
 }

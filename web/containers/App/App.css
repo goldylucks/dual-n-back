@@ -1,3 +1,9 @@
+body {
+  background: #eee;
+}
+
 .container {
-  margin: 20px;
+  margin: 100px auto 0;
+  width: 380px;
+  border: 1px solid gray;
 }
