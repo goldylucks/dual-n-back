@@ -1,5 +1,5 @@
 import { AppRegistry } from 'react-native'
 
-import App from './src/App'
+import App from './native/App'
 
 AppRegistry.registerComponent('dualMobile', () => App)

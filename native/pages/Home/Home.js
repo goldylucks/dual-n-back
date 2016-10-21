@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 
-import { toggleMode, incrementN, decrementN } from '../../actions/play'
+import { toggleMode, incrementN, decrementN } from '../../../shared/actions/play'
 
 class HomePage extends Component {
 

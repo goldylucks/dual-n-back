@@ -6,8 +6,8 @@ import { bindActionCreators } from 'redux'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
 
-import { capitalize, renderIf } from '../../utils'
-import { startGame, guessPosition, guessColor, routeToHome } from '../../actions/play'
+import { capitalize, renderIf } from '../../../shared/utils'
+import { startGame, guessPosition, guessColor, routeToHome } from '../../../shared/actions/play'
 
 import Board from '../../components/Board'
 

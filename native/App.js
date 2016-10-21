@@ -3,10 +3,10 @@ import { Provider } from 'react-redux'
 
 import Routes from './routes'
 
-import configureStore from './store'
-import middlewares from './middlewares'
+import configureStore from '../shared/store'
+import middlewares from '../shared/middlewares'
 
-import { initApp } from './actions/play'
+import { initApp } from '../shared/actions/play'
 
 const store = configureStore(middlewares())
 
