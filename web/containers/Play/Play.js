@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Link } from 'react-router'
 
 import { capitalize, renderIf } from '../../../shared/utils'
 
-import { startGame, pauseGame, resumeGame, guessPosition, guessColor } from '../../../shared/actions/play'
+import { startGame, pauseGame, resumeGame, guessPosition, guessColor, routeToHome } from '../../../shared/actions/play'
 
 import Board from '../../components/Board'
 
@@ -25,6 +26,7 @@ class PlayContainer extends Component {
     started: PropTypes.bool.isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,
+      routeToHome: PropTypes.func.isRequired,
       guessColor: PropTypes.func.isRequired,
       guessPosition: PropTypes.func.isRequired,
     }).isRequired,
@@ -96,13 +98,13 @@ class PlayContainer extends Component {
         <div className={ styles.gameOverHeadline }>GAME OVER</div>
         <div className={ styles.gameOverText }>
           <div className={ styles.strong }>{ capitalize(mode) } { nBack }-Back </div>
-          { '\n' }
+          <br />
           Score: { score }
-          { '\n' }
+          <br />
           Best Score: { this.getBestScore() }
         </div>
         <div className={ styles.gameOverControls }>
-          <div className={ styles.gameOverControl } onClick={ this.onMenuPress }>MENU</div>
+          <Link to='/home' className={ styles.gameOverControl } onClick={ this.onMenuPress }>MENU</Link>
           <div className={ styles.gameOverControl } onClick={ this.startGame }>RETRY</div>
         </div>
       </div>
@@ -111,6 +113,10 @@ class PlayContainer extends Component {
 
   startGame = () => {
     this.props.actions.startGame()
+  }
+
+  onMenuPress = () => {
+    this.props.actions.routeToHome()
   }
 
   guessPosition = () => {
@@ -134,7 +140,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ startGame, pauseGame, resumeGame, guessPosition, guessColor }, dispatch),
+    actions: bindActionCreators({ startGame, pauseGame, resumeGame, routeToHome, guessPosition, guessColor }, dispatch),
   }
 }
 
