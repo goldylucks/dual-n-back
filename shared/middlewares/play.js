@@ -1,4 +1,5 @@
-import { playInterval, resetBoard, guessColorCorrect, guessColorWrong, guessPositionCorrect, guessPositionWrong } from '../actions/play'
+import { playInterval, missAMatch, resetBoard, guessColorCorrect, guessColorWrong, guessPositionCorrect, guessPositionWrong } from '../actions/play'
+import { isColorMatch, isPositionMatch, missedAMatch } from '../utils'
 
 export default class PlayMiddleware {
 
@@ -34,6 +35,12 @@ export default class PlayMiddleware {
   onStartGame (store) {
     const { intervalMillis } = store.getState().play
     this.interval = setInterval(() => {
+      const { history, nBack, positionGuessed, colorGuessed } = store.getState().play
+      if (missedAMatch(history, nBack, positionGuessed, colorGuessed)) {
+        store.dispatch(missAMatch())
+        this.onEndGame()
+        return
+      }
       store.dispatch(playInterval())
       this.resetBoardTimeout = setTimeout(() => {
         store.dispatch(resetBoard())
@@ -43,7 +50,7 @@ export default class PlayMiddleware {
 
   onGuessColor (store) {
     const { history, nBack } = store.getState().play
-    if (history[history.length - 1 - nBack].activeSquareColor !== history[history.length - 1].activeSquareColor) {
+    if (!isColorMatch(history, nBack)) {
       store.dispatch(guessColorWrong())
       this.onEndGame()
       return
@@ -54,7 +61,7 @@ export default class PlayMiddleware {
 
   onGuessPosition (store) {
     const { history, nBack } = store.getState().play
-    if (history[history.length - 1 - nBack].activeSquareIdx !== history[history.length - 1].activeSquareIdx) {
+    if (!isPositionMatch(history, nBack)) {
       store.dispatch(guessPositionWrong())
       this.onEndGame()
       return

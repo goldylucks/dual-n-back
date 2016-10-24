@@ -2,9 +2,10 @@ import { createAction } from 'redux-actions'
 
 export const initApp = createAction('init app')
 
+export const startGame = createAction('start game')
 export const playInterval = createAction('play interval')
 export const resetBoard = createAction('reset board')
-export const startGame = createAction('start game')
+export const missAMatch = createAction('miss aMatch')
 
 export const guessPosition = createAction('guess position')
 export const guessPositionCorrect = createAction('guess positionCorrect')

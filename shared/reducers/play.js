@@ -7,6 +7,8 @@ const initialState = {
   started: false,
   active: false,
   activeSquareColor: '',
+  positionGuessed: false,
+  colorGuessed: false,
   activeSquareIdx: 0,
   intervalMillis: 1500,
   colors: ['red', 'purple', 'yellow'],
@@ -52,6 +54,8 @@ export default handleActions({
       started: true,
       active: true,
       gameOver: false,
+      colorGuessed: false,
+      positionGuessed: false,
       // reset in case an old game had highlighted square
       history: [],
       score: 0,
@@ -67,44 +71,38 @@ export default handleActions({
       ...state,
       activeSquareColor,
       activeSquareIdx,
+      positionGuessed: false,
+      colorGuessed: false,
       history: state.history.concat({ activeSquareIdx, activeSquareColor }),
     }
+  },
+
+  'miss aMatch' (state, action) {
+    return onGameOver(state)
   },
 
   'guess colorCorrect' (state, action) {
     return {
       ...state,
+      colorGuessed: true,
       score: state.score + 1,
     }
   },
 
   'guess colorWrong' (state, action) {
-    const { bestScore, mode, nBack, score } = state
-    bestScore[mode + nBack] = Math.max(score, bestScore[mode + nBack])
-    return {
-      ...state,
-      bestScore,
-      active: false,
-      gameOver: true,
-    }
+    return onGameOver(state)
   },
 
   'guess positionCorrect' (state, action) {
     return {
       ...state,
+      positionGuessed: true,
       score: state.score + 1,
     }
   },
 
   'guess positionWrong' (state, action) {
-    const { bestScore, mode, nBack, score } = state
-    bestScore[mode + nBack] = Math.max(score, bestScore[mode + nBack])
-    return {
-      ...state,
-      bestScore,
-      active: false,
-      gameOver: true,
-    }
+    return onGameOver(state)
   },
 
   'route toHome' (state, action) {
@@ -127,6 +125,17 @@ export default handleActions({
 
 }, initialState)
 
+function onGameOver (state) {
+  const { bestScore, mode, nBack, score } = state
+  bestScore[mode + nBack] = Math.max(score, bestScore[mode + nBack])
+  return {
+    ...state,
+    bestScore,
+    active: false,
+    gameOver: true,
+  }
+}
+
 function randomizeActiveSquareColor (colors) {
   return colors[Math.floor(Math.random() * colors.length)]
 }
@@ -134,3 +143,4 @@ function randomizeActiveSquareColor (colors) {
 function randomizeActiveSquareIdx () {
   return Math.ceil(Math.random() * 9)
 }
+
