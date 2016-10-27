@@ -9,11 +9,14 @@ export default class Square extends Component {
     idx: PropTypes.number.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     activeSquareColor: PropTypes.string.isRequired,
+    children: PropTypes.node,
   }
 
   render () {
     return (
-      <div style={ this.getContainerStyle() } className={ styles.container } />
+      <div style={ this.getContainerStyle() } className={ styles.container }>
+        { this.props.children }
+      </div>
     )
   }
 

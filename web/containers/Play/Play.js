@@ -24,6 +24,10 @@ class PlayContainer extends Component {
     activeSquareIdx: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
     started: PropTypes.bool.isRequired,
+    history: PropTypes.arrayOf(PropTypes.shape({
+      activeSquareColor: PropTypes.string.isRequired,
+      activeSquareIdx: PropTypes.number.isRequired,
+    })).isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,
       routeToHome: PropTypes.func.isRequired,
@@ -33,80 +37,87 @@ class PlayContainer extends Component {
   }
 
   render () {
-    const { intervalMillis, colors, activeSquareColor, activeSquareIdx } = this.props
+    const { history, nBack, gameOver, activeSquareColor, activeSquareIdx } = this.props
     return (
       <div className={ styles.container }>
-        { this.renderScore() }
+        { this.renderHeader() }
         <Board
-          intervalMillis={ intervalMillis }
-          colors={ colors }
+          gameOver={ gameOver }
+          lastTurn={ history[history.length - 1] }
+          nBackTurn={ history[history.length - 1 - nBack] }
           activeSquareColor={ activeSquareColor }
           activeSquareIdx={ activeSquareIdx }
         />
-        <div className={ styles.controls }>
-          { this.renderControls() }
-        </div>
-        { this.renderActions() }
-        { this.renderGameOverOverlay() }
+        { this.renderControls() }
+        { this.renderGameOverControls() }
+        { this.renderGameOverStats() }
       </div>
     )
   }
 
-  renderScore () {
+  renderHeader () {
+    const { gameOver, started, score } = this.props
+    if (!started) {
+      return (
+        <div onClick={ this.startGame } className={ styles.header }>Start</div>
+      )
+    }
+    if (gameOver) {
+      return (
+        <div className={ styles.header }>
+          <i className='fa fa-frown-o' />
+        </div>
+      )
+    }
     return (
-      <div className={ styles.score }>
-        { this.props.score }
+      <div className={ styles.header }>
+        { score }
       </div>
     )
   }
 
   renderControls () {
+    if (this.props.gameOver) {
+      return
+    }
     const isDualMode = this.props.mode === 'dual'
     return (
-      <div>
-        <button className={ styles.control } onClick={ this.guessPosition }>Position</button>
+      <div className={ styles.controls }>
+        <div className={ [styles.control, styles.firstControl].join(' ') } onClick={ this.guessPosition }>
+          <i className={ ['fa fa-th', styles.controlIcon].join(' ') } />
+        </div>
         {
           renderIf(isDualMode)(
-            <button className={ styles.control } onClick={ this.guessColor }>Color</button>
+            <div className={ styles.control } onClick={ this.guessColor }>
+              <i className={ ['fa fa-paint-brush', styles.controlIcon].join(' ') } />
+            </div>
           )
         }
       </div>
     )
   }
 
-  renderActions () {
-    const { started } = this.props
-
-    if (started) {
+  renderGameOverControls () {
+    if (!this.props.gameOver) {
       return
     }
-
     return (
-      <div>
-        <button onClick={ this.startGame }>Start</button>
+      <div className={ styles.gameOverControls }>
+        <Link to='/home' className={ styles.gameOverControl } onClick={ this.onMenuPress }>MENU</Link>
+        <div className={ styles.gameOverControl } onClick={ this.startGame }>RETRY</div>
       </div>
     )
   }
 
-  renderGameOverOverlay () {
+  renderGameOverStats () {
     const { mode, gameOver, score, nBack } = this.props
     if (!gameOver) {
       return
     }
     return (
-      <div className={ styles.gameOverOverlay }>
-        <div className={ styles.gameOverHeadline }>GAME OVER</div>
-        <div className={ styles.gameOverText }>
-          <div className={ styles.strong }>{ capitalize(mode) } { nBack }-Back </div>
-          <br />
-          Score: { score }
-          <br />
-          Best Score: { this.getBestScore() }
-        </div>
-        <div className={ styles.gameOverControls }>
-          <Link to='/home' className={ styles.gameOverControl } onClick={ this.onMenuPress }>MENU</Link>
-          <div className={ styles.gameOverControl } onClick={ this.startGame }>RETRY</div>
-        </div>
+      <div>
+        <div className={ styles.gameOverMode }>{ capitalize(mode) } { nBack }-Back </div>
+        Score / Best Score: <span className={ styles.strong }>{ score }/{ this.getBestScore() }</span>
       </div>
     )
   }

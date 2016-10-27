@@ -14,7 +14,6 @@ import Board from '../../components/Board'
 class PlayPage extends Component {
 
   static propTypes = {
-    history: PropTypes.arrayOf(PropTypes.object).isRequired,
     gameOver: PropTypes.bool.isRequired,
     nBack: PropTypes.number.isRequired,
     mode: PropTypes.string.isRequired,
@@ -24,6 +23,10 @@ class PlayPage extends Component {
     bestScore: PropTypes.object.isRequired,
     started: PropTypes.bool.isRequired,
     routeToHome: PropTypes.func.isRequired,
+    history: PropTypes.arrayOf(PropTypes.shape({
+      activeSquareColor: PropTypes.string.isRequired,
+      activeSquareIdx: PropTypes.number.isRequired,
+    })).isRequired,
     actions: PropTypes.shape({
       routeToHome: PropTypes.func.isRequired,
       startGame: PropTypes.func.isRequired,
@@ -33,34 +36,49 @@ class PlayPage extends Component {
   }
 
   render () {
-    const { activeSquareColor, activeSquareIdx } = this.props
+    const { activeSquareColor, activeSquareIdx, gameOver, history, nBack } = this.props
     return (
       <View style={ styles.container }>
-        { this.renderScore() }
+        { this.renderHeader() }
         <Board
+          gameOver={ gameOver }
+          lastTurn={ history[history.length - 1] }
+          nBackTurn={ history[history.length - 1 - nBack] }
           activeSquareColor={ activeSquareColor }
           activeSquareIdx={ activeSquareIdx }
         />
         { this.renderControls() }
-        { this.renderGameOverOverlay() }
+        { this.renderGameOverControls() }
+        { this.renderGameOverStats() }
       </View>
     )
   }
 
-  renderScore () {
-    if (!this.props.started) {
+  renderHeader () {
+    const { started, gameOver, score } = this.props
+    if (!started) {
       return (
-        <Text onPress={ this.startGame } style={ styles.score }>Start</Text>
+        <Text onPress={ this.startGame } style={ styles.header }>Start</Text>
+      )
+    }
+    if (gameOver) {
+      return (
+        <Text style={ styles.header }>
+          <FaIcon style={ styles.headerGameOverIcon } name='frown-o' />
+        </Text>
       )
     }
     return (
-      <Text style={ styles.score }>
-        { this.props.score }
+      <Text style={ styles.header }>
+        { score }
       </Text>
     )
   }
 
   renderControls () {
+    if (this.props.gameOver) {
+      return
+    }
     const isDualMode = this.props.mode === 'dual'
     return (
       <View style={ styles.controls }>
@@ -78,25 +96,29 @@ class PlayPage extends Component {
     )
   }
 
-  renderGameOverOverlay () {
+  renderGameOverControls () {
+    if (!this.props.gameOver) {
+      return
+    }
+    return (
+      <View style={ styles.gameOverControls }>
+        <Text style={ styles.gameOverControl } onPress={ this.onMenuPress }>MENU</Text>
+        <Text style={ styles.gameOverControl } onPress={ this.startGame }>RETRY</Text>
+      </View>
+    )
+  }
+
+  renderGameOverStats () {
     const { mode, gameOver, score, nBack } = this.props
     if (!gameOver) {
       return
     }
     return (
-      <View style={ styles.gameOverOverlay }>
-        <Text style={ styles.gameOverHeadline }>GAME OVER</Text>
-        <Text style={ styles.gameOverText }>
-          <Text style={ styles.strong }>{ capitalize(mode) } { nBack }-Back </Text>
-          { '\n' }
-          Score: { score }
-          { '\n' }
-          Best Score: { this.getBestScore() }
+      <View style={ styles.gameOverStats }>
+        <Text style={ styles.gameOverScores }>
+          Score / Best Score: <Text style={ styles.strong }>{ score }/{ this.getBestScore() }</Text>
         </Text>
-        <View style={ styles.gameOverControls }>
-          <Text style={ styles.gameOverControl } onPress={ this.onMenuPress }>MENU</Text>
-          <Text style={ styles.gameOverControl } onPress={ this.startGame }>RETRY</Text>
-        </View>
+        <Text>{ capitalize(mode) } { nBack }-Back </Text>
       </View>
     )
   }
@@ -150,13 +172,17 @@ const styles = {
     flex: 1,
   },
 
-  score: {
+  header: {
     flex: 0.2,
     textAlign: 'center',
     textAlignVertical: 'center',
     fontSize: 40,
     backgroundColor: 'gray',
     justifyContent: 'center',
+  },
+
+  headerGameOverIcon: {
+    fontSize: 50,
   },
 
   controls: {
@@ -184,37 +210,13 @@ const styles = {
     color: 'white',
   },
 
-  gameOverOverlay: {
-    position: 'absolute',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 10,
-    right: 0,
-    left: 0,
-    top: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, .9)',
-  },
-
-  gameOverHeadline: {
-    color: 'red',
-    fontSize: 55,
-  },
-
-  gameOverText: {
-    color: 'white',
-    fontSize: 39,
-  },
-
   gameOverControls: {
     flexDirection: 'row',
   },
 
   gameOverControl: {
-    width: 150,
-    marginRight: 5,
     marginTop: 5,
+    flex: 1,
     height: 60,
     fontSize: 25,
     textAlign: 'center',
@@ -222,6 +224,11 @@ const styles = {
     textAlignVertical: 'center',
     backgroundColor: 'gray',
     color: 'black',
+  },
+
+  gameOverStats: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   strong: {
