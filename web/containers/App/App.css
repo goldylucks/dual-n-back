@@ -7,3 +7,7 @@ body {
   width: 380px;
   border: 1px solid gray;
 }
+
+a {
+  text-decoration: none;
+}

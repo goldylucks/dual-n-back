@@ -8,6 +8,9 @@
 .row {
   display: flex;
   flex-direction: row;
-  margin-bottom: 3;
   justify-content: center;
+}
+
+.row:not(:last-child) {
+  margin-bottom: 3;
 }
