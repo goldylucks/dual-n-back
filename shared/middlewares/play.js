@@ -16,6 +16,18 @@ export default class PlayMiddleware {
         return
       }
 
+      if (action.type === 'pause game') {
+        this.onPauseGame()
+        next(action)
+        return
+      }
+
+      if (action.type === 'resume game') {
+        this.onResumeGame(store)
+        next(action)
+        return
+      }
+
       if (action.type === 'guess color') {
         this.onGuessColor(store)
         next(action)
@@ -46,6 +58,15 @@ export default class PlayMiddleware {
         store.dispatch(resetBoard())
       }, intervalMillis * 0.9)
     }, intervalMillis)
+  }
+
+  onPauseGame () {
+    this.onEndGame()
+  }
+
+  onResumeGame (store) {
+    store.dispatch(resetBoard())
+    this.onStartGame(store)
   }
 
   onGuessColor (store) {

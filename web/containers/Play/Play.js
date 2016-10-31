@@ -18,6 +18,7 @@ class PlayContainer extends Component {
     gameOver: PropTypes.bool.isRequired,
     nBack: PropTypes.number.isRequired,
     mode: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
     colors: PropTypes.arrayOf(PropTypes.string).isRequired,
     bestScore: PropTypes.object.isRequired,
     activeSquareColor: PropTypes.string.isRequired,
@@ -30,6 +31,8 @@ class PlayContainer extends Component {
     })).isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,
+      pauseGame: PropTypes.func.isRequired,
+      resumeGame: PropTypes.func.isRequired,
       routeToHome: PropTypes.func.isRequired,
       guessColor: PropTypes.func.isRequired,
       guessPosition: PropTypes.func.isRequired,
@@ -71,8 +74,21 @@ class PlayContainer extends Component {
     }
     return (
       <div className={ styles.header }>
-        { score }
+        <span className={ styles.headerText }>{ score }</span>
+        { this.renderPauseResume() }
       </div>
+    )
+  }
+
+  renderPauseResume () {
+    if (this.props.status === 'paused') {
+      return (
+        <i onClick={ this.onResume } className={ [styles.headerPauseResumeIcon, 'fa fa-play'].join(' ') } />
+      )
+    }
+
+    return (
+      <i onClick={ this.onPause } className={ [styles.headerPauseResumeIcon, 'fa fa-pause'].join(' ') } />
     )
   }
 
@@ -141,6 +157,14 @@ class PlayContainer extends Component {
   getBestScore () {
     const { mode, bestScore, nBack } = this.props
     return bestScore[mode + nBack] || 0
+  }
+
+  onPause = () => {
+    this.props.actions.pauseGame()
+  }
+
+  onResume = () => {
+    this.props.actions.resumeGame()
   }
 
 }

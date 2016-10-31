@@ -6,6 +6,8 @@ export const startGame = createAction('start game')
 export const playInterval = createAction('play interval')
 export const resetBoard = createAction('reset board')
 export const missAMatch = createAction('miss aMatch')
+export const pauseGame = createAction('pause game')
+export const resumeGame = createAction('resume game')
 
 export const guessPosition = createAction('guess position')
 export const guessPositionCorrect = createAction('guess positionCorrect')

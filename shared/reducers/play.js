@@ -5,6 +5,7 @@ const initialState = {
   mode: 'dual',
   gameOver: false,
   started: false,
+  status: 'idle',
   active: false,
   activeSquareColor: '',
   positionGuessed: false,
@@ -61,6 +62,20 @@ export default handleActions({
       score: 0,
       activeSquareColor: '',
       activeSquareIdx: 0,
+    }
+  },
+
+  'pause game' (state, action) {
+    return {
+      ...state,
+      status: 'paused',
+    }
+  },
+
+  'resume game' (state, action) {
+    return {
+      ...state,
+      status: 'active',
     }
   },
 
