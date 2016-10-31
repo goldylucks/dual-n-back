@@ -7,7 +7,7 @@ import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
 
 import { capitalize, renderIf } from '../../../shared/utils'
-import { startGame, guessPosition, guessColor, routeToHome } from '../../../shared/actions/play'
+import { startGame, pauseGame, resumeGame, guessPosition, guessColor, routeToHome } from '../../../shared/actions/play'
 
 import Board from '../../components/Board'
 
@@ -17,6 +17,7 @@ class PlayPage extends Component {
     gameOver: PropTypes.bool.isRequired,
     nBack: PropTypes.number.isRequired,
     mode: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
     activeSquareColor: PropTypes.string.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
@@ -30,6 +31,8 @@ class PlayPage extends Component {
     actions: PropTypes.shape({
       routeToHome: PropTypes.func.isRequired,
       startGame: PropTypes.func.isRequired,
+      pauseGame: PropTypes.func.isRequired,
+      resumeGame: PropTypes.func.isRequired,
       guessColor: PropTypes.func.isRequired,
       guessPosition: PropTypes.func.isRequired,
     }).isRequired,
@@ -58,20 +61,35 @@ class PlayPage extends Component {
     const { started, gameOver, score } = this.props
     if (!started) {
       return (
-        <Text onPress={ this.startGame } style={ styles.header }>Start</Text>
+        <View style={ styles.header }>
+          <Text onPress={ this.startGame } style={ styles.headerText }>Start</Text>
+        </View>
       )
     }
     if (gameOver) {
       return (
-        <Text style={ styles.header }>
+        <View style={ styles.header }>
           <FaIcon style={ styles.headerGameOverIcon } name='frown-o' />
-        </Text>
+        </View>
       )
     }
     return (
-      <Text style={ styles.header }>
-        { score }
-      </Text>
+      <View style={ styles.header }>
+        <Text style={ styles.headerText }>{ score }</Text>
+        { this.renderPauseResume() }
+      </View>
+    )
+  }
+
+  renderPauseResume () {
+    if (this.props.status === 'paused') {
+      return (
+        <FaIcon onPress={ this.onResume } style={ styles.headerPauseResumeIcon } name='play' />
+      )
+    }
+
+    return (
+      <FaIcon onPress={ this.onPause } style={ styles.headerPauseResumeIcon } name='pause' />
     )
   }
 
@@ -150,6 +168,14 @@ class PlayPage extends Component {
     return bestScore[mode + nBack] || 0
   }
 
+  onPause = () => {
+    this.props.actions.pauseGame()
+  }
+
+  onResume = () => {
+    this.props.actions.resumeGame()
+  }
+
 }
 
 function mapStateToProps (state) {
@@ -158,7 +184,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ startGame, guessPosition, guessColor, routeToHome }, dispatch),
+    actions: bindActionCreators({ startGame, pauseGame, resumeGame, guessPosition, guessColor, routeToHome }, dispatch),
   }
 }
 
@@ -174,11 +200,24 @@ const styles = {
 
   header: {
     flex: 0.2,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    fontSize: 40,
     backgroundColor: 'gray',
     justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
+
+  headerText: {
+    fontSize: 40,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+
+  headerPauseResumeIcon: {
+    position: 'absolute',
+    right: 20,
+    top: 20,
+    fontSize: 40,
+    color: '#fff',
   },
 
   headerGameOverIcon: {
