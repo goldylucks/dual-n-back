@@ -124,7 +124,8 @@ export default class Board extends Component {
     }
     return (
       <Text>
-        { lastTurnText && '\n' }
+        { lastTurnText }
+        { lastTurnText && nBackTurnText && '\n' } { /* line break only if both texts are in same square */ }
         { nBackTurnText }
       </Text>
     )
