@@ -1,4 +1,4 @@
-package com.dualmobile;
+package com.dualNbackDev;
 
 import android.app.Application;
 import android.util.Log;

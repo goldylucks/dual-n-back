@@ -1,3 +1,4 @@
+#!/bin/bash
 rm -f .git/hooks/pre-commit
 touch .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit

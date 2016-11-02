@@ -1,4 +1,4 @@
-package com.dualmobile;
+package com.dualNbackDev;
 
 import com.facebook.react.ReactActivity;
 
