@@ -20,6 +20,8 @@ export const guessColorWrong = createAction('guess colorWrong')
 export const toggleMode = createAction('toggle mode')
 export const incrementN = createAction('increment n')
 export const decrementN = createAction('decrement n')
+export const incrementSpeed = createAction('increment speed')
+export const decrementSpeed = createAction('decrement speed')
 
 export const routeToHome = createAction('route toHome')
 export const syncBestScore = createAction('sync bestScore')

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-import { toggleMode, incrementN, decrementN } from '../../../shared/actions/play'
+import { toggleMode, incrementSpeed, decrementSpeed, incrementN, decrementN } from '../../../shared/actions/play'
 
 import styles from './Home.css'
 
@@ -12,16 +12,19 @@ class HomePage extends Component {
   static propTypes = {
     mode: PropTypes.string.isRequired,
     nBack: PropTypes.number.isRequired,
+    speed: PropTypes.number.isRequired,
     bestScore: PropTypes.object.isRequired,
     actions: PropTypes.shape({
       toggleMode: PropTypes.func.isRequired,
       incrementN: PropTypes.func.isRequired,
       decrementN: PropTypes.func.isRequired,
+      incrementSpeed: PropTypes.func.isRequired,
+      decrementSpeed: PropTypes.func.isRequired,
     }).isRequired,
   }
 
   render () {
-    const { mode, nBack } = this.props
+    const { mode, nBack, speed } = this.props
     return (
       <div className={ styles.container }>
         <div className={ styles.headline }>MEMORY N-BACK</div>
@@ -45,6 +48,17 @@ class HomePage extends Component {
           </div>
           <div className={ styles.rightSetting }>
             <i onClick={ this.incrementN } className={ [styles.rightSettingIcon, 'fa fa-plus'].join(' ') } />
+          </div>
+        </div>
+        <div className={ styles.settings }>
+          <div className={ styles.leftSetting }>
+            <i onClick={ this.decrementSpeed } className={ [styles.leftSettingIcon, 'fa fa-minus'].join(' ') } />
+          </div>
+          <div className={ styles.middleSetting }>
+            <div className={ styles.middleSettingText }>{ speed }</div>
+          </div>
+          <div className={ styles.rightSetting }>
+            <i onClick={ this.incrementSpeed } className={ [styles.rightSettingIcon, 'fa fa-plus'].join(' ') } />
           </div>
         </div>
         <div className={ styles.play }>
@@ -71,6 +85,14 @@ class HomePage extends Component {
     this.props.actions.decrementN()
   }
 
+  incrementSpeed = evt => {
+    this.props.actions.incrementSpeed()
+  }
+
+  decrementSpeed = evt => {
+    this.props.actions.decrementSpeed()
+  }
+
   getBestScore () {
     const { mode, bestScore, nBack } = this.props
     return bestScore[mode + nBack] || 0
@@ -84,7 +106,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ toggleMode, incrementN, decrementN }, dispatch),
+    actions: bindActionCreators({ incrementSpeed, decrementSpeed, toggleMode, incrementN, decrementN }, dispatch),
   }
 }
 

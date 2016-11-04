@@ -14,7 +14,6 @@ import styles from './Play.css'
 class PlayContainer extends Component {
 
   static propTypes = {
-    intervalMillis: PropTypes.number.isRequired,
     gameOver: PropTypes.bool.isRequired,
     nBack: PropTypes.number.isRequired,
     mode: PropTypes.string.isRequired,
