@@ -127,8 +127,6 @@ const styles = {
     alignItems: 'center',
     borderRightColor: 'white',
     borderRightWidth: 1,
-    borderLeftColor: 'white',
-    borderLeftWidth: 1,
     borderStyle: 'solid',
   },
 
@@ -152,8 +150,6 @@ const styles = {
     flex: 0.2,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRightColor: 'white',
-    borderRightWidth: 1,
     borderLeftColor: 'white',
     borderLeftWidth: 1,
     borderStyle: 'solid',
