@@ -2,6 +2,7 @@ import { handleActions } from 'redux-actions'
 
 const initialState = {
   nBack: 2,
+  speed: 2000,
   mode: 'dual',
   gameOver: false,
   started: false,
@@ -11,7 +12,6 @@ const initialState = {
   positionGuessed: false,
   colorGuessed: false,
   activeSquareIdx: 0,
-  intervalMillis: 1500,
   colors: ['red', 'purple', 'yellow'],
   history: [],
   bestScore: {},
@@ -31,6 +31,20 @@ export default handleActions({
     return {
       ...state,
       nBack: Math.max(1, state.nBack - 1),
+    }
+  },
+
+  'increment speed' (state, action) {
+    return {
+      ...state,
+      speed: state.speed + 100,
+    }
+  },
+
+  'decrement speed' (state, action) {
+    return {
+      ...state,
+      speed: Math.max(100, state.speed - 100),
     }
   },
 

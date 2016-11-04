@@ -45,7 +45,7 @@ export default class PlayMiddleware {
   }
 
   onStartGame (store) {
-    const { intervalMillis } = store.getState().play
+    const { speed } = store.getState().play
     this.interval = setInterval(() => {
       const { history, nBack, positionGuessed, colorGuessed } = store.getState().play
       if (missedAMatch(history, nBack, positionGuessed, colorGuessed)) {
@@ -56,8 +56,8 @@ export default class PlayMiddleware {
       store.dispatch(playInterval())
       this.resetBoardTimeout = setTimeout(() => {
         store.dispatch(resetBoard())
-      }, intervalMillis * 0.9)
-    }, intervalMillis)
+      }, speed * 0.8)
+    }, speed)
   }
 
   onPauseGame () {
