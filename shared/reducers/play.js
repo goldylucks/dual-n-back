@@ -111,6 +111,9 @@ export default handleActions({
   },
 
   'guess colorCorrect' (state, action) {
+    if (state.colorGuessed) {
+      return state
+    }
     return {
       ...state,
       colorGuessed: true,
@@ -123,6 +126,9 @@ export default handleActions({
   },
 
   'guess positionCorrect' (state, action) {
+    if (state.positionGuessed) {
+      return state
+    }
     return {
       ...state,
       positionGuessed: true,
