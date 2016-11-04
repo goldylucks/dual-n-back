@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-import { toggleMode, incrementSpeed, decrementSpeed, incrementN, decrementN } from '../../../shared/actions/play'
+import * as actions from '../../../shared/actions/play'
 
 import styles from './Home.css'
 
@@ -106,7 +106,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ incrementSpeed, decrementSpeed, toggleMode, incrementN, decrementN }, dispatch),
+    actions: bindActionCreators(actions, dispatch),
   }
 }
 

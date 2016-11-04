@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 
-import { toggleMode, incrementSpeed, decrementSpeed, incrementN, decrementN } from '../../../shared/actions/play'
+import * as actions from '../../../shared/actions/play'
 
 class HomePage extends Component {
 
@@ -111,7 +111,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ toggleMode, incrementSpeed, decrementSpeed, incrementN, decrementN }, dispatch),
+    actions: bindActionCreators(actions, dispatch),
   }
 }
 

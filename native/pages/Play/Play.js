@@ -7,7 +7,7 @@ import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
 
 import { capitalize, renderIf } from '../../../shared/utils'
-import { startGame, pauseGame, resumeGame, guessPosition, guessColor, routeToHome } from '../../../shared/actions/play'
+import * as actions from '../../../shared/actions/play'
 
 import Board from '../../components/Board'
 
@@ -184,7 +184,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ startGame, pauseGame, resumeGame, guessPosition, guessColor, routeToHome }, dispatch),
+    actions: bindActionCreators(actions, dispatch),
   }
 }
 
