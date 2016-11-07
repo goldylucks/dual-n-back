@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --open --hot --inline --progress --colors --port 3000",
+    "test": "mocha 'shared/**/*.spec.js'",
     "lint": "eslint native shared web --ignore-path .gitignore",
     "startOld": "node node_modules/react-native/local-cli/cli.js start"
   },
@@ -20,6 +21,7 @@
     "redux-actions": "^0.12.0"
   },
   "devDependencies": {
+    "appium": "^1.6.0",
     "babel-cli": "^6.8.0",
     "babel-core": "^6.5.2",
     "babel-eslint": "6.0.2",
@@ -31,6 +33,8 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "6.9.0",
     "babel-runtime": "^6.5.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "css-loader": "^0.23.1",
     "eslint": "^2.9.0",
     "eslint-config-semistandard": "^6.0.1",
@@ -44,6 +48,7 @@
     "husky": "^0.11.6",
     "json-loader": "^0.5.4",
     "less": "^2.7.1",
+    "mocha": "^3.1.2",
     "postcss-loader": "^0.8.1",
     "react-hot-loader": "^1.3.0",
     "react-redux": "^4.4.0",
@@ -53,6 +58,7 @@
     "redux-actions": "^0.9.1",
     "replace": "^0.3.0",
     "rucksack-css": "^0.8.5",
+    "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",

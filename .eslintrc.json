@@ -6,7 +6,8 @@
     "node": true
   },
   "globals": {
-    "expect": true
+    "expect": true,
+    "spy": true
   },
   "rules": {
     "react/jsx-no-bind": ["off"],
