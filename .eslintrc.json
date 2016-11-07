@@ -7,7 +7,10 @@
   },
   "globals": {
     "expect": true,
-    "spy": true
+    "spy": true,
+    "stub": true,
+    "dispatch": true,
+    "localStorage": true
   },
   "rules": {
     "no-return-assign": 0,

@@ -5,29 +5,28 @@ export default class StorageMiddleware {
   toMiddleware () {
     return store => next => action => {
       if (action.type === 'init app') {
-        this.onInitApp(store)
+        this.onInitApp(store.dispatch)
       }
 
       if (action.type === 'guess colorWrong' || action.type === 'guess positionWrong') {
-        this.onEndGame(store)
+        this.onEndGame(store.getState().play)
       }
 
       next(action)
     }
   }
 
-  onInitApp (store) {
+  onInitApp (dispatch) {
     const bestScore = global.localStorage.getItem('bestScore')
     // initialize empty object on first run
     if (!bestScore) {
-      global.localStorage.setItem('bestScore', JSON.stringify({}))
+      global.localStorage.setItem('bestScore', '{}')
       return
     }
-    store.dispatch(syncBestScore(JSON.parse(bestScore)))
+    dispatch(syncBestScore(JSON.parse(bestScore)))
   }
 
-  onEndGame (store) {
-    const { bestScore, mode, nBack, score } = store.getState().play
+  onEndGame ({ bestScore, mode, nBack, score }) {
     if (bestScore[mode + nBack] >= score) {
       return
     }

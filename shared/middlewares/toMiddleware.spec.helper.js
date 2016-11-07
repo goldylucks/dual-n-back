@@ -1,7 +1,7 @@
 export default ({ methods, cut }) => {
   describe('toMiddleware', () => {
     const middleware = cut.toMiddleware()
-    const store = {}
+    const store = { getState: stub.returns({}) }
     let next
     let action
 

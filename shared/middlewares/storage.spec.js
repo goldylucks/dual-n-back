@@ -1,4 +1,6 @@
 import StorageMiddleware from './storage'
+import testToMiddleware from './toMiddleware.spec.helper'
+import { syncBestScore } from '../actions/play'
 
 describe('shared/middlewares/storage', () => {
   let cut
@@ -7,66 +9,111 @@ describe('shared/middlewares/storage', () => {
     cut = new StorageMiddleware()
   })
 
-  describe('toMiddleware', () => {
+  describe('onInitApp', () => {
+    let setItemSpy
+    let getItemSpy
     beforeEach('setup spies', () => {
-      cut.onInitApp = spy()
-      cut.onEndGame = spy()
+      setItemSpy = spy(localStorage, 'setItem')
+      getItemSpy = stub(localStorage, 'getItem')
+    })
+    afterEach('setup spies', () => {
+      localStorage.setItem.reset()
+      localStorage.getItem.reset()
+      localStorage.setItem.restore()
+      localStorage.getItem.restore()
     })
 
-    it('should call only next(action)', () => {
+    it('should call local storage bestScore with empty object, and not call dispatch', () => {
       // given
-      const store = {}
-      const next = spy()
-      const action = { type: '' }
+      getItemSpy.withArgs('bestScore').returns(undefined)
 
       // when
-      cut.toMiddleware()(store)(next)(action)
+      cut.onInitApp(dispatch)
 
-      expect(next).to.have.been.calledWith(action)
-      expect(cut.onInitApp).to.not.have.been.called
-      expect(cut.onEndGame).to.not.have.been.called
+      // then
+      expect(setItemSpy).to.have.been.calledWith('bestScore', '{}')
+      expect(setItemSpy).to.have.been.calledOnce
+      expect(dispatch).to.not.have.been.called
     })
 
-    it('should call only next(action), onInitApp', () => {
+    it('should dispatch syncBestScore, and shouldnt call set local storage', () => {
       // given
-      const store = {}
-      const next = spy()
-      const action = { type: 'init app' }
+      const bestScore = JSON.stringify({ dual1: 40 })
+      getItemSpy.withArgs('bestScore').returns(bestScore)
 
       // when
-      cut.toMiddleware()(store)(next)(action)
+      cut.onInitApp(dispatch)
 
-      expect(next).to.have.been.calledWith(action)
-      expect(cut.onInitApp).to.have.been.calledOnce
-      expect(cut.onEndGame).to.not.have.been.called
+      // then
+      expect(setItemSpy).to.not.have.been.called
+      expect(dispatch).to.have.been.calledWith(syncBestScore(JSON.parse(bestScore)))
+      expect(dispatch).to.have.been.calledOnce
+    })
+  })
+
+  describe('onEndGame', () => {
+    let setItemSpy
+    beforeEach('setup spies', () => {
+      setItemSpy = spy(localStorage, 'setItem')
+    })
+    afterEach('setup spies', () => {
+      localStorage.setItem.restore()
     })
 
-    it('should call only next(action), onEndGame', () => {
+    it('shouldnt call localStorage.setItem', () => {
       // given
-      const store = {}
-      const next = spy()
-      const action = { type: 'guess colorWrong' }
+      const playState = {
+        mode: 'dual',
+        nBack: 2,
+        score: 20,
+        bestScore: { dual2: 25 },
+      }
 
       // when
-      cut.toMiddleware()(store)(next)(action)
+      cut.onEndGame(playState)
 
-      expect(next).to.have.been.calledWith(action)
-      expect(cut.onEndGame).to.have.been.calledOnce
-      expect(cut.onInitApp).to.not.have.been.called
+      // then
+      expect(setItemSpy).to.not.have.been.called
     })
 
-    it('should call only next(action), onEndGame', () => {
+    // beating an old record
+    it('should call localStorage.setItem with the new bestScore', () => {
       // given
-      const store = {}
-      const next = spy()
-      const action = { type: 'guess positionWrong' }
+      const playState = {
+        mode: 'dual',
+        nBack: 2,
+        score: 50,
+        bestScore: { dual2: 25, simple1: 10 },
+      }
 
       // when
-      cut.toMiddleware()(store)(next)(action)
-
-      expect(next).to.have.been.calledWith(action)
-      expect(cut.onEndGame).to.have.been.calledOnce
-      expect(cut.onInitApp).to.not.have.been.called
+      cut.onEndGame(playState)
+      // then
+      expect(setItemSpy).to.have.been.calledWith('bestScore', JSON.stringify({ dual2: 50, simple1: 10 }))
     })
+
+    // first time playing a new configuration
+    it('should call localStorage.setItem with the new bestScore', () => {
+      // given
+      const playState = {
+        mode: 'simple',
+        nBack: 2,
+        score: 13,
+        bestScore: { dual2: 25, simple1: 10 },
+      }
+
+      // when
+      cut.onEndGame(playState)
+      // then
+      expect(setItemSpy).to.have.been.calledWith('bestScore', JSON.stringify({ dual2: 25, simple1: 10, simple2: 13 }))
+    })
+  })
+
+  testToMiddleware({
+    cut: new StorageMiddleware(),
+    methods: [
+      { methodName: 'onInitApp', actionType: 'init app' },
+      { methodName: 'onEndGame', actionType: 'guess colorWrong' },
+    ],
   })
 })
