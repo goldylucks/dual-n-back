@@ -77,9 +77,9 @@ module.exports = {
     var plugins = [
       new WebpackErrorNotificationPlugin(),
       new webpack.DefinePlugin({
+        __DEV__: JSON.stringify(!isProd),
         'process.env': {
           IS_WEB: JSON.stringify(true),
-          IS_DEV: JSON.stringify(true),
           NODE_ENV: JSON.stringify(ENV),
         },
       }),

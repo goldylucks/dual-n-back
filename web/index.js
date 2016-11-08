@@ -23,6 +23,6 @@ ReactDOM.render(
 store.dispatch(initApp())
 
 // DEBUG STUFF
-if (process.env.IS_DEV) {
+if (global.__DEV__) {
   global.store = store
 }
