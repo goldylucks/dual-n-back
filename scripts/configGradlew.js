@@ -34,6 +34,15 @@ replace({
   replacement: isDev ? '"' + appDevPackageName + '"' : '"' + appPackageName + '"',
 })
 
+// icon name
+replace({
+  paths: [
+    path.join(__dirname, '..', 'android/app/src/main/AndroidManifest.xml'),
+  ],
+  regex: isDev ? 'icon"' : 'icon_dev"',
+  replacement: !isDev ? 'icon"' : 'icon_dev"',
+})
+
 // Package name no quotes
 replace({
   paths: [
