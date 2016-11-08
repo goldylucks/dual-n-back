@@ -20,8 +20,10 @@ export default ({ methods, cut }) => {
       // then
       expect(next).to.have.been.calledWith(action)
       expect(next).to.have.been.calledOnce
-      expect(cut.onInitApp).to.not.have.been.called
-      expect(cut.onEndGame).to.not.have.been.called
+
+      methods.forEach(({ methodName, actionType }) => {
+        expect(cut[methodName]).to.not.have.been.called
+      })
     })
 
     methods.forEach(({ methodName, actionType }) => {

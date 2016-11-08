@@ -3,9 +3,18 @@ import { isColorMatch, isPositionMatch, missedAMatch } from '../utils'
 
 export default class PlayMiddleware {
 
-  constructor () {
-    this.interval
-    this.resetBoardTimeout
+  constructor ({
+    interval,
+    resetBoardTimeout,
+    isColorMatch: isColorMatch,
+    isPositionMatch: isPositionMatch,
+    missedAMatch: missedAMatch,
+  }) {
+    this.interval = interval
+    this.resetBoardTimeout = resetBoardTimeout
+    this.isColorMatch = isColorMatch
+    this.isPositionMatch = isPositionMatch
+    this.missedAMatch = missedAMatch
   }
 
   toMiddleware () {
@@ -29,13 +38,13 @@ export default class PlayMiddleware {
       }
 
       if (action.type === 'guess color') {
-        this.onGuessColor(store)
+        this.onGuessColor(store.getState().play, store.dispatch)
         next(action)
         return
       }
 
       if (action.type === 'guess position') {
-        this.onGuessPosition(store)
+        this.onGuessPosition(store.getState().play, store.dispatch)
         next(action)
         return
       }
@@ -47,21 +56,24 @@ export default class PlayMiddleware {
   onStartGame (store) {
     const { speed } = store.getState().play
     this.interval = setInterval(() => {
-      const { history, nBack, positionGuessed, colorGuessed } = store.getState().play
-      if (missedAMatch(history, nBack, positionGuessed, colorGuessed)) {
-        store.dispatch(missAMatch())
-        this.onEndGame()
-        return
-      }
-      store.dispatch(playInterval())
-      this.resetBoardTimeout = setTimeout(() => {
-        store.dispatch(resetBoard())
-      }, speed * 0.8)
+      this.onTick(store.getState().play, store.dispatch)
     }, speed)
   }
 
+  onTick ({ speed, history, nBack, positionGuessed, colorGuessed }, dispatch) {
+    if (this.missedAMatch(history, nBack, positionGuessed, colorGuessed)) {
+      dispatch(missAMatch())
+      this.endGame()
+      return
+    }
+    dispatch(playInterval())
+    this.resetBoardTimeout = setTimeout(() => {
+      dispatch(resetBoard())
+    }, speed * 0.8)
+  }
+
   onPauseGame () {
-    this.onEndGame()
+    this.resetTimers()
   }
 
   onResumeGame (store) {
@@ -69,29 +81,31 @@ export default class PlayMiddleware {
     this.onStartGame(store)
   }
 
-  onGuessColor (store) {
-    const { history, nBack } = store.getState().play
-    if (!isColorMatch(history, nBack)) {
-      store.dispatch(guessColorWrong())
-      this.onEndGame()
+  onGuessColor ({ history, nBack }, dispatch) {
+    if (!this.isColorMatch(history, nBack)) {
+      dispatch(guessColorWrong())
+      this.endGame()
       return
     }
 
-    store.dispatch(guessColorCorrect())
+    dispatch(guessColorCorrect())
   }
 
-  onGuessPosition (store) {
-    const { history, nBack } = store.getState().play
-    if (!isPositionMatch(history, nBack)) {
-      store.dispatch(guessPositionWrong())
-      this.onEndGame()
+  onGuessPosition ({ history, nBack }, dispatch) {
+    if (!this.isPositionMatch(history, nBack)) {
+      dispatch(guessPositionWrong())
+      this.endGame()
       return
     }
 
-    store.dispatch(guessPositionCorrect())
+    dispatch(guessPositionCorrect())
   }
 
-  onEndGame () {
+  endGame () {
+    this.resetTimers()
+  }
+
+  resetTimers () {
     clearInterval(this.interval)
     clearTimeout(this.resetBoardTimeout)
   }
