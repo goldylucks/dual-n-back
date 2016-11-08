@@ -1,15 +1,8 @@
 import { playInterval, missAMatch, resetBoard, guessColorCorrect, guessColorWrong, guessPositionCorrect, guessPositionWrong } from '../actions/play'
-import { isColorMatch, isPositionMatch, missedAMatch } from '../utils'
 
 export default class PlayMiddleware {
 
-  constructor ({
-    interval,
-    resetBoardTimeout,
-    isColorMatch: isColorMatch,
-    isPositionMatch: isPositionMatch,
-    missedAMatch: missedAMatch,
-  }) {
+  constructor ({ interval, resetBoardTimeout, isColorMatch, isPositionMatch, missedAMatch }) {
     this.interval = interval
     this.resetBoardTimeout = resetBoardTimeout
     this.isColorMatch = isColorMatch
