@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions'
+import { LOCATION_CHANGE } from 'react-router-redux'
 
 const initialState = {
   nBack: 2,
@@ -148,6 +149,24 @@ export default handleActions({
       activeSquareColor: '',
       score: 0,
       started: false,
+    }
+  },
+
+  [LOCATION_CHANGE] (state, action) {
+    if (action.payload.pathname.match(/home|play/)) {
+      return {
+        ...state,
+        started: false,
+        active: false,
+        gameOver: false,
+        colorGuessed: false,
+        positionGuessed: false,
+        // reset in c1ase an old game had highlighted square
+        history: [],
+        score: 0,
+        activeSquareColor: '',
+        activeSquareIdx: 0,
+      }
     }
   },
 
