@@ -1,15 +1,18 @@
 import Play from './play'
-import Logger from './logger'
+import createLogger from 'redux-logger'
 import Storage from './storage'
 import { isColorMatch, isPositionMatch, missedAMatch } from '../utils'
 
 export default function middlewares () {
-  const logger = new Logger()
+  const logger = createLogger({
+    collapsed: true,
+    predicate: () => __DEV__,
+  })
   const play = new Play({ isColorMatch, isPositionMatch, missedAMatch })
   const storage = new Storage()
 
   return [
-    logger.toMiddleware(),
+    logger,
     play.toMiddleware(),
     storage.toMiddleware(),
   ]
