@@ -88,11 +88,12 @@ describe('shared/middlewares/storage', () => {
 
       // when
       cut.onEndGame(playState)
+
       // then
       expect(setItemSpy).to.have.been.calledWith('bestScore', JSON.stringify({ dual2: 50, simple1: 10 }))
     })
 
-    // first time playing a new configuration
+    // first time playing a new mode+nBack configuration
     it('should call localStorage.setItem with the new bestScore', () => {
       // given
       const playState = {
@@ -104,6 +105,7 @@ describe('shared/middlewares/storage', () => {
 
       // when
       cut.onEndGame(playState)
+
       // then
       expect(setItemSpy).to.have.been.calledWith('bestScore', JSON.stringify({ dual2: 25, simple1: 10, simple2: 13 }))
     })

@@ -5,41 +5,44 @@ import { syncBestScore } from '../actions/play'
 
 export default class StorageMiddleware {
 
+  constructor (storage = AsyncStorage) {
+    this.AsyncStorage = storage
+  }
+
   toMiddleware () {
     return store => next => action => {
       if (action.type === 'init app') {
-        this.onInitApp(store)
+        this.onInitApp(store.dispatch)
       }
 
       if (action.type === 'guess colorWrong' || action.type === 'guess positionWrong') {
-        this.onEndGame(store)
+        this.onEndGame(store.getState().play)
       }
 
       next(action)
     }
   }
 
-  async onInitApp (store) {
+  async onInitApp (dispatch) {
     try {
-      const bestScore = await AsyncStorage.getItem('bestScore')
+      const bestScore = await this.AsyncStorage.getItem('bestScore')
       // initialize empty object on first run
       if (!bestScore) {
-        await AsyncStorage.setItem('bestScore', JSON.stringify({}))
+        await this.AsyncStorage.setItem('bestScore', JSON.stringify({}))
         return
       }
-      store.dispatch(syncBestScore(JSON.parse(bestScore)))
+      dispatch(syncBestScore(JSON.parse(bestScore)))
     } catch (err) {
       logger.warn('[StorageMiddleware] Error fetching bestScore:', err)
     }
   }
 
-  async onEndGame (store) {
-    const { bestScore, mode, nBack, score } = store.getState().play
+  async onEndGame ({ bestScore, mode, nBack, score }) {
     if (bestScore[mode + nBack] >= score) {
       return
     }
     try {
-      await AsyncStorage.mergeItem('bestScore', JSON.stringify({ [mode + nBack]: score }))
+      await this.AsyncStorage.mergeItem('bestScore', JSON.stringify({ [mode + nBack]: score }))
     } catch (err) {
       logger.warn('[StorageMIddleware] Error saving bestScore:', err)
     }
