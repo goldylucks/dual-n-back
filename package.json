@@ -5,8 +5,9 @@
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --open --hot --inline --progress --colors --port 3000",
     "appium": "appium",
-    "test": "mocha 'shared/**/*.spec.js' test/setup.spec.js",
-    "test:e2e": "mocha 'test/**/*.spec.js'",
+    "test": "mocha ./test/babel.js shared/**/*.spec.js test/setup.spec.js",
+    "test:native": "mocha --opts test/mocha.native.opts shared/**/*.nspec.js test/setup.spec.js",
+    "e2e": "mocha 'test/**/*.spec.js'",
     "apk": "./scripts/apk.sh",
     "lint": "eslint native shared web --ignore-path .gitignore",
     "startOld": "node node_modules/react-native/local-cli/cli.js start"
