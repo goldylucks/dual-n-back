@@ -1,4 +1,4 @@
-import testToMiddleware from './toMiddleware.spec.helper'
+import testToMiddleware from 'redux-middleware-test-helper'
 import { playInterval, missAMatch, resetBoard, guessColorCorrect, guessColorWrong, guessPositionCorrect, guessPositionWrong } from '../actions/play'
 import PlayMiddleware from './play'
 

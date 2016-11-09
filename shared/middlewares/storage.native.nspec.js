@@ -1,5 +1,5 @@
 import StorageNativeMiddleware from './storage.native'
-import testToMiddleware from './toMiddleware.spec.helper'
+import testToMiddleware from 'redux-middleware-test-helper'
 import { syncBestScore } from '../actions/play'
 
 describe('shared/middlewares/storage.native', () => {
