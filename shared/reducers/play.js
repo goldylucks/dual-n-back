@@ -153,20 +153,21 @@ export default handleActions({
   },
 
   [LOCATION_CHANGE] (state, action) {
-    if (action.payload.pathname.match(/home|play/)) {
-      return {
-        ...state,
-        started: false,
-        active: false,
-        gameOver: false,
-        colorGuessed: false,
-        positionGuessed: false,
-        // reset in c1ase an old game had highlighted square
-        history: [],
-        score: 0,
-        activeSquareColor: '',
-        activeSquareIdx: 0,
-      }
+    if (!action.payload.pathname.match(/home|play/)) {
+      return state
+    }
+    return {
+      ...state,
+      started: false,
+      active: false,
+      gameOver: false,
+      colorGuessed: false,
+      positionGuessed: false,
+      // reset in c1ase an old game had highlighted square
+      history: [],
+      score: 0,
+      activeSquareColor: '',
+      activeSquareIdx: 0,
     }
   },
 
