@@ -15,7 +15,7 @@ module.exports = {
     index: './index.js',
   },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'client-dist'),
     filename: '[name].js',
   },
   module: {
