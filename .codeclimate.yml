@@ -1,13 +1,16 @@
 engines:
-  rubocop:
+  markdownlint:
     enabled: true
-    #checks:
-    # Rubocop/Metrics/ClassLength:
-    #   enabled: false
-  brakeman:
+  shellcheck:
     enabled: true
-    #exclude_fingerprints:
-    #- 08c185b3f764f262539a1f76997d3a89
+  fixme:
+    enabled: true
+    config:
+      string:
+        - FIXME
+        - TODO
+        - todo
+        - Todo
   eslint:
     enabled: true
   csslint:
