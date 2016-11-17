@@ -13,11 +13,9 @@ engines:
   csslint:
     enabled: true
   duplication:
-    enabled: true
+    enabled: false
     config:
       languages:
-      - ruby
-        #mass_threshold: 30
       - javascript
 ratings:
   paths:
@@ -25,5 +23,5 @@ ratings:
   - shared/**
   - web/**
 exclude_paths:
-- *.spec.*
-- *.nspec.*
+- "**.spec.**"
+- "**.nspec.**"
