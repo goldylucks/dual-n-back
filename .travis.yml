@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - 'node'
+
+sudo: false
+branches:
+  only:
+  - master
+  - "/v\\d\\./"
+matrix:
+  include:
+  - env: SCRIPT=lint
+  - env: SCRIPT=test
+cache:
+  directories:
+  - node_modules
+script:
+- if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
