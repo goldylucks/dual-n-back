@@ -5,10 +5,7 @@ const initialState = {
   nBack: 2,
   speed: 2000,
   mode: 'dual',
-  gameOver: false,
-  started: false,
   status: 'idle',
-  active: false,
   activeSquareColor: '',
   positionGuessed: false,
   colorGuessed: false,
@@ -67,9 +64,7 @@ export default handleActions({
   'start game' (state, action) {
     return {
       ...state,
-      started: true,
-      active: true,
-      gameOver: false,
+      status: 'active',
       colorGuessed: false,
       positionGuessed: false,
       // reset in case an old game had highlighted square
@@ -108,7 +103,7 @@ export default handleActions({
   },
 
   'miss aMatch' (state, action) {
-    return onGameOver(state)
+    return gameOverState(state)
   },
 
   'guess colorCorrect' (state, action) {
@@ -123,7 +118,7 @@ export default handleActions({
   },
 
   'guess colorWrong' (state, action) {
-    return onGameOver(state)
+    return gameOverState(state)
   },
 
   'guess positionCorrect' (state, action) {
@@ -138,18 +133,7 @@ export default handleActions({
   },
 
   'guess positionWrong' (state, action) {
-    return onGameOver(state)
-  },
-
-  'route toHome' (state, action) {
-    return {
-      ...state,
-      gameOver: false,
-      activeSquareIdx: 0,
-      activeSquareColor: '',
-      score: 0,
-      started: false,
-    }
+    return gameOverState(state)
   },
 
   [LOCATION_CHANGE] (state, action) {
@@ -158,9 +142,7 @@ export default handleActions({
     }
     return {
       ...state,
-      started: false,
-      active: false,
-      gameOver: false,
+      status: 'idle',
       colorGuessed: false,
       positionGuessed: false,
       // reset in c1ase an old game had highlighted square
@@ -180,14 +162,13 @@ export default handleActions({
 
 }, initialState)
 
-function onGameOver (state) {
+function gameOverState (state) {
   const { bestScore, mode, nBack, score } = state
   bestScore[mode + nBack] = Math.max(score, bestScore[mode + nBack])
   return {
     ...state,
     bestScore,
-    active: false,
-    gameOver: true,
+    status: 'gameOver',
   }
 }
 

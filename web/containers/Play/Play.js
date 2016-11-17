@@ -14,7 +14,6 @@ import styles from './Play.css'
 class PlayContainer extends Component {
 
   static propTypes = {
-    gameOver: PropTypes.bool.isRequired,
     nBack: PropTypes.number.isRequired,
     mode: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
@@ -23,7 +22,6 @@ class PlayContainer extends Component {
     activeSquareColor: PropTypes.string.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
-    started: PropTypes.bool.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
       activeSquareColor: PropTypes.string.isRequired,
       activeSquareIdx: PropTypes.number.isRequired,
@@ -32,19 +30,18 @@ class PlayContainer extends Component {
       startGame: PropTypes.func.isRequired,
       pauseGame: PropTypes.func.isRequired,
       resumeGame: PropTypes.func.isRequired,
-      routeToHome: PropTypes.func.isRequired,
       guessColor: PropTypes.func.isRequired,
       guessPosition: PropTypes.func.isRequired,
     }).isRequired,
   }
 
   render () {
-    const { history, nBack, gameOver, activeSquareColor, activeSquareIdx } = this.props
+    const { history, nBack, status, activeSquareColor, activeSquareIdx } = this.props
     return (
       <div className={ styles.container }>
         { this.renderHeader() }
         <Board
-          gameOver={ gameOver }
+          status={ status }
           lastTurn={ history[history.length - 1] }
           nBackTurn={ history[history.length - 1 - nBack] }
           activeSquareColor={ activeSquareColor }
@@ -58,13 +55,13 @@ class PlayContainer extends Component {
   }
 
   renderHeader () {
-    const { gameOver, started, score } = this.props
-    if (!started) {
+    const { status, score } = this.props
+    if (status === 'idle') {
       return (
         <div onClick={ this.startGame } className={ styles.header }>Start</div>
       )
     }
-    if (gameOver) {
+    if (status === 'gameOver') {
       return (
         <div className={ styles.header }>
           <i className='fa fa-frown-o' />
@@ -92,7 +89,7 @@ class PlayContainer extends Component {
   }
 
   renderControls () {
-    if (this.props.gameOver) {
+    if (this.props.status === 'gameOver') {
       return
     }
     const isDualMode = this.props.mode === 'dual'
@@ -113,20 +110,20 @@ class PlayContainer extends Component {
   }
 
   renderGameOverControls () {
-    if (!this.props.gameOver) {
+    if (this.props.status !== 'gameOver') {
       return
     }
     return (
       <div className={ styles.gameOverControls }>
-        <Link to='/home' className={ styles.gameOverControl } onClick={ this.onMenuPress }>MENU</Link>
+        <Link to='/home' className={ styles.gameOverControl }>MENU</Link>
         <div className={ styles.gameOverControl } onClick={ this.startGame }>RETRY</div>
       </div>
     )
   }
 
   renderGameOverStats () {
-    const { mode, gameOver, score, nBack } = this.props
-    if (!gameOver) {
+    const { mode, status, score, nBack } = this.props
+    if (status !== 'gameOver') {
       return
     }
     return (
@@ -139,10 +136,6 @@ class PlayContainer extends Component {
 
   startGame = () => {
     this.props.actions.startGame()
-  }
-
-  onMenuPress = () => {
-    this.props.actions.routeToHome()
   }
 
   guessPosition = () => {
