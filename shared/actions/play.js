@@ -23,5 +23,4 @@ export const decrementN = createAction('decrement n')
 export const incrementSpeed = createAction('increment speed')
 export const decrementSpeed = createAction('decrement speed')
 
-export const routeToHome = createAction('route toHome')
 export const syncBestScore = createAction('sync bestScore')

@@ -14,7 +14,6 @@ import Board from '../../components/Board'
 class PlayPage extends Component {
 
   static propTypes = {
-    gameOver: PropTypes.bool.isRequired,
     nBack: PropTypes.number.isRequired,
     mode: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
@@ -22,14 +21,12 @@ class PlayPage extends Component {
     activeSquareIdx: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
     bestScore: PropTypes.object.isRequired,
-    started: PropTypes.bool.isRequired,
     routeToHome: PropTypes.func.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
       activeSquareColor: PropTypes.string.isRequired,
       activeSquareIdx: PropTypes.number.isRequired,
     })).isRequired,
     actions: PropTypes.shape({
-      routeToHome: PropTypes.func.isRequired,
       startGame: PropTypes.func.isRequired,
       pauseGame: PropTypes.func.isRequired,
       resumeGame: PropTypes.func.isRequired,
@@ -39,12 +36,12 @@ class PlayPage extends Component {
   }
 
   render () {
-    const { activeSquareColor, activeSquareIdx, gameOver, history, nBack } = this.props
+    const { activeSquareColor, activeSquareIdx, status, history, nBack } = this.props
     return (
       <View style={ styles.container }>
         { this.renderHeader() }
         <Board
-          gameOver={ gameOver }
+          status={ status }
           lastTurn={ history[history.length - 1] }
           nBackTurn={ history[history.length - 1 - nBack] }
           activeSquareColor={ activeSquareColor }
@@ -58,15 +55,15 @@ class PlayPage extends Component {
   }
 
   renderHeader () {
-    const { started, gameOver, score } = this.props
-    if (!started) {
+    const { status, score } = this.props
+    if (status === 'idle') {
       return (
         <View style={ styles.header }>
           <Text onPress={ this.startGame } style={ styles.headerText }>Start</Text>
         </View>
       )
     }
-    if (gameOver) {
+    if (status === 'active') {
       return (
         <View style={ styles.header }>
           <FaIcon style={ styles.headerGameOverIcon } name='frown-o' />
@@ -94,7 +91,7 @@ class PlayPage extends Component {
   }
 
   renderControls () {
-    if (this.props.gameOver) {
+    if (this.props.status === 'gameOver') {
       return
     }
     const isDualMode = this.props.mode === 'dual'
@@ -115,7 +112,7 @@ class PlayPage extends Component {
   }
 
   renderGameOverControls () {
-    if (!this.props.gameOver) {
+    if (this.props.status !== 'gameOver') {
       return
     }
     return (
@@ -127,8 +124,8 @@ class PlayPage extends Component {
   }
 
   renderGameOverStats () {
-    const { mode, gameOver, score, nBack } = this.props
-    if (!gameOver) {
+    const { mode, status, score, nBack } = this.props
+    if (status !== 'gameOver') {
       return
     }
     return (
@@ -159,7 +156,6 @@ class PlayPage extends Component {
   }
 
   onMenuPress = () => {
-    this.props.actions.routeToHome()
     this.props.routeToHome()
   }
 
