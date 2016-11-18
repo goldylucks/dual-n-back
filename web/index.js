@@ -2,6 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
 
+import './reset.css'
 import 'font-awesome-webpack'
 
 import middlewares from '../shared/middlewares'
