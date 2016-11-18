@@ -23,10 +23,7 @@ module.exports = {
       {
         test: /\.js$/,
         include: [/web/, /shared/],
-        loaders: isProd ? [getBabelLoader()] : [
-          'react-hot',
-          getBabelLoader(),
-        ],
+        loader: getBabelLoader(),
       },
       {
         test: /\.json$/,
@@ -109,5 +106,5 @@ module.exports = {
 
 // we load it here instead of a .babelrc file so react native won't be affected
 function getBabelLoader () {
-  return 'babel?presets[]=es2015,presets[]=stage-0,presets[]=react&plugins[]=transform-async-to-generator,plugins[]=transform-runtime'
+  return 'babel?presets[]=es2015,presets[]=stage-0,presets[]=react&plugins[]=react-hot-loader/babel,plugins[]=transform-async-to-generator,plugins[]=transform-runtime'
 }
