@@ -5,8 +5,9 @@ import Square from '../Square'
 export default class Board extends Component {
 
   static propTypes = {
-    activeSquareColor: PropTypes.string.isRequired,
+    nBack: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
+    activeSquareColor: PropTypes.string.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     lastTurn: PropTypes.shape({
       activeSquareColor: PropTypes.string.isRequired,
@@ -102,7 +103,7 @@ export default class Board extends Component {
   }
 
   renderOnLose (idx) {
-    const { status, lastTurn, nBackTurn } = this.props
+    const { nBack, status, lastTurn, nBackTurn } = this.props
     if (status !== 'gameOver') {
       return
     }
@@ -118,7 +119,7 @@ export default class Board extends Component {
     if (nBackTurn.activeSquareIdx === idx) {
       nBackTurnText = (
         <Text style={ { color: nBackTurn.activeSquareColor } }>
-          nBack turn
+          { nBack } turns back
         </Text>
       )
     }

@@ -49,6 +49,7 @@ class PlayContainer extends Component {
       <div className={ styles.container }>
         { this.renderHeader() }
         <Board
+          nBack={ nBack }
           status={ status }
           lastTurn={ history[history.length - 1] }
           nBackTurn={ history[history.length - 1 - nBack] }

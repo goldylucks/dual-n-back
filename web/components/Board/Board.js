@@ -6,6 +6,7 @@ import styles from './Board.css'
 export default class Board extends Component {
 
   static propTypes = {
+    nBack: PropTypes.number.isRequired,
     activeSquareColor: PropTypes.string.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
@@ -103,7 +104,7 @@ export default class Board extends Component {
   }
 
   renderOnLose (idx) {
-    const { status, lastTurn, nBackTurn } = this.props
+    const { nBack, status, lastTurn, nBackTurn } = this.props
     if (status !== 'gameOver') {
       return
     }
@@ -119,7 +120,7 @@ export default class Board extends Component {
     if (nBackTurn.activeSquareIdx === idx) {
       nBackTurnText = (
         <div style={ { color: nBackTurn.activeSquareColor } }>
-          nBack turn
+          { nBack } turns ago
         </div>
       )
     }

@@ -41,6 +41,7 @@ class PlayPage extends Component {
       <View style={ styles.container }>
         { this.renderHeader() }
         <Board
+          nBack={ nBack }
           status={ status }
           lastTurn={ history[history.length - 1] }
           nBackTurn={ history[history.length - 1 - nBack] }
