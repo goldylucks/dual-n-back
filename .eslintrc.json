@@ -11,7 +11,8 @@
     "spy": true,
     "stub": true,
     "dispatch": true,
-    "localStorage": true
+    "localStorage": true,
+    "SHOUT": true
   },
   "rules": {
     "no-return-assign": 0,

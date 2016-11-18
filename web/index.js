@@ -21,8 +21,6 @@ ReactDOM.render(
 )
 
 store.dispatch(initApp())
-
-// DEBUG STUFF
-if (global.__DEV__) {
-  global.store = store
+if (__DEV__) {
+  require('../shared/utils/dev')(store)
 }

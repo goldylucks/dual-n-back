@@ -1,3 +1,7 @@
+const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent
+if (isDebuggingInChrome) {
+  require('../shared/utils/dev')
+}
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 
@@ -24,7 +28,6 @@ store.dispatch(initApp())
 
 // DEBUG STUFF
 // TODO [AdGo] - move to own file
-const isDebuggingInChrome = global.__DEV__ && !!window.navigator.userAgent
 
 if (isDebuggingInChrome) {
   global.store = store
