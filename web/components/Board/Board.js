@@ -120,7 +120,7 @@ export default class Board extends Component {
     if (nBackTurn.activeSquareIdx === idx) {
       nBackTurnText = (
         <div style={ { color: nBackTurn.activeSquareColor } }>
-          { nBack } turns ago
+          { nBack } { nBack === 1 ? 'turn ' : 'turns' } ago
         </div>
       )
     }
