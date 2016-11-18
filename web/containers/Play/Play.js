@@ -147,10 +147,16 @@ class PlayContainer extends Component {
   }
 
   guessPosition = () => {
+    if (this.isGuessDisabled()) {
+      return
+    }
     this.props.actions.guessPosition()
   }
 
   guessColor = () => {
+    if (this.isGuessDisabled()) {
+      return
+    }
     this.props.actions.guessColor()
   }
 
@@ -177,6 +183,11 @@ class PlayContainer extends Component {
       this.guessColor()
       return
     }
+  }
+
+  isGuessDisabled () {
+    const { history, nBack } = this.props
+    return history.length - 1 < nBack
   }
 
 }
