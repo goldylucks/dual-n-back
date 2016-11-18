@@ -35,6 +35,14 @@ class PlayContainer extends Component {
     }).isRequired,
   }
 
+  componentDidMount () {
+    document.addEventListener('keypress', this.onKeyPress)
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('keypress', this.onKeyPress)
+  }
+
   render () {
     const { history, nBack, status, activeSquareColor, activeSquareIdx } = this.props
     return (
@@ -157,6 +165,18 @@ class PlayContainer extends Component {
 
   onResume = () => {
     this.props.actions.resumeGame()
+  }
+
+  onKeyPress = ({ keyCode }) => {
+    // 112 = p, 99 = c
+    if (keyCode === 112) {
+      this.guessPosition()
+      return
+    }
+    if (keyCode === 99) {
+      this.guessColor()
+      return
+    }
   }
 
 }
