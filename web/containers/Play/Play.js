@@ -67,7 +67,7 @@ class PlayContainer extends Component {
     const { status, score } = this.props
     if (status === 'idle') {
       return (
-        <div onClick={ this.startGame } className={ styles.header }>Start</div>
+        <a onClick={ this.startGame } className={ styles.header }>Start</a>
       )
     }
     if (status === 'gameOver') {
