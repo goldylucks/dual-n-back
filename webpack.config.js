@@ -1,10 +1,12 @@
 var rucksack = require('rucksack-css')
 var webpack = require('webpack')
 var path = require('path')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 var ENV = process.env.NODE_ENV || 'development'
 var isProd = ENV === 'production'
 var WebpackErrorNotificationPlugin = require('webpack-error-notification')
+var FB_ID = process.env.FB_ID || '329879750722396'
 
 module.exports = {
   debug: !isProd,
@@ -74,6 +76,7 @@ module.exports = {
     var plugins = [
       new WebpackErrorNotificationPlugin(),
       new webpack.DefinePlugin({
+        FB_ID: JSON.stringify(FB_ID),
         __DEV__: JSON.stringify(!isProd),
         'process.env': {
           IS_WEB: JSON.stringify(true),
@@ -83,6 +86,15 @@ module.exports = {
     ]
 
     if (isProd) {
+      plugins.push(new CopyWebpackPlugin([
+        { from: './android*', to: './' },
+        { from: './apple-touch-icon.png', to: './' },
+        { from: './browserconfig.xml', to: './' },
+        { from: './favicon*', to: './' },
+        { from: './manifest.json', to: './' },
+        { from: './mstile-150x150.png', to: './' },
+        { from: './safari-pinned-tab.svg', to: './' },
+      ]))
       plugins.push(new webpack.optimize.OccurrenceOrderPlugin(false))
       plugins.push(new webpack.optimize.DedupePlugin())
       plugins.push(new webpack.optimize.UglifyJsPlugin({
