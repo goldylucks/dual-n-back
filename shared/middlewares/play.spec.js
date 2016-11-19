@@ -2,7 +2,7 @@ import testToMiddleware from 'redux-middleware-test-helper'
 import { playInterval, missAMatch, resetBoard, guessColorCorrect, guessColorWrong, guessPositionCorrect, guessPositionWrong } from '../actions/play'
 import PlayMiddleware from './play'
 
-describe.only('shared/middlewares/play', () => {
+describe('shared/middlewares/play', () => {
   let cut
 
   beforeEach('mock cut', () => {

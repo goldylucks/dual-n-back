@@ -1,6 +1,7 @@
 import Play from './play'
 import createLogger from 'redux-logger'
 import Storage from './storage'
+import Auth from './auth'
 import { isColorMatch, isPositionMatch, missedAMatch } from '../utils'
 
 export default function middlewares () {
@@ -10,10 +11,12 @@ export default function middlewares () {
   })
   const play = new Play({ isColorMatch, isPositionMatch, missedAMatch })
   const storage = new Storage()
+  const auth = new Auth()
 
   return [
     logger,
     play.toMiddleware(),
     storage.toMiddleware(),
+    auth.toMiddleware(),
   ]
 }

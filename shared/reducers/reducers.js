@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 
 import play from './play'
+import auth from './auth'
 
 const reducers = {
   play,
+  auth,
 }
 
 if (process.env.IS_WEB) {

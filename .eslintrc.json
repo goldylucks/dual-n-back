@@ -12,6 +12,7 @@
     "stub": true,
     "dispatch": true,
     "localStorage": true,
+    "FB_ID": true,
     "SHOUT": true
   },
   "rules": {

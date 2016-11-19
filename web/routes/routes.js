@@ -8,6 +8,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import AppContainer from '../containers/App'
 import HomeContainer from '../containers/Home'
 import PlayContainer from '../containers/Play'
+import AuthContainer from '../containers/Auth'
 
 const routerHistory = useRouterHistory(createHashHistory)()
 
@@ -25,6 +26,7 @@ export default class Routes extends Component {
           <IndexRedirect to='home' />
           <Route path={ 'home' } component={ HomeContainer } />
           <Route path={ 'play' } component={ PlayContainer } />
+          <Route path={ 'auth' } component={ AuthContainer } />
         </Route>
       </Router>
     )

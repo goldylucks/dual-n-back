@@ -2,20 +2,27 @@ const mongoose = require('mongoose')
 require('mongoose-type-email')
 const bcrypt = require('bcryptjs')
 const Schema = mongoose.Schema
+const uniqueValidator = require('mongoose-unique-validator')
 
 const UsersSchema = getSchema()
 
 UsersSchema.pre('save', preSave)
+UsersSchema.plugin(uniqueValidator, { message: 'User with that email already exists' })
 
 module.exports = mongoose.model('users', UsersSchema)
 
 function getSchema () {
   return new Schema({
 
-    name: String,
+    name: {
+      type: String,
+      required: true,
+      min: 2,
+    },
 
     email: {
       type: mongoose.SchemaTypes.Email,
+      unique: true,
       required: true,
     },
 

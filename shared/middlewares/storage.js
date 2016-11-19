@@ -1,26 +1,48 @@
 import { syncBestScore } from '../actions/play'
+import { syncUser } from '../actions/auth'
 
 export default class StorageMiddleware {
 
   toMiddleware () {
     return store => next => action => {
       if (action.type === 'init app') {
-        this.onInitApp(store.dispatch)
+        this.syncUser(store.dispatch)
+        this.syncBestScore(store.dispatch)
+        next(action)
+        return
       }
 
       if (action.type === 'guess colorWrong' || action.type === 'guess positionWrong') {
         this.onEndGame(store.getState().play)
+        next(action)
+        return
+      }
+
+      if (action.type === 'facebook authSuccess') {
+        this.onAuthSuccess(action.payload)
+        next(action)
+        return
       }
 
       next(action)
     }
   }
 
-  onInitApp (dispatch) {
-    const bestScore = global.localStorage.getItem('bestScore')
+  syncUser (dispatch) {
+    const user = localStorage.getItem('user')
+    // initialize empty object on first run
+    if (!user) {
+      localStorage.setItem('user', '{}')
+      return
+    }
+    dispatch(syncUser(JSON.parse(user)))
+  }
+
+  syncBestScore (dispatch) {
+    const bestScore = localStorage.getItem('bestScore')
     // initialize empty object on first run
     if (!bestScore) {
-      global.localStorage.setItem('bestScore', '{}')
+      localStorage.setItem('bestScore', '{}')
       return
     }
     dispatch(syncBestScore(JSON.parse(bestScore)))
@@ -31,7 +53,11 @@ export default class StorageMiddleware {
       return
     }
     bestScore[mode + nBack] = score
-    global.localStorage.setItem('bestScore', JSON.stringify(bestScore))
+    localStorage.setItem('bestScore', JSON.stringify(bestScore))
+  }
+
+  onAuthSuccess (user) {
+    localStorage.setItem('user', JSON.stringify(user))
   }
 
 }

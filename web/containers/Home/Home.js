@@ -14,6 +14,7 @@ class HomePage extends Component {
     nBack: PropTypes.number.isRequired,
     speed: PropTypes.number.isRequired,
     bestScore: PropTypes.object.isRequired,
+    user: PropTypes.object,
     actions: PropTypes.shape({
       toggleMode: PropTypes.func.isRequired,
       incrementN: PropTypes.func.isRequired,
@@ -62,6 +63,7 @@ class HomePage extends Component {
           </div>
         </div>
         <div className={ styles.play }>
+          { this.renderLogin() }
           <Link to={ '/play' }>
             <i className={ [styles.playIcon, 'fa fa-play-circle'].join(' ') } />
           </Link>
@@ -70,6 +72,17 @@ class HomePage extends Component {
           BEST SCORE: { this.getBestScore() }
         </div>
       </div>
+    )
+  }
+
+  renderLogin () {
+    if (this.props.user.name) {
+      return
+    }
+    return (
+      <Link to={ '/auth' } className={ styles.auth }>
+        <i className={ [styles.authIcon, 'fa fa-sign-in'].join(' ') } />
+      </Link>
     )
   }
 
@@ -101,7 +114,10 @@ class HomePage extends Component {
 }
 
 function mapStateToProps (state) {
-  return state.play
+  return {
+    ...state.play,
+    user: state.auth.user,
+  }
 }
 
 function mapDispatchToProps (dispatch) {

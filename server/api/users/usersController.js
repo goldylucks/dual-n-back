@@ -34,13 +34,12 @@ function login (req, res, next) {
     .then(user => {
       if (!user || !bcrypt.compareSync(password, user.password)) {
         throw new CustomError('custom error', {
-          code: 404,
+          code: 400,
         })('user with that email does not exist or password is incorrect')
       }
       return user
     })
     .then(user => {
-      console.log('user', user)
       user = user.toObject()
       delete user.password
       user.token = service.signToken(user._id)
@@ -58,6 +57,13 @@ function post (req, res, next) {
       delete user.password
       user.token = service.signToken(user._id)
       res.status(201).json(user)
+    })
+    .catch(err => {
+      if (err.errors && err.errors.email && err.errors.email.message) {
+        throw new CustomError('custom error', {
+          code: 400,
+        })('User with that email already exists')
+      }
     })
     .catch(next)
 }
@@ -90,6 +96,9 @@ function fbAuth (req, res, next) {
     userId = user._id
   })
   .catch(next)
+  // client get the user object response
+  // exchange client token for long term server token behind the scenes
+  // and save it on user collection
   .then(() => {
     return axios.get(`https://graph.facebook.com/oauth/access_token?client_id=${config.fbId}&client_secret=${config.fbSecret}&grant_type=fb_exchange_token&fb_exchange_token=${fbClientAccessToken}`)
   })
