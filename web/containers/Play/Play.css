@@ -11,7 +11,7 @@
   flex: 0.2;
   display: flex;
   text-align: center;
-  font-size: 40;
+  font-size: 40px;
   background-color: gray;
   align-items: center;
   justify-content: center;
@@ -32,7 +32,7 @@
 }
 
 .firstControl {
-  margin-right: 2;
+  margin-right: 2px;
 }
 
 .control {
@@ -45,7 +45,7 @@
 }
 
 .controlIcon {
-  font-size: 45;
+  font-size: 45px;
   color: white;
 }
 
@@ -59,10 +59,10 @@
 }
 
 .gameOverControl {
-  font-size: 25;
+  font-size: 25px;
   flex: 1;
   justify-content: center;
-  padding: 10;
+  padding: 10px;
   background-color: gray;
   color: black;
   display: flex;

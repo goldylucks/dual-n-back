@@ -1,5 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: #eee;
+  font-family: 'sans-serif';
 }
 
 .container {
