@@ -69,20 +69,3 @@
 .actions {
   margin-top: 30px;
 }
-
-.actions button {
-  border: 1px solid rgb(30, 30, 30);
-  background: rgb(0, 100, 255);
-  color: #fff;
-  border-radius: 3px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  width: 100%;
-  cursor: pointer;
-  transition: .5s;
-}
-
-.actions button:hover {
-  background: #fff;
-  color: rgb(0, 100, 255);
-}

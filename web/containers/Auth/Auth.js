@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { Link } from 'react-router'
 import FacebookLogin from 'react-facebook-login'
 
+import Button from '../../components/Button'
 import * as actions from '../../../shared/actions/auth'
 import * as utils from '../../../shared/utils'
 
@@ -104,7 +105,6 @@ class AuthContainer extends Component {
         }
         <div className={ styles.error }>{ serverError }</div>
         <div className={ styles.actions }>
-          { isProcessing ? 'Processing ...' : '' }
           { this.renderActions() }
         </div>
       </form>
@@ -114,9 +114,9 @@ class AuthContainer extends Component {
   renderActions () {
     const { isProcessing, mode } = this.props
     if (mode === 'signup') {
-      return <button onClick={ this.signup } disabled={ isProcessing } type='button'>Signup</button>
+      return <Button onClick={ this.signup } isProcessing={ isProcessing }>Signup</Button>
     }
-    return <button onClick={ this.login } disabled={ isProcessing } type='button'>Login</button>
+    return <Button onClick={ this.login } isProcessing={ isProcessing }>Login</Button>
   }
 
   toggleAuthMode = () => {
