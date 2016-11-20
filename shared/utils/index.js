@@ -14,9 +14,15 @@ export function isPositionMatch (history, nBack) {
   return history[history.length - 1 - nBack].activeSquareIdx === history[history.length - 1].activeSquareIdx
 }
 
-export function missedAMatch (history, nBack, positionGuessed, colorGuessed) {
+export function isAudioMatch (history, nBack) {
+  return history[history.length - 1 - nBack].activeAudioLetter === history[history.length - 1].activeAudioLetter
+}
+
+export function missedAMatch (history, nBack, positionGuessed, colorGuessed, audioGuessed) {
   if (history.length - 1 < nBack) {
     return false
   }
-  return (isPositionMatch(history, nBack) && !positionGuessed) || (isColorMatch(history, nBack) && !colorGuessed)
+  return (isPositionMatch(history, nBack) && !positionGuessed) ||
+    (isColorMatch(history, nBack) && !colorGuessed) ||
+    (isAudioMatch(history, nBack) && !audioGuessed)
 }

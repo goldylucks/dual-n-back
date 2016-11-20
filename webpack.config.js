@@ -50,7 +50,7 @@ module.exports = {
         loader: 'style!css',
       },
       {
-        test: /\.(png|jpg|)$/,
+        test: /\.(png|jpg|wav)$/,
         loader: 'file',
       },
       {

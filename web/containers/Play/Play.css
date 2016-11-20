@@ -25,14 +25,15 @@
   color: #fff;
 }
 
+.gameOverAudio {
+  display: flex;
+  justify-content: space-between;
+}
+
 .controls {
   display: flex;
   flex: 0.2;
   flex-direction: row;
-}
-
-.firstControl {
-  margin-right: 2px;
 }
 
 .control {
@@ -42,6 +43,10 @@
   justify-content: center;
   background-color: green;
   padding: 10px;
+}
+
+.control:nth-child(n+2) {
+  margin-left: 1px;
 }
 
 .controlIcon {

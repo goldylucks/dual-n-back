@@ -2,11 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router'
-
-import { capitalize, renderIf } from '../../../shared/utils'
-
+import Sound from 'react-sound'
+import _ from 'lodash'
+import mPath from '../../../shared/assets/M.wav'
+import qPath from '../../../shared/assets/Q.wav'
+import rPath from '../../../shared/assets/R.wav'
+import * as utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
-
 import Board from '../../components/Board'
 
 import styles from './Play.css'
@@ -15,15 +17,17 @@ class PlayContainer extends Component {
 
   static propTypes = {
     nBack: PropTypes.number.isRequired,
-    mode: PropTypes.string.isRequired,
+    mode: PropTypes.object.isRequired,
     status: PropTypes.string.isRequired,
     colors: PropTypes.arrayOf(PropTypes.string).isRequired,
     bestScore: PropTypes.object.isRequired,
+    activeAudioLetter: PropTypes.string.isRequired,
     activeSquareColor: PropTypes.string.isRequired,
     activeSquareIdx: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
       activeSquareColor: PropTypes.string.isRequired,
+      activeAudioLetter: PropTypes.string.isRequired,
       activeSquareIdx: PropTypes.number.isRequired,
     })).isRequired,
     actions: PropTypes.shape({
@@ -32,6 +36,7 @@ class PlayContainer extends Component {
       resumeGame: PropTypes.func.isRequired,
       guessColor: PropTypes.func.isRequired,
       guessPosition: PropTypes.func.isRequired,
+      guessAudio: PropTypes.func.isRequired,
     }).isRequired,
   }
 
@@ -44,21 +49,15 @@ class PlayContainer extends Component {
   }
 
   render () {
-    const { history, nBack, status, activeSquareColor, activeSquareIdx } = this.props
     return (
       <div className={ styles.container }>
         { this.renderHeader() }
-        <Board
-          nBack={ nBack }
-          status={ status }
-          lastTurn={ history[history.length - 1] }
-          nBackTurn={ history[history.length - 1 - nBack] }
-          activeSquareColor={ activeSquareColor }
-          activeSquareIdx={ activeSquareIdx }
-        />
+        { this.renderGameOverAudio() }
+        { this.renderBoard() }
         { this.renderControls() }
         { this.renderGameOverControls() }
         { this.renderGameOverStats() }
+        { this.renderSound() }
       </div>
     )
   }
@@ -85,6 +84,39 @@ class PlayContainer extends Component {
     )
   }
 
+  renderGameOverAudio () {
+    const { mode, status, nBack, history } = this.props
+    if (!mode.audio || status !== 'gameOver') {
+      return
+    }
+    return (
+      <div className={ styles.gameOverAudio }>
+        <span>{ nBack } ago</span>
+        <i className='fa fa-long-arrow-right' />
+        <span>{ _.last(history).activeAudioLetter }/{ _.nth(history, -nBack - 1).activeAudioLetter }</span>
+        <i className='fa fa-long-arrow-left' />
+        <span>last</span>
+      </div>
+    )
+  }
+
+  renderBoard () {
+    const { mode, history, nBack, status, activeSquareColor, activeSquareIdx } = this.props
+    if (!mode.color && !mode.position) {
+      return
+    }
+    return (
+      <Board
+        nBack={ nBack }
+        status={ status }
+        lastTurn={ history[history.length - 1] }
+        nBackTurn={ history[history.length - 1 - nBack] }
+        activeSquareColor={ activeSquareColor }
+        activeSquareIdx={ activeSquareIdx }
+      />
+    )
+  }
+
   renderPauseResume () {
     if (this.props.status === 'paused') {
       return (
@@ -101,16 +133,27 @@ class PlayContainer extends Component {
     if (this.props.status === 'gameOver') {
       return
     }
-    const isDualMode = this.props.mode === 'dual'
+    const { color, position, audio } = this.props.mode
     return (
       <div className={ styles.controls }>
-        <div className={ [styles.control, styles.firstControl].join(' ') } onClick={ this.guessPosition }>
-          <i className={ ['fa fa-th', styles.controlIcon].join(' ') } />
-        </div>
         {
-          renderIf(isDualMode)(
+          utils.renderIf(position)(
+            <div className={ styles.control } onClick={ this.guessPosition }>
+              <i className={ ['fa fa-th', styles.controlIcon].join(' ') } />
+            </div>
+          )
+        }
+        {
+          utils.renderIf(color)(
             <div className={ styles.control } onClick={ this.guessColor }>
               <i className={ ['fa fa-paint-brush', styles.controlIcon].join(' ') } />
+            </div>
+          )
+        }
+        {
+          utils.renderIf(audio)(
+            <div className={ styles.control } onClick={ this.guessAudio }>
+              <i className={ ['fa fa-headphones', styles.controlIcon].join(' ') } />
             </div>
           )
         }
@@ -131,14 +174,37 @@ class PlayContainer extends Component {
   }
 
   renderGameOverStats () {
-    const { mode, status, score, nBack } = this.props
+    const { status, score, nBack } = this.props
     if (status !== 'gameOver') {
       return
     }
     return (
       <div>
-        <div className={ styles.gameOverMode }>{ capitalize(mode) } { nBack }-Back </div>
+        <div className={ styles.gameOverMode }>{ nBack }-Back </div>
         Score / Best Score: <span className={ styles.strong }>{ score }/{ this.getBestScore() }</span>
+      </div>
+    )
+  }
+
+  renderSound () {
+    const { mode, activeAudioLetter } = this.props
+    if (!mode.audio) {
+      return
+    }
+    return (
+      <div>
+        <Sound
+          url={ mPath }
+          playStatus={ activeAudioLetter === 'M' ? Sound.status.PLAYING : 'STOPPED' }
+        />
+        <Sound
+          url={ qPath }
+          playStatus={ activeAudioLetter === 'Q' ? Sound.status.PLAYING : 'STOPPED' }
+        />
+        <Sound
+          url={ rPath }
+          playStatus={ activeAudioLetter === 'R' ? Sound.status.PLAYING : 'STOPPED' }
+        />
       </div>
     )
   }
@@ -161,6 +227,13 @@ class PlayContainer extends Component {
     this.props.actions.guessColor()
   }
 
+  guessAudio = () => {
+    if (this.isGuessDisabled()) {
+      return
+    }
+    this.props.actions.guessAudio()
+  }
+
   getBestScore () {
     const { mode, bestScore, nBack } = this.props
     return bestScore[mode + nBack] || 0
@@ -175,13 +248,20 @@ class PlayContainer extends Component {
   }
 
   onKeyPress = ({ keyCode }) => {
-    // 112 = p, 99 = c
-    if (keyCode === 112) {
+    if (keyCode === 112) { // p
       this.guessPosition()
       return
     }
-    if (keyCode === 99) {
+    if (keyCode === 99) { // c
       this.guessColor()
+      return
+    }
+    if (keyCode === 97) { // a
+      this.guessAudio()
+      return
+    }
+    if (keyCode === 114 && this.props.status === 'gameOver') { // r
+      this.startGame()
       return
     }
   }

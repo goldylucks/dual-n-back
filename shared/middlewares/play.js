@@ -1,12 +1,13 @@
-import { playInterval, missAMatch, resetBoard, guessColorCorrect, guessColorWrong, guessPositionCorrect, guessPositionWrong } from '../actions/play'
+import { playInterval, missAMatch, resetBoard, guessColorCorrect, guessColorWrong, guessPositionCorrect, guessPositionWrong, guessAudioCorrect, guessAudioWrong } from '../actions/play'
 
 export default class PlayMiddleware {
 
-  constructor ({ interval, resetBoardTimeout, isColorMatch, isPositionMatch, missedAMatch }) {
+  constructor ({ interval, resetBoardTimeout, isColorMatch, isPositionMatch, isAudioMatch, missedAMatch }) {
     this.interval = interval
     this.resetBoardTimeout = resetBoardTimeout
     this.isColorMatch = isColorMatch
     this.isPositionMatch = isPositionMatch
+    this.isAudioMatch = isAudioMatch
     this.missedAMatch = missedAMatch
   }
 
@@ -42,6 +43,12 @@ export default class PlayMiddleware {
         return
       }
 
+      if (action.type === 'guess audio') {
+        this.onGuessAudio(store.getState().play, store.dispatch)
+        next(action)
+        return
+      }
+
       next(action)
     }
   }
@@ -53,8 +60,8 @@ export default class PlayMiddleware {
     }, speed)
   }
 
-  onTick ({ speed, history, nBack, positionGuessed, colorGuessed }, dispatch) {
-    if (this.missedAMatch(history, nBack, positionGuessed, colorGuessed)) {
+  onTick ({ speed, history, nBack, positionGuessed, colorGuessed, audioGuessed }, dispatch) {
+    if (this.missedAMatch(history, nBack, positionGuessed, colorGuessed, audioGuessed)) {
       dispatch(missAMatch())
       this.endGame()
       return
@@ -92,6 +99,16 @@ export default class PlayMiddleware {
     }
 
     dispatch(guessPositionCorrect())
+  }
+
+  onGuessAudio ({ history, nBack }, dispatch) {
+    if (!this.isAudioMatch(history, nBack)) {
+      dispatch(guessAudioWrong())
+      this.endGame()
+      return
+    }
+
+    dispatch(guessAudioCorrect())
   }
 
   endGame () {

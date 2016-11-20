@@ -10,7 +10,7 @@ import styles from './Home.css'
 class HomePage extends Component {
 
   static propTypes = {
-    mode: PropTypes.string.isRequired,
+    mode: PropTypes.object.isRequired,
     nBack: PropTypes.number.isRequired,
     speed: PropTypes.number.isRequired,
     bestScore: PropTypes.object.isRequired,
@@ -29,16 +29,10 @@ class HomePage extends Component {
     return (
       <div className={ styles.container }>
         <div className={ styles.headline }>MEMORY N-BACK</div>
-        <div className={ styles.settings }>
-          <div className={ styles.leftSetting }>
-            <i onClick={ this.toggleMode } className={ [styles.leftSettingIcon, 'fa fa-caret-left'].join(' ') } />
-          </div>
-          <div className={ styles.middleSetting }>
-            <div className={ styles.middleSettingText }>{ mode }</div>
-          </div>
-          <div className={ styles.rightSetting }>
-            <i onClick={ this.toggleMode } className={ [styles.rightSettingIcon, 'fa fa-caret-right'].join(' ') } />
-          </div>
+        <div className={ `${styles.settings} ${styles.mode}` }>
+          <i onClick={ this.toggleMode.bind(this, 'position') } className={ `fa fa-th ${mode.position ? styles.active : ''}` } />
+          <i onClick={ this.toggleMode.bind(this, 'audio') } className={ `fa fa-headphones ${mode.audio ? styles.active : ''}` } />
+          <i onClick={ this.toggleMode.bind(this, 'color') } className={ `fa fa-paint-brush ${mode.color ? styles.active : ''}` } />
         </div>
         <div className={ styles.settings }>
           <div className={ styles.leftSetting }>
@@ -86,8 +80,8 @@ class HomePage extends Component {
     )
   }
 
-  toggleMode = evt => {
-    this.props.actions.toggleMode()
+  toggleMode = mode => {
+    this.props.actions.toggleMode(mode)
   }
 
   incrementN = evt => {

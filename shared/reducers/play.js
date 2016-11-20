@@ -1,16 +1,25 @@
 import { handleActions } from 'redux-actions'
 import { LOCATION_CHANGE } from 'react-router-redux'
+import _ from 'lodash'
 
 const initialState = {
-  nBack: 2,
+  nBack: 1,
   speed: 2000,
-  mode: 'dual',
+  mode: {
+    audio: true,
+    position: true,
+    color: true,
+  },
   status: 'idle',
   activeSquareColor: '',
+  activeAudioLetter: '',
+  activeSquareIdx: 0,
   positionGuessed: false,
   colorGuessed: false,
-  activeSquareIdx: 0,
+  audioGuessed: false,
+  idxs: [1, 2, 3, 4, 5, 6, 7, 8, 9],
   colors: ['red', 'purple', 'yellow'],
+  letters: ['M', 'Q', 'R'],
   history: [],
   bestScore: {},
   score: 0,
@@ -47,9 +56,11 @@ export default handleActions({
   },
 
   'toggle mode' (state, action) {
+    const { mode } = state
+    mode[action.payload] = !mode[action.payload]
     return {
       ...state,
-      mode: state.mode === 'dual' ? 'simple' : 'dual',
+      mode: Object.assign({}, mode),
     }
   },
 
@@ -57,6 +68,7 @@ export default handleActions({
     return {
       ...state,
       activeSquareColor: '',
+      activeAudioLetter: '',
       activeSquareIdx: 0,
     }
   },
@@ -67,10 +79,12 @@ export default handleActions({
       status: 'active',
       colorGuessed: false,
       positionGuessed: false,
+      audioGuessed: false,
       // reset in case an old game had highlighted square
       history: [],
       score: 0,
       activeSquareColor: '',
+      activeAudioLetter: '',
       activeSquareIdx: 0,
     }
   },
@@ -90,15 +104,25 @@ export default handleActions({
   },
 
   'play interval' (state, action) {
-    const activeSquareColor = state.mode === 'dual' ? randomizeActiveSquareColor(state.colors) : state.colors[0]
-    const activeSquareIdx = randomizeActiveSquareIdx()
+    const turn = {}
+    if (state.mode.color) {
+      turn.activeSquareColor = _.sample(state.colors)
+    }
+    if (state.mode.position) {
+      turn.activeSquareIdx = _.sample(state.idxs)
+    }
+    if (state.mode.audio) {
+      turn.activeAudioLetter = _.sample(state.letters)
+    }
     return {
       ...state,
-      activeSquareColor,
-      activeSquareIdx,
+      activeSquareColor: turn.activeSquareColor,
+      activeSquareIdx: turn.activeSquareIdx,
+      activeAudioLetter: turn.activeAudioLetter,
       positionGuessed: false,
       colorGuessed: false,
-      history: state.history.concat({ activeSquareIdx, activeSquareColor }),
+      audioGuessed: false,
+      history: state.history.concat(turn),
     }
   },
 
@@ -136,6 +160,21 @@ export default handleActions({
     return gameOverState(state)
   },
 
+  'guess audioCorrect' (state, action) {
+    if (state.audioGuessed) {
+      return state
+    }
+    return {
+      ...state,
+      audioGuessed: true,
+      score: state.score + 1,
+    }
+  },
+
+  'guess audioWrong' (state, action) {
+    return gameOverState(state)
+  },
+
   [LOCATION_CHANGE] (state, action) {
     if (!action.payload.pathname.match(/home|play/)) {
       return state
@@ -145,10 +184,12 @@ export default handleActions({
       status: 'idle',
       colorGuessed: false,
       positionGuessed: false,
+      audioGuessed: false,
       // reset in c1ase an old game had highlighted square
       history: [],
       score: 0,
       activeSquareColor: '',
+      activeAudioLetter: '',
       activeSquareIdx: 0,
     }
   },
@@ -171,12 +212,3 @@ function gameOverState (state) {
     status: 'gameOver',
   }
 }
-
-function randomizeActiveSquareColor (colors) {
-  return colors[Math.floor(Math.random() * colors.length)]
-}
-
-function randomizeActiveSquareIdx () {
-  return Math.ceil(Math.random() * 9)
-}
-
