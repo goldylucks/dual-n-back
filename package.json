@@ -33,7 +33,7 @@
     "mongoose-unique-validator": "^1.0.2",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
-    "react-facebook-login": "^3.4.0",
+    "react-facebook-login": "git://github.com/goldylucks/react-facebook-login.git#bb048a4",
     "react-native": "^0.37.0",
     "react-native-vector-icons": "^2.1.0",
     "react-redux": "^4.4.5",
