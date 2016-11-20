@@ -75,7 +75,7 @@ class AuthContainer extends Component {
   }
 
   renderForm () {
-    const { mode, name, nameError, email, emailError, password, passwordError, rePassword, serverError, isProcessing } = this.props
+    const { mode, name, nameError, email, emailError, password, passwordError, rePassword, serverError } = this.props
     return (
       <form>
         { utils.renderIf(mode === 'signup')(
