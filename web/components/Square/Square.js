@@ -7,8 +7,8 @@ export default class Square extends Component {
   static propTypes = {
     style: PropTypes.object,
     idx: PropTypes.number.isRequired,
-    activeSquareIdx: PropTypes.number.isRequired,
-    activeSquareColor: PropTypes.string.isRequired,
+    activeSquareIdx: PropTypes.number,
+    activeSquareColor: PropTypes.string,
     children: PropTypes.node,
   }
 

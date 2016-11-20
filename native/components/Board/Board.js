@@ -7,15 +7,15 @@ export default class Board extends Component {
   static propTypes = {
     nBack: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
-    activeSquareColor: PropTypes.string.isRequired,
-    activeSquareIdx: PropTypes.number.isRequired,
+    activeSquareColor: PropTypes.string,
+    activeSquareIdx: PropTypes.number,
     lastTurn: PropTypes.shape({
-      activeSquareColor: PropTypes.string.isRequired,
-      activeSquareIdx: PropTypes.number.isRequired,
+      activeSquareColor: PropTypes.string,
+      activeSquareIdx: PropTypes.number,
     }),
     nBackTurn: PropTypes.shape({
-      activeSquareColor: PropTypes.string.isRequired,
-      activeSquareIdx: PropTypes.number.isRequired,
+      activeSquareColor: PropTypes.string,
+      activeSquareIdx: PropTypes.number,
     }),
   }
 

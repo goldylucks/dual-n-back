@@ -17,14 +17,14 @@ class PlayPage extends Component {
     nBack: PropTypes.number.isRequired,
     mode: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    activeSquareColor: PropTypes.string.isRequired,
-    activeSquareIdx: PropTypes.number.isRequired,
+    activeSquareColor: PropTypes.string,
+    activeSquareIdx: PropTypes.number,
     score: PropTypes.number.isRequired,
     bestScore: PropTypes.object.isRequired,
     routeToHome: PropTypes.func.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
-      activeSquareColor: PropTypes.string.isRequired,
-      activeSquareIdx: PropTypes.number.isRequired,
+      activeSquareColor: PropTypes.string,
+      activeSquareIdx: PropTypes.number,
     })).isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,

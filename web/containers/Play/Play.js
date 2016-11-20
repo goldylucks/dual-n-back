@@ -19,16 +19,15 @@ class PlayContainer extends Component {
     nBack: PropTypes.number.isRequired,
     mode: PropTypes.object.isRequired,
     status: PropTypes.string.isRequired,
-    colors: PropTypes.arrayOf(PropTypes.string).isRequired,
     bestScore: PropTypes.object.isRequired,
-    activeAudioLetter: PropTypes.string.isRequired,
-    activeSquareColor: PropTypes.string.isRequired,
-    activeSquareIdx: PropTypes.number.isRequired,
+    activeAudioLetter: PropTypes.string,
+    activeSquareColor: PropTypes.string,
+    activeSquareIdx: PropTypes.number,
     score: PropTypes.number.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
-      activeSquareColor: PropTypes.string.isRequired,
-      activeAudioLetter: PropTypes.string.isRequired,
-      activeSquareIdx: PropTypes.number.isRequired,
+      activeSquareColor: PropTypes.string,
+      activeAudioLetter: PropTypes.string,
+      activeSquareIdx: PropTypes.number,
     })).isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,
@@ -42,6 +41,26 @@ class PlayContainer extends Component {
 
   componentDidMount () {
     document.addEventListener('keypress', this.onKeyPress)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (!this.props.mode.audio) {
+      return
+    }
+    if (nextProps.history.length === this.props.history.length) {
+      return
+    }
+    this.audioPlayed = false
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (!this.props.mode.audio) {
+      return
+    }
+    if (prevProps.history.length === this.props.history.length) {
+      return
+    }
+    this.audioPlayed = true
   }
 
   componentWillUnmount () {
@@ -188,7 +207,7 @@ class PlayContainer extends Component {
 
   renderSound () {
     const { mode, activeAudioLetter } = this.props
-    if (!mode.audio) {
+    if (!mode.audio || this.audioPlayed) {
       return
     }
     return (
@@ -261,6 +280,11 @@ class PlayContainer extends Component {
       return
     }
     if (keyCode === 114 && this.props.status === 'gameOver') { // r
+      this.startGame()
+      return
+    }
+
+    if (keyCode === 115 && this.props.status === 'idle') { // s
       this.startGame()
       return
     }
