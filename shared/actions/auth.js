@@ -23,6 +23,7 @@ export const signup = createAction('signup')
 export const signupSuccess = createAction('signup success')
 export const signupError = createAction('signup error')
 
+export const facebookAuthClicked = createAction('facebook authClicked')
 export const facebookAuth = createAction('facebook auth')
 export const facebookAuthSuccess = createAction('facebook authSuccess')
 export const facebookAuthError = createAction('facebook authError')

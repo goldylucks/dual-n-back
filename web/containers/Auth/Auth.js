@@ -40,6 +40,7 @@ class AuthContainer extends Component {
       onRePasswordBlur: PropTypes.func.isRequired,
       showLoginErrors: PropTypes.func.isRequired,
       showSignupErrors: PropTypes.func.isRequired,
+      facebookAuthClicked: PropTypes.func.isRequired,
       facebookAuth: PropTypes.func.isRequired,
     }).isRequired,
   }
@@ -67,8 +68,10 @@ class AuthContainer extends Component {
     return (
       <FacebookLogin
         appId={ FB_ID }
+        isDisabled={ this.props.isProcessing }
         fields='name,email,picture'
         icon='fa-facebook'
+        onClick={ () => this.props.actions.facebookAuthClicked() }
         callback={ res => this.props.actions.facebookAuth(res) }
       />
     )

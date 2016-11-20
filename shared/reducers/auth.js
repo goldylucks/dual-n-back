@@ -114,7 +114,7 @@ export default handleActions({
     }
   },
 
-  'facebook auth' (state, action) {
+  'facebook authClicked' (state, action) {
     return {
       ...state,
       isProcessing: true,
