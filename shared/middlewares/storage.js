@@ -1,3 +1,4 @@
+import * as utils from '../utils'
 import { syncBestScore } from '../actions/play'
 import { syncUser } from '../actions/auth'
 
@@ -12,7 +13,7 @@ export default class StorageMiddleware {
         return
       }
 
-      if (action.type === 'guess colorWrong' || action.type === 'guess positionWrong') {
+      if (action.type === 'guess colorWrong' || action.type === 'guess positionWrong' || action.type === 'guess audioWrong') {
         this.onEndGame(store.getState().play)
         next(action)
         return
@@ -49,10 +50,10 @@ export default class StorageMiddleware {
   }
 
   onEndGame ({ bestScores, modes, nBack, score }) {
-    if (bestScores[modes + nBack] >= score) {
+    if (utils.getBestScore(modes, nBack, bestScores) >= score) {
       return
     }
-    bestScores[modes + nBack] = score
+    bestScores = utils.updateBestScores(modes, nBack, bestScores, score)
     localStorage.setItem('bestScores', JSON.stringify(bestScores))
   }
 

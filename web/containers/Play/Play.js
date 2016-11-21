@@ -193,14 +193,14 @@ class PlayContainer extends Component {
   }
 
   renderGameOverStats () {
-    const { status, score, nBack } = this.props
+    const { modes, status, score, nBack, bestScores } = this.props
     if (status !== 'gameOver') {
       return
     }
     return (
       <div>
         <div className={ styles.gameOverMode }>{ nBack }-Back </div>
-        Score / Best Score: <span className={ styles.strong }>{ score }/{ this.getBestScore() }</span>
+        Score / Best Score: <span className={ styles.strong }>{ score }/{ utils.getBestScore(modes, nBack, bestScores) }</span>
       </div>
     )
   }
@@ -251,11 +251,6 @@ class PlayContainer extends Component {
       return
     }
     this.props.actions.guessAudio()
-  }
-
-  getBestScore () {
-    const { modes, bestScores, nBack } = this.props
-    return bestScores[modes + nBack] || 0
   }
 
   onPause = () => {

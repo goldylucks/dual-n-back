@@ -34,7 +34,7 @@ describe('shared/middlewares/storage.native', () => {
 
     it('should dispatch syncBestScore, and shouldnt call set local storage', async function () {
       // given
-      const bestScores = JSON.stringify({ dual1: 40 })
+      const bestScores = JSON.stringify({ audio1: 40 })
       cut.AsyncStorage.getItem.withArgs('bestScores').returns(bestScores)
 
       // when
@@ -51,10 +51,10 @@ describe('shared/middlewares/storage.native', () => {
     it('shouldnt call AsyncStorage.setItem', async function () {
       // given
       const playState = {
-        modes: 'dual',
+        modes: { audio: false, position: true, color: true },
         nBack: 2,
         score: 20,
-        bestScores: { dual2: 25 },
+        bestScores: { positioncolor2: 25 },
       }
 
       // when
@@ -68,34 +68,34 @@ describe('shared/middlewares/storage.native', () => {
     it('should call AsyncStorage.mergeItem with the new bestScores', async function () {
       // given
       const playState = {
-        modes: 'dual',
+        modes: { audio: false, position: true, color: true },
         nBack: 2,
         score: 50,
-        bestScores: { dual2: 25, simple1: 10 },
+        bestScores: { positioncolor2: 25, position1: 10 },
       }
 
       // when
       await cut.onEndGame(playState)
 
       // then
-      expect(cut.AsyncStorage.mergeItem).to.have.been.calledWith('bestScores', JSON.stringify({ dual2: 50 }))
+      expect(cut.AsyncStorage.mergeItem).to.have.been.calledWith('bestScores', JSON.stringify({ positioncolor2: 50 }))
     })
 
     // first time playing a new modes+nBack configuration
     it('should call AsyncStorage.mergeItem with the new bestScores', async function () {
       // given
       const playState = {
-        modes: 'simple',
+        modes: { audio: false, position: false, color: true },
         nBack: 2,
         score: 13,
-        bestScores: { dual2: 25, simple1: 10 },
+        bestScores: { audio2: 25, color1: 10 },
       }
 
       // when
       await cut.onEndGame(playState)
 
       // then
-      expect(cut.AsyncStorage.mergeItem).to.have.been.calledWith('bestScores', JSON.stringify({ simple2: 13 }))
+      expect(cut.AsyncStorage.mergeItem).to.have.been.calledWith('bestScores', JSON.stringify({ color2: 13 }))
     })
   })
 

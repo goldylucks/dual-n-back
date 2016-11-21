@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 
+import * as utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
 
 class HomePage extends Component {
@@ -25,7 +26,7 @@ class HomePage extends Component {
   }
 
   render () {
-    const { modes, nBack, speed } = this.props
+    const { modes, nBack, speed, bestScores } = this.props
     return (
       <View style={ styles.container }>
         <Text style={ styles.headline }>MEMORY N-BACK</Text>
@@ -68,7 +69,7 @@ class HomePage extends Component {
           </TouchableHighlight>
         </View>
         <Text style={ styles.record }>
-          BEST SCORE: { this.getBestScore() }
+          BEST SCORE: { utils.getBestScore(modes, nBack, bestScores) }
         </Text>
       </View>
     )
@@ -96,11 +97,6 @@ class HomePage extends Component {
 
   decrementSpeed = evt => {
     this.props.actions.decrementSpeed()
-  }
-
-  getBestScore () {
-    const { modes, bestScores, nBack } = this.props
-    return bestScores[modes + nBack] || 0
   }
 
 }

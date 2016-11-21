@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
 
-import { capitalize, renderIf } from '../../../shared/utils'
+import * as utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
 
 import Board from '../../components/Board'
@@ -102,7 +102,7 @@ class PlayPage extends Component {
           <FaIcon style={ styles.controlIcon } name='th' />
         </TouchableHighlight>
         {
-          renderIf(isDualMode)(
+          utils.renderIf(isDualMode)(
             <TouchableHighlight style={ [styles.control] } onPress={ this.guessColor } disabled={ this.isGuessDisabled() }>
               <FdIcon style={ styles.controlIcon } name='paint-bucket' />
             </TouchableHighlight>
@@ -125,16 +125,16 @@ class PlayPage extends Component {
   }
 
   renderGameOverStats () {
-    const { modes, status, score, nBack } = this.props
+    const { modes, status, score, nBack, bestScores } = this.props
     if (status !== 'gameOver') {
       return
     }
     return (
       <View style={ styles.gameOverStats }>
         <Text style={ styles.gameOverScores }>
-          Score / Best Score: <Text style={ styles.strong }>{ score }/{ this.getBestScore() }</Text>
+          Score / Best Score: <Text style={ styles.strong }>{ score }/{ utils.getBestScore(modes, nBack, bestScores) }</Text>
         </Text>
-        <Text>{ capitalize(modes) } { nBack }-Back </Text>
+        <Text>{ utils.capitalize(modes) } { nBack }-Back </Text>
       </View>
     )
   }
@@ -158,11 +158,6 @@ class PlayPage extends Component {
 
   onMenuPress = () => {
     this.props.routeToHome()
-  }
-
-  getBestScore () {
-    const { modes, bestScores, nBack } = this.props
-    return bestScores[modes + nBack] || 0
   }
 
   onPause = () => {

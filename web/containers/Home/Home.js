@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
+import * as utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
 
 import styles from './Home.css'
@@ -25,7 +26,7 @@ class HomePage extends Component {
   }
 
   render () {
-    const { modes, nBack, speed } = this.props
+    const { modes, nBack, speed, bestScores } = this.props
     return (
       <div className={ styles.container }>
         <div className={ styles.headline }>MEMORY N-BACK</div>
@@ -63,7 +64,7 @@ class HomePage extends Component {
           </Link>
         </div>
         <div className={ styles.record }>
-          BEST SCORE: { this.getBestScore() }
+          BEST SCORE: { utils.getBestScore(modes, nBack, bestScores) }
         </div>
       </div>
     )
@@ -98,11 +99,6 @@ class HomePage extends Component {
 
   decrementSpeed = evt => {
     this.props.actions.decrementSpeed()
-  }
-
-  getBestScore () {
-    const { modes, bestScores, nBack } = this.props
-    return bestScores[modes + nBack] || 0
   }
 
 }

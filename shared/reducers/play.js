@@ -2,6 +2,8 @@ import { handleActions } from 'redux-actions'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import _ from 'lodash'
 
+import * as utils from '../utils'
+
 const initialState = {
   nBack: 1,
   speed: 2000,
@@ -207,8 +209,8 @@ export default handleActions({
 }, initialState)
 
 function gameOverState (state) {
-  const { bestScores, modes, nBack, score } = state
-  bestScores[modes + nBack] = Math.max(score, bestScores[modes + nBack])
+  let { bestScores, modes, nBack, score } = state
+  bestScores = utils.updateBestScores(modes, nBack, bestScores, score)
   return {
     ...state,
     bestScores,

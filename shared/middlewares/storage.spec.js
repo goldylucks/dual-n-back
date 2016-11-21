@@ -42,10 +42,10 @@ describe('shared/middlewares/storage', () => {
     it('shouldnt call localStorage.setItem', () => {
       // given
       const playState = {
-        modes: 'dual',
+        modes: { position: true, audio: false, color: true },
         nBack: 2,
         score: 20,
-        bestScores: { dual2: 25 },
+        bestScores: { positioncolor2: 25 },
       }
 
       // when
@@ -59,34 +59,34 @@ describe('shared/middlewares/storage', () => {
     it('should call localStorage.setItem with the new bestScores', () => {
       // given
       const playState = {
-        modes: 'dual',
+        modes: { position: false, audio: true, color: true },
         nBack: 2,
         score: 50,
-        bestScores: { dual2: 25, simple1: 10 },
+        bestScores: { audiocolor2: 25, audiocolor1: 10 },
       }
 
       // when
       cut.onEndGame(playState)
 
       // then
-      expect(localStorage.setItem).to.have.been.calledWith('bestScores', JSON.stringify({ dual2: 50, simple1: 10 }))
+      expect(localStorage.setItem).to.have.been.calledWith('bestScores', JSON.stringify({ audiocolor2: 50, audiocolor1: 10 }))
     })
 
     // first time playing a new modes+nBack configuration
     it('should call localStorage.setItem with the new bestScores', () => {
       // given
       const playState = {
-        modes: 'simple',
+        modes: { position: false, audio: true, color: true },
         nBack: 2,
         score: 13,
-        bestScores: { dual2: 25, simple1: 10 },
+        bestScores: { audioposition1: 25, audioposition2: 10 },
       }
 
       // when
       cut.onEndGame(playState)
 
       // then
-      expect(localStorage.setItem).to.have.been.calledWith('bestScores', JSON.stringify({ dual2: 25, simple1: 10, simple2: 13 }))
+      expect(localStorage.setItem).to.have.been.calledWith('bestScores', JSON.stringify({ audioposition1: 25, audioposition2: 10, audiocolor2: 13 }))
     })
   })
 

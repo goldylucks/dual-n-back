@@ -1,4 +1,6 @@
 import { AsyncStorage } from 'react-native'
+
+import * as utils from '../utils'
 import logger from '../utils/logger'
 
 import { syncBestScore } from '../actions/play'
@@ -38,11 +40,11 @@ export default class StorageMiddleware {
   }
 
   async onEndGame ({ bestScores, modes, nBack, score }) {
-    if (bestScores[modes + nBack] >= score) {
+    if (utils.getBestScore(modes, nBack, bestScores) >= score) {
       return
     }
     try {
-      await this.AsyncStorage.mergeItem('bestScores', JSON.stringify({ [modes + nBack]: score }))
+      await this.AsyncStorage.mergeItem('bestScores', JSON.stringify({ [utils.getBestScoreKey]: score }))
     } catch (err) {
       logger.warn('[StorageMIddleware] Error saving bestScores:', err)
     }
