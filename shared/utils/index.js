@@ -44,3 +44,7 @@ export function getBestScoreKey (modes, nBack) {
   if (modes.color) { activeModes += 'color' }
   return activeModes + nBack
 }
+
+export function isGuessDisabled (history, nBack, status) {
+  return history.length - 1 < nBack || status !== 'active'
+}

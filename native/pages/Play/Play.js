@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux'
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
 
+import _ from 'lodash'
+
 import * as utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
 
@@ -18,12 +20,14 @@ class PlayPage extends Component {
     modes: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     activeSquareColor: PropTypes.string,
+    activeAudioLetter: PropTypes.string,
     activeSquareIdx: PropTypes.number,
     score: PropTypes.number.isRequired,
     bestScores: PropTypes.object.isRequired,
     routeToHome: PropTypes.func.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
       activeSquareColor: PropTypes.string,
+      activeAudioLetter: PropTypes.string,
       activeSquareIdx: PropTypes.number,
     })).isRequired,
     actions: PropTypes.shape({
@@ -92,22 +96,34 @@ class PlayPage extends Component {
   }
 
   renderControls () {
-    if (this.props.status === 'gameOver') {
+    const { history, nBack, status, modes } = this.props
+    if (status === 'gameOver') {
       return
     }
-    const isDualMode = this.props.modes === 'dual'
     return (
       <View style={ styles.controls }>
-        <TouchableHighlight style={ styles.firstControl } onPress={ this.guessPosition } disabled={ this.isGuessDisabled() }>
-          <FaIcon style={ styles.controlIcon } name='th' />
-        </TouchableHighlight>
         {
-          utils.renderIf(isDualMode)(
-            <TouchableHighlight style={ [styles.control] } onPress={ this.guessColor } disabled={ this.isGuessDisabled() }>
+          utils.renderIf(modes.position)(
+            <TouchableHighlight style={ styles.control } onPress={ this.guessPosition } disabled={ this.isGuessDisabled(history, nBack, status) }>
+              <FaIcon style={ styles.controlIcon } name='th' />
+            </TouchableHighlight>
+          )
+        }
+        {
+          utils.renderIf(modes.color)(
+            <TouchableHighlight style={ styles.control } onPress={ this.guessColor } disabled={ this.isGuessDisabled(history, nBack, status) }>
               <FdIcon style={ styles.controlIcon } name='paint-bucket' />
             </TouchableHighlight>
           )
         }
+        {
+          utils.renderIf(modes.audio)(
+            <TouchableHighlight style={ styles.control } onPress={ this.guessAudio } disabled={ this.isGuessDisabled(history, nBack, status) }>
+              <FdIcon style={ styles.controlIcon } name='headphones' />
+            </TouchableHighlight>
+          )
+        }
+
       </View>
     )
   }
@@ -139,6 +155,22 @@ class PlayPage extends Component {
     )
   }
 
+  renderGameOverAudio () {
+    const { modes, status, nBack, history } = this.props
+    if (!modes.audio || status !== 'gameOver') {
+      return
+    }
+    return (
+      <View className={ styles.gameOverAudio }>
+        <Text>{ nBack } ago</Text>
+        <FaIcon name='long-arrow-right' />
+        <Text>{ _.last(history).activeAudioLetter }/{ _.nth(history, -nBack - 1).activeAudioLetter }</Text>
+        <FaIcon name='long-arrow-left' />
+        <Text>last</Text>
+      </View>
+    )
+  }
+
   startGame = () => {
     this.props.actions.startGame()
   }
@@ -149,11 +181,6 @@ class PlayPage extends Component {
 
   guessColor = () => {
     this.props.actions.guessColor()
-  }
-
-  isGuessDisabled () {
-    const { history, nBack } = this.props
-    return history.length - 1 < nBack
   }
 
   onMenuPress = () => {

@@ -291,7 +291,7 @@ class PlayContainer extends Component {
 
   isGuessDisabled () {
     const { history, nBack, status } = this.props
-    return history.length - 1 < nBack || status !== 'active'
+    return utils.isGuessDisabled(history, nBack, status)
   }
 
 }
