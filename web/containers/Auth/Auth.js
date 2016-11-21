@@ -70,7 +70,7 @@ class AuthContainer extends Component {
         appId={ FB_ID }
         isDisabled={ this.props.isProcessing }
         fields='name,email,picture'
-        icon='fa-facebook'
+        icon={ <i className='fa fa-facebook' /> }
         onClick={ () => this.props.actions.facebookAuthClicked() }
         callback={ res => this.props.actions.facebookAuth(res) }
       />
