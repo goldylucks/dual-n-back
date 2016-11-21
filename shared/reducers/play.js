@@ -6,7 +6,7 @@ const initialState = {
   nBack: 1,
   speed: 2000,
   mode: {
-    audio: true,
+    audio: false,
     position: true,
     color: true,
   },
@@ -119,7 +119,7 @@ export default handleActions({
     }
     return {
       ...state,
-      activeSquareColor: turn.activeSquareColor,
+      activeSquareColor: turn.activeSquareColor || state.colors[0],
       activeSquareIdx: turn.activeSquareIdx,
       activeAudioLetter: turn.activeAudioLetter,
       positionGuessed: false,
