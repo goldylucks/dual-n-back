@@ -1,64 +1,39 @@
-import * as utils from '../utils'
-import { syncBestScore } from '../actions/play'
+import { syncBestScores, syncGameConfig } from '../actions/play'
 import { syncUser } from '../actions/auth'
-
+import * as lsUtils from '../utils/localStorage'
 export default class StorageMiddleware {
 
   toMiddleware () {
     return store => next => action => {
       if (action.type === 'init app') {
-        this.syncUser(store.dispatch)
-        this.syncBestScore(store.dispatch)
+        lsUtils.sync(store.dispatch, syncUser, 'user')
+        lsUtils.sync(store.dispatch, syncBestScores, 'bestScores')
+        lsUtils.sync(store.dispatch, syncGameConfig, 'gameConfig')
         next(action)
         return
       }
 
-      if (action.type === 'guess colorWrong' || action.type === 'guess positionWrong' || action.type === 'guess audioWrong') {
-        this.onEndGame(store.getState().play)
-        next(action)
+      if (action.type.match(/crement n|rement speed|toggle modes/)) {
+        next(action) // let reducer update the state before saving it to LS
+        const { modes, nBack, speed } = store.getState().play
+        localStorage.setItem('gameConfig', JSON.stringify({ modes, nBack, speed }))
+        return
+      }
+
+      if (action.type.match(/guess colorWrong|guess positionWrong|guess audioWrong/)) {
+        next(action) // let reducer update the state before saving it to LS
+        localStorage.setItem('bestScores', JSON.stringify(store.getState().play.bestScores))
         return
       }
 
       if (action.type === 'facebook authSuccess') {
-        this.onAuthSuccess(action.payload)
+        localStorage.setItem('user', JSON.stringify(action.payload))
         next(action)
         return
       }
 
       next(action)
     }
-  }
-
-  syncUser (dispatch) {
-    const user = localStorage.getItem('user')
-    // initialize empty object on first run
-    if (!user) {
-      localStorage.setItem('user', '{}')
-      return
-    }
-    dispatch(syncUser(JSON.parse(user)))
-  }
-
-  syncBestScore (dispatch) {
-    const bestScores = localStorage.getItem('bestScores')
-    // initialize empty object on first run
-    if (!bestScores) {
-      localStorage.setItem('bestScores', '{}')
-      return
-    }
-    dispatch(syncBestScore(JSON.parse(bestScores)))
-  }
-
-  onEndGame ({ bestScores, modes, nBack, score }) {
-    if (utils.getBestScore(modes, nBack, bestScores) >= score) {
-      return
-    }
-    bestScores = utils.updateBestScores(modes, nBack, bestScores, score)
-    localStorage.setItem('bestScores', JSON.stringify(bestScores))
-  }
-
-  onAuthSuccess (user) {
-    localStorage.setItem('user', JSON.stringify(user))
   }
 
 }

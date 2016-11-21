@@ -8,7 +8,7 @@ describe('shared/middlewares/gameConf', () => {
     cut = new GameConfMiddleware()
   })
 
-  describe('validateAtLeastOneModeLeft', () => {
+  describe('alertIfNoModes', () => {
     it('should call alert', () => {
       // given
       const playState = {
@@ -19,7 +19,7 @@ describe('shared/middlewares/gameConf', () => {
       const modesToToggle = 'position'
 
       // when
-      cut.validateAtLeastOneModeLeft(playState, modesToToggle)
+      cut.alertIfNoModes(playState, modesToToggle)
 
       // then
       expect(global.alert).to.have.been.calledOnce
@@ -35,7 +35,7 @@ describe('shared/middlewares/gameConf', () => {
       const modesToToggle = 'position'
 
       // when
-      cut.validateAtLeastOneModeLeft(playState, modesToToggle)
+      cut.alertIfNoModes(playState, modesToToggle)
 
       // then
       expect(global.alert).to.not.have.been.called
@@ -45,7 +45,7 @@ describe('shared/middlewares/gameConf', () => {
   testToMiddleware({
     cut: new GameConfMiddleware({}),
     methods: [
-      { methodName: 'validateAtLeastOneModeLeft', actionType: 'toggle modes' },
+      { methodName: 'alertIfNoModes', actionType: 'toggle modes' },
     ],
   })
 })

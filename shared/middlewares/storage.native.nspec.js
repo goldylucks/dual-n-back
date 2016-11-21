@@ -1,6 +1,6 @@
 import StorageNativeMiddleware from './storage.native'
 import testToMiddleware from 'redux-middleware-test-helper'
-import { syncBestScore } from '../actions/play'
+import { syncBestScores } from '../actions/play'
 
 describe('shared/middlewares/storage.native', () => {
   let cut
@@ -32,7 +32,7 @@ describe('shared/middlewares/storage.native', () => {
       expect(dispatch).to.not.have.been.called
     })
 
-    it('should dispatch syncBestScore, and shouldnt call set local storage', async function () {
+    it('should dispatch syncBestScores, and shouldnt call set local storage', async function () {
       // given
       const bestScores = JSON.stringify({ audio1: 40 })
       cut.AsyncStorage.getItem.withArgs('bestScores').returns(bestScores)
@@ -42,7 +42,7 @@ describe('shared/middlewares/storage.native', () => {
 
       // then
       expect(cut.AsyncStorage.setItem).to.not.have.been.called
-      expect(dispatch).to.have.been.calledWith(syncBestScore(JSON.parse(bestScores)))
+      expect(dispatch).to.have.been.calledWith(syncBestScores(JSON.parse(bestScores)))
       expect(dispatch).to.have.been.calledOnce
     })
   })

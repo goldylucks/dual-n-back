@@ -5,13 +5,13 @@ export default class GameConfMiddleware {
   toMiddleware () {
     return store => next => action => {
       if (action.type === 'toggle modes') {
-        this.validateAtLeastOneModeLeft(store.getState().play, action.payload)
+        this.alertIfNoModes(store.getState().play, action.payload)
       }
       next(action)
     }
   }
 
-  validateAtLeastOneModeLeft ({ modes }, modesToToggle) {
+  alertIfNoModes ({ modes }, modesToToggle) {
     const newMode = Object.assign({}, modes)
     newMode[modesToToggle] = !newMode[modesToToggle]
     // don't toggle this modes if all others are off

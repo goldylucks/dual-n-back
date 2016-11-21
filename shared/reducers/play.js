@@ -206,11 +206,22 @@ export default handleActions({
     }
   },
 
+  'sync gameConfig' (state, action) {
+    return {
+      ...state,
+      speed: action.payload.speed,
+      nBack: action.payload.nBack,
+      modes: action.payload.modes,
+    }
+  },
+
 }, initialState)
 
 function gameOverState (state) {
   let { bestScores, modes, nBack, score } = state
-  bestScores = utils.updateBestScores(modes, nBack, bestScores, score)
+  if (utils.getBestScore(modes, nBack, bestScores) >= score) {
+    bestScores = utils.updateBestScores(modes, nBack, bestScores, score)
+  }
   return {
     ...state,
     bestScores,
