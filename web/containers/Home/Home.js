@@ -35,26 +35,26 @@ class HomePage extends Component {
           <i onClick={ this.toggleMode.bind(this, 'color') } className={ `fa fa-paint-brush ${mode.color ? styles.active : ''}` } />
         </div>
         <div className={ styles.settings }>
-          <div className={ styles.leftSetting }>
-            <i onClick={ this.decrementN } className={ [styles.leftSettingIcon, 'fa fa-minus'].join(' ') } />
-          </div>
+          <a onClick={ this.decrementN } className={ styles.leftSetting }>
+            <i className={ [styles.leftSettingIcon, 'fa fa-minus'].join(' ') } />
+          </a>
           <div className={ styles.middleSetting }>
             <div className={ styles.middleSettingText }>{ nBack }</div>
           </div>
-          <div className={ styles.rightSetting }>
-            <i onClick={ this.incrementN } className={ [styles.rightSettingIcon, 'fa fa-plus'].join(' ') } />
-          </div>
+          <a onClick={ this.incrementN } className={ styles.rightSetting }>
+            <i className={ [styles.rightSettingIcon, 'fa fa-plus'].join(' ') } />
+          </a>
         </div>
         <div className={ styles.settings }>
-          <div className={ styles.leftSetting }>
-            <i onClick={ this.decrementSpeed } className={ [styles.leftSettingIcon, 'fa fa-minus'].join(' ') } />
-          </div>
+          <a onClick={ this.decrementSpeed } className={ styles.leftSetting }>
+            <i className={ [styles.leftSettingIcon, 'fa fa-minus'].join(' ') } />
+          </a>
           <div className={ styles.middleSetting }>
             <div className={ styles.middleSettingText }>{ speed }</div>
           </div>
-          <div className={ styles.rightSetting }>
-            <i onClick={ this.incrementSpeed } className={ [styles.rightSettingIcon, 'fa fa-plus'].join(' ') } />
-          </div>
+          <a onClick={ this.incrementSpeed } className={ styles.rightSetting }>
+            <i className={ [styles.rightSettingIcon, 'fa fa-plus'].join(' ') } />
+          </a>
         </div>
         <div className={ styles.play }>
           { this.renderLogin() }
