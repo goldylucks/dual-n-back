@@ -267,32 +267,33 @@ class PlayContainer extends Component {
   }
 
   onKeyPress = ({ keyCode }) => {
-    if (keyCode === 112) { // p
+    const { mode, status } = this.props
+    if (keyCode === 112 && mode.position) { // p
       this.guessPosition()
       return
     }
-    if (keyCode === 99) { // c
+    if (keyCode === 99 && mode.color) { // c
       this.guessColor()
       return
     }
-    if (keyCode === 97) { // a
+    if (keyCode === 97 && mode.audio) { // a
       this.guessAudio()
       return
     }
-    if (keyCode === 114 && this.props.status === 'gameOver') { // r
+    if (keyCode === 114 && status === 'gameOver') { // r
       this.startGame()
       return
     }
 
-    if (keyCode === 115 && this.props.status === 'idle') { // s
+    if (keyCode === 115 && status === 'idle') { // s
       this.startGame()
       return
     }
   }
 
   isGuessDisabled () {
-    const { history, nBack } = this.props
-    return history.length - 1 < nBack
+    const { history, nBack, status } = this.props
+    return history.length - 1 < nBack || status !== 'active'
   }
 
 }
