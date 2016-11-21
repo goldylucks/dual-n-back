@@ -13,7 +13,7 @@ import styles from './Auth.css'
 class AuthContainer extends Component {
 
   static propTypes = {
-    mode: PropTypes.string.isRequired,
+    modes: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
@@ -51,13 +51,13 @@ class AuthContainer extends Component {
         <div className={ styles.leadContainer }>
           <Link to='home' className={ styles.backIcon }><i className='fa fa-arrow-left' /></Link>
           <p className={ styles.lead }>
-            { utils.capitalize(this.props.mode) } to backup and sync your progress between devices
+            { utils.capitalize(this.props.modes) } to backup and sync your progress between devices
           </p>
         </div>
         { this.renderFacebookAuth() }
         <div className={ styles.or }>Or use the form below</div>
         <a className={ styles.toggleMode } onClick={ this.toggleAuthMode }>
-          switch to { this.props.mode === 'signup' ? 'login' : 'singup' }
+          switch to { this.props.modes === 'signup' ? 'login' : 'singup' }
         </a>
         { this.renderForm() }
       </div>
@@ -78,10 +78,10 @@ class AuthContainer extends Component {
   }
 
   renderForm () {
-    const { mode, name, nameError, email, emailError, password, passwordError, rePassword, serverError } = this.props
+    const { modes, name, nameError, email, emailError, password, passwordError, rePassword, serverError } = this.props
     return (
       <form>
-        { utils.renderIf(mode === 'signup')(
+        { utils.renderIf(modes === 'signup')(
           <div className={ styles.formControl }>
             <label>Name <small>(public)</small></label>
             <input onChange={ this.onNameChange } value={ name } type='text' onBlur={ this.onNameBlur } placeholder='put your user name here' />
@@ -99,7 +99,7 @@ class AuthContainer extends Component {
           <input onChange={ this.onPasswordChange } value={ password } type='password' onBlur={ this.onPasswordBlur } placeholder='put your password here' />
           { !passwordError ? '' : <span className={ styles.error }>{ passwordError }</span> }
         </div>
-        { utils.renderIf(mode === 'signup')(
+        { utils.renderIf(modes === 'signup')(
           <div className={ styles.formControl }>
             <label>Repeat Password</label>
             <input onChange={ this.onRePasswordChange } value={ rePassword } type='password' onBlur={ this.onRePasswordBlur } placeholder='put your password again here' />
@@ -115,8 +115,8 @@ class AuthContainer extends Component {
   }
 
   renderActions () {
-    const { isProcessing, mode } = this.props
-    if (mode === 'signup') {
+    const { isProcessing, modes } = this.props
+    if (modes === 'signup') {
       return <Button onClick={ this.signup } isProcessing={ isProcessing }>Signup</Button>
     }
     return <Button onClick={ this.login } isProcessing={ isProcessing }>Login</Button>

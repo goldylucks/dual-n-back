@@ -60,8 +60,8 @@ export default class PlayMiddleware {
     }, speed)
   }
 
-  onTick ({ speed, history, nBack, mode, positionGuessed, colorGuessed, audioGuessed }, dispatch) {
-    if (this.missedAMatch(history, nBack, mode, positionGuessed, colorGuessed, audioGuessed)) {
+  onTick ({ speed, history, nBack, modes, positionGuessed, colorGuessed, audioGuessed }, dispatch) {
+    if (this.missedAMatch(history, nBack, modes, positionGuessed, colorGuessed, audioGuessed)) {
       dispatch(missAMatch())
       this.endGame()
       return

@@ -42,7 +42,7 @@ describe('shared/middlewares/storage', () => {
     it('shouldnt call localStorage.setItem', () => {
       // given
       const playState = {
-        mode: 'dual',
+        modes: 'dual',
         nBack: 2,
         score: 20,
         bestScores: { dual2: 25 },
@@ -59,7 +59,7 @@ describe('shared/middlewares/storage', () => {
     it('should call localStorage.setItem with the new bestScores', () => {
       // given
       const playState = {
-        mode: 'dual',
+        modes: 'dual',
         nBack: 2,
         score: 50,
         bestScores: { dual2: 25, simple1: 10 },
@@ -72,11 +72,11 @@ describe('shared/middlewares/storage', () => {
       expect(localStorage.setItem).to.have.been.calledWith('bestScores', JSON.stringify({ dual2: 50, simple1: 10 }))
     })
 
-    // first time playing a new mode+nBack configuration
+    // first time playing a new modes+nBack configuration
     it('should call localStorage.setItem with the new bestScores', () => {
       // given
       const playState = {
-        mode: 'simple',
+        modes: 'simple',
         nBack: 2,
         score: 13,
         bestScores: { dual2: 25, simple1: 10 },

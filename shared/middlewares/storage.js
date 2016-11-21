@@ -48,11 +48,11 @@ export default class StorageMiddleware {
     dispatch(syncBestScore(JSON.parse(bestScores)))
   }
 
-  onEndGame ({ bestScores, mode, nBack, score }) {
-    if (bestScores[mode + nBack] >= score) {
+  onEndGame ({ bestScores, modes, nBack, score }) {
+    if (bestScores[modes + nBack] >= score) {
       return
     }
-    bestScores[mode + nBack] = score
+    bestScores[modes + nBack] = score
     localStorage.setItem('bestScores', JSON.stringify(bestScores))
   }
 

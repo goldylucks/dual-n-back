@@ -9,7 +9,7 @@ const UsersSchema = getSchema()
 UsersSchema.pre('save', preSave)
 UsersSchema.plugin(uniqueValidator, { message: 'User with that email already exists' })
 
-module.exports = mongoose.model('users', UsersSchema)
+module.exports = mongoose.modesl('users', UsersSchema)
 
 function getSchema () {
   return new Schema({

@@ -51,7 +51,7 @@ describe('shared/middlewares/storage.native', () => {
     it('shouldnt call AsyncStorage.setItem', async function () {
       // given
       const playState = {
-        mode: 'dual',
+        modes: 'dual',
         nBack: 2,
         score: 20,
         bestScores: { dual2: 25 },
@@ -68,7 +68,7 @@ describe('shared/middlewares/storage.native', () => {
     it('should call AsyncStorage.mergeItem with the new bestScores', async function () {
       // given
       const playState = {
-        mode: 'dual',
+        modes: 'dual',
         nBack: 2,
         score: 50,
         bestScores: { dual2: 25, simple1: 10 },
@@ -81,11 +81,11 @@ describe('shared/middlewares/storage.native', () => {
       expect(cut.AsyncStorage.mergeItem).to.have.been.calledWith('bestScores', JSON.stringify({ dual2: 50 }))
     })
 
-    // first time playing a new mode+nBack configuration
+    // first time playing a new modes+nBack configuration
     it('should call AsyncStorage.mergeItem with the new bestScores', async function () {
       // given
       const playState = {
-        mode: 'simple',
+        modes: 'simple',
         nBack: 2,
         score: 13,
         bestScores: { dual2: 25, simple1: 10 },

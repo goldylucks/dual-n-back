@@ -15,7 +15,7 @@ class PlayPage extends Component {
 
   static propTypes = {
     nBack: PropTypes.number.isRequired,
-    mode: PropTypes.string.isRequired,
+    modes: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     activeSquareColor: PropTypes.string,
     activeSquareIdx: PropTypes.number,
@@ -95,7 +95,7 @@ class PlayPage extends Component {
     if (this.props.status === 'gameOver') {
       return
     }
-    const isDualMode = this.props.mode === 'dual'
+    const isDualMode = this.props.modes === 'dual'
     return (
       <View style={ styles.controls }>
         <TouchableHighlight style={ styles.firstControl } onPress={ this.guessPosition } disabled={ this.isGuessDisabled() }>
@@ -125,7 +125,7 @@ class PlayPage extends Component {
   }
 
   renderGameOverStats () {
-    const { mode, status, score, nBack } = this.props
+    const { modes, status, score, nBack } = this.props
     if (status !== 'gameOver') {
       return
     }
@@ -134,7 +134,7 @@ class PlayPage extends Component {
         <Text style={ styles.gameOverScores }>
           Score / Best Score: <Text style={ styles.strong }>{ score }/{ this.getBestScore() }</Text>
         </Text>
-        <Text>{ capitalize(mode) } { nBack }-Back </Text>
+        <Text>{ capitalize(modes) } { nBack }-Back </Text>
       </View>
     )
   }
@@ -161,8 +161,8 @@ class PlayPage extends Component {
   }
 
   getBestScore () {
-    const { mode, bestScores, nBack } = this.props
-    return bestScores[mode + nBack] || 0
+    const { modes, bestScores, nBack } = this.props
+    return bestScores[modes + nBack] || 0
   }
 
   onPause = () => {

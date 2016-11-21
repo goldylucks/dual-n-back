@@ -12,14 +12,14 @@ describe('shared/middlewares/gameConf', () => {
     it('should call alert', () => {
       // given
       const playState = {
-        mode: {
+        modes: {
           color: false, audio: false, position: true,
         },
       }
-      const modeToToggle = 'position'
+      const modesToToggle = 'position'
 
       // when
-      cut.validateAtLeastOneModeLeft(playState, modeToToggle)
+      cut.validateAtLeastOneModeLeft(playState, modesToToggle)
 
       // then
       expect(global.alert).to.have.been.calledOnce
@@ -28,14 +28,14 @@ describe('shared/middlewares/gameConf', () => {
     it('should not call alert', () => {
       // given
       const playState = {
-        mode: {
+        modes: {
           color: false, audio: true, position: true,
         },
       }
-      const modeToToggle = 'position'
+      const modesToToggle = 'position'
 
       // when
-      cut.validateAtLeastOneModeLeft(playState, modeToToggle)
+      cut.validateAtLeastOneModeLeft(playState, modesToToggle)
 
       // then
       expect(global.alert).to.not.have.been.called
@@ -45,7 +45,7 @@ describe('shared/middlewares/gameConf', () => {
   testToMiddleware({
     cut: new GameConfMiddleware({}),
     methods: [
-      { methodName: 'validateAtLeastOneModeLeft', actionType: 'toggle mode' },
+      { methodName: 'validateAtLeastOneModeLeft', actionType: 'toggle modes' },
     ],
   })
 })

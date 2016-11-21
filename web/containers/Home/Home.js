@@ -10,7 +10,7 @@ import styles from './Home.css'
 class HomePage extends Component {
 
   static propTypes = {
-    mode: PropTypes.object.isRequired,
+    modes: PropTypes.object.isRequired,
     nBack: PropTypes.number.isRequired,
     speed: PropTypes.number.isRequired,
     bestScores: PropTypes.object.isRequired,
@@ -25,14 +25,14 @@ class HomePage extends Component {
   }
 
   render () {
-    const { mode, nBack, speed } = this.props
+    const { modes, nBack, speed } = this.props
     return (
       <div className={ styles.container }>
         <div className={ styles.headline }>MEMORY N-BACK</div>
-        <div className={ `${styles.settings} ${styles.mode}` }>
-          <i onClick={ this.toggleMode.bind(this, 'position') } className={ `fa fa-th ${mode.position ? styles.active : ''}` } />
-          <i onClick={ this.toggleMode.bind(this, 'audio') } className={ `fa fa-headphones ${mode.audio ? styles.active : ''}` } />
-          <i onClick={ this.toggleMode.bind(this, 'color') } className={ `fa fa-paint-brush ${mode.color ? styles.active : ''}` } />
+        <div className={ `${styles.settings} ${styles.modes}` }>
+          <i onClick={ this.toggleMode.bind(this, 'position') } className={ `fa fa-th ${modes.position ? styles.active : ''}` } />
+          <i onClick={ this.toggleMode.bind(this, 'audio') } className={ `fa fa-headphones ${modes.audio ? styles.active : ''}` } />
+          <i onClick={ this.toggleMode.bind(this, 'color') } className={ `fa fa-paint-brush ${modes.color ? styles.active : ''}` } />
         </div>
         <div className={ styles.settings }>
           <a onClick={ this.decrementN } className={ styles.leftSetting }>
@@ -80,8 +80,8 @@ class HomePage extends Component {
     )
   }
 
-  toggleMode = mode => {
-    this.props.actions.toggleMode(mode)
+  toggleMode = modes => {
+    this.props.actions.toggleMode(modes)
   }
 
   incrementN = evt => {
@@ -101,8 +101,8 @@ class HomePage extends Component {
   }
 
   getBestScore () {
-    const { mode, bestScores, nBack } = this.props
-    return bestScores[mode + nBack] || 0
+    const { modes, bestScores, nBack } = this.props
+    return bestScores[modes + nBack] || 0
   }
 
 }

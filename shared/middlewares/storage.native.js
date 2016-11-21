@@ -37,12 +37,12 @@ export default class StorageMiddleware {
     }
   }
 
-  async onEndGame ({ bestScores, mode, nBack, score }) {
-    if (bestScores[mode + nBack] >= score) {
+  async onEndGame ({ bestScores, modes, nBack, score }) {
+    if (bestScores[modes + nBack] >= score) {
       return
     }
     try {
-      await this.AsyncStorage.mergeItem('bestScores', JSON.stringify({ [mode + nBack]: score }))
+      await this.AsyncStorage.mergeItem('bestScores', JSON.stringify({ [modes + nBack]: score }))
     } catch (err) {
       logger.warn('[StorageMIddleware] Error saving bestScores:', err)
     }

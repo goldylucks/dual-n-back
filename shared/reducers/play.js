@@ -5,7 +5,7 @@ import _ from 'lodash'
 const initialState = {
   nBack: 1,
   speed: 2000,
-  mode: {
+  modes: {
     audio: false,
     position: true,
     color: true,
@@ -54,16 +54,16 @@ export default handleActions({
     }
   },
 
-  'toggle mode' (state, action) {
-    const { mode } = state
-    mode[action.payload] = !mode[action.payload]
-    // don't toggle this mode if all others are off
-    if (!_.some(Object.values(mode))) {
+  'toggle modes' (state, action) {
+    const { modes } = state
+    modes[action.payload] = !modes[action.payload]
+    // don't toggle this modes if all others are off
+    if (!_.some(Object.values(modes))) {
       return state
     }
     return {
       ...state,
-      mode: Object.assign({}, mode),
+      modes: Object.assign({}, modes),
     }
   },
 
@@ -108,13 +108,13 @@ export default handleActions({
 
   'play interval' (state, action) {
     const turn = {}
-    if (state.mode.color) {
+    if (state.modes.color) {
       turn.activeSquareColor = _.sample(state.colors)
     }
-    if (state.mode.position) {
+    if (state.modes.position) {
       turn.activeSquareIdx = _.sample(state.idxs)
     }
-    if (state.mode.audio) {
+    if (state.modes.audio) {
       turn.activeAudioLetter = _.sample(state.letters)
     }
     return {
@@ -207,8 +207,8 @@ export default handleActions({
 }, initialState)
 
 function gameOverState (state) {
-  const { bestScores, mode, nBack, score } = state
-  bestScores[mode + nBack] = Math.max(score, bestScores[mode + nBack])
+  const { bestScores, modes, nBack, score } = state
+  bestScores[modes + nBack] = Math.max(score, bestScores[modes + nBack])
   return {
     ...state,
     bestScores,

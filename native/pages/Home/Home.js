@@ -10,7 +10,7 @@ import * as actions from '../../../shared/actions/play'
 class HomePage extends Component {
 
   static propTypes = {
-    mode: PropTypes.string.isRequired,
+    modes: PropTypes.string.isRequired,
     nBack: PropTypes.number.isRequired,
     speed: PropTypes.number.isRequired,
     bestScores: PropTypes.object.isRequired,
@@ -25,7 +25,7 @@ class HomePage extends Component {
   }
 
   render () {
-    const { mode, nBack, speed } = this.props
+    const { modes, nBack, speed } = this.props
     return (
       <View style={ styles.container }>
         <Text style={ styles.headline }>MEMORY N-BACK</Text>
@@ -34,7 +34,7 @@ class HomePage extends Component {
             <FaIcon onPress={ this.toggleMode } name='caret-left' style={ styles.leftSettingIcon } />
           </View>
           <View style={ styles.middleSetting }>
-            <Text style={ styles.middleSettingText }>{ mode }</Text>
+            <Text style={ styles.middleSettingText }>{ modes }</Text>
           </View>
           <View style={ styles.rightSetting }>
             <FaIcon onPress={ this.toggleMode } name='caret-right' style={ styles.rightSettingIcon } />
@@ -99,8 +99,8 @@ class HomePage extends Component {
   }
 
   getBestScore () {
-    const { mode, bestScores, nBack } = this.props
-    return bestScores[mode + nBack] || 0
+    const { modes, bestScores, nBack } = this.props
+    return bestScores[modes + nBack] || 0
   }
 
 }

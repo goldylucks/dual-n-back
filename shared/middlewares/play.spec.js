@@ -26,13 +26,13 @@ describe('shared/middlewares/play', () => {
       const history = []
       const speed = 500
       const nBack = 1
-      const mode = { color: true, audio: false, position: false }
+      const modes = { color: true, audio: false, position: false }
       const positionGuessed = true
       const colorGuessed = true
       const playState = {
         speed,
         history,
-        mode,
+        modes,
         nBack,
         positionGuessed,
         colorGuessed,
@@ -42,7 +42,7 @@ describe('shared/middlewares/play', () => {
       cut.onTick(playState, dispatch)
 
       // then
-      expect(cut.missedAMatch).to.have.been.calledWith(history, nBack, mode, positionGuessed, colorGuessed)
+      expect(cut.missedAMatch).to.have.been.calledWith(history, nBack, modes, positionGuessed, colorGuessed)
       expect(dispatch).to.have.been.calledWith(missAMatch())
       expect(cut.endGame).to.have.been.calledOnce
       expect(dispatch).to.not.have.been.calledWith(playInterval())
@@ -55,13 +55,13 @@ describe('shared/middlewares/play', () => {
       const history = []
       const speed = 500
       const nBack = 1
-      const mode = { color: true, audio: false, position: false }
+      const modes = { color: true, audio: false, position: false }
       const positionGuessed = true
       const colorGuessed = true
       const playState = {
         speed,
         history,
-        mode,
+        modes,
         nBack,
         positionGuessed,
         colorGuessed,
@@ -71,7 +71,7 @@ describe('shared/middlewares/play', () => {
       cut.onTick(playState, dispatch)
 
       // then
-      expect(cut.missedAMatch).to.have.been.calledWith(history, nBack, mode, positionGuessed, colorGuessed)
+      expect(cut.missedAMatch).to.have.been.calledWith(history, nBack, modes, positionGuessed, colorGuessed)
       expect(dispatch).to.not.have.been.calledWith(missAMatch())
       expect(cut.endGame).to.not.have.been.called
       expect(dispatch).to.have.been.calledWith(playInterval())

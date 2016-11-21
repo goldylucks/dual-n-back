@@ -19,11 +19,11 @@
   padding-bottom: 10px;
 }
 
-.settings.mode {
+.settings.modes {
   justify-content: space-around;
 }
 
-.settings.mode i {
+.settings.modes i {
   font-size: 30px;
   color: #fff;
   cursor: pointer;
@@ -31,7 +31,7 @@
   transition: opacity .5s;
 }
 
-.settings.mode i.active {
+.settings.modes i.active {
   opacity: 1;
 }
 

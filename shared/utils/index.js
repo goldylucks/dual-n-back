@@ -18,11 +18,11 @@ export function isAudioMatch (history, nBack) {
   return history[history.length - 1 - nBack].activeAudioLetter === history[history.length - 1].activeAudioLetter
 }
 
-export function missedAMatch (history, nBack, mode, positionGuessed, colorGuessed, audioGuessed) {
+export function missedAMatch (history, nBack, modes, positionGuessed, colorGuessed, audioGuessed) {
   if (history.length - 1 < nBack) {
     return false
   }
-  return (isPositionMatch(history, nBack) && !positionGuessed && mode.position) ||
-    (isColorMatch(history, nBack) && !colorGuessed && mode.color) ||
-    (isAudioMatch(history, nBack) && !audioGuessed && mode.audio)
+  return (isPositionMatch(history, nBack) && !positionGuessed && modes.position) ||
+    (isColorMatch(history, nBack) && !colorGuessed && modes.color) ||
+    (isAudioMatch(history, nBack) && !audioGuessed && modes.audio)
 }

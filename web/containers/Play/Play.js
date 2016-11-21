@@ -17,7 +17,7 @@ class PlayContainer extends Component {
 
   static propTypes = {
     nBack: PropTypes.number.isRequired,
-    mode: PropTypes.object.isRequired,
+    modes: PropTypes.object.isRequired,
     status: PropTypes.string.isRequired,
     bestScores: PropTypes.object.isRequired,
     activeAudioLetter: PropTypes.string,
@@ -44,7 +44,7 @@ class PlayContainer extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!this.props.mode.audio) {
+    if (!this.props.modes.audio) {
       return
     }
     if (nextProps.history.length === this.props.history.length) {
@@ -54,7 +54,7 @@ class PlayContainer extends Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (!this.props.mode.audio) {
+    if (!this.props.modes.audio) {
       return
     }
     if (prevProps.history.length === this.props.history.length) {
@@ -104,8 +104,8 @@ class PlayContainer extends Component {
   }
 
   renderGameOverAudio () {
-    const { mode, status, nBack, history } = this.props
-    if (!mode.audio || status !== 'gameOver') {
+    const { modes, status, nBack, history } = this.props
+    if (!modes.audio || status !== 'gameOver') {
       return
     }
     return (
@@ -120,8 +120,8 @@ class PlayContainer extends Component {
   }
 
   renderBoard () {
-    const { mode, history, nBack, status, activeSquareColor, activeSquareIdx } = this.props
-    if (!mode.color && !mode.position) {
+    const { modes, history, nBack, status, activeSquareColor, activeSquareIdx } = this.props
+    if (!modes.color && !modes.position) {
       return
     }
     return (
@@ -152,7 +152,7 @@ class PlayContainer extends Component {
     if (this.props.status === 'gameOver') {
       return
     }
-    const { color, position, audio } = this.props.mode
+    const { color, position, audio } = this.props.modes
     return (
       <div className={ styles.controls }>
         {
@@ -206,8 +206,8 @@ class PlayContainer extends Component {
   }
 
   renderSound () {
-    const { mode, activeAudioLetter } = this.props
-    if (!mode.audio || this.audioPlayed) {
+    const { modes, activeAudioLetter } = this.props
+    if (!modes.audio || this.audioPlayed) {
       return
     }
     return (
@@ -254,8 +254,8 @@ class PlayContainer extends Component {
   }
 
   getBestScore () {
-    const { mode, bestScores, nBack } = this.props
-    return bestScores[mode + nBack] || 0
+    const { modes, bestScores, nBack } = this.props
+    return bestScores[modes + nBack] || 0
   }
 
   onPause = () => {
@@ -267,16 +267,16 @@ class PlayContainer extends Component {
   }
 
   onKeyPress = ({ keyCode }) => {
-    const { mode, status } = this.props
-    if (keyCode === 112 && mode.position) { // p
+    const { modes, status } = this.props
+    if (keyCode === 112 && modes.position) { // p
       this.guessPosition()
       return
     }
-    if (keyCode === 99 && mode.color) { // c
+    if (keyCode === 99 && modes.color) { // c
       this.guessColor()
       return
     }
-    if (keyCode === 97 && mode.audio) { // a
+    if (keyCode === 97 && modes.audio) { // a
       this.guessAudio()
       return
     }
