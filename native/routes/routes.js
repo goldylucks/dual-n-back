@@ -6,9 +6,6 @@ import Play from '../pages/Play'
 
 export default class Routes extends Component {
 
-  // initialRoute = { title: 'Game title', index: 1 }
-  initialRoute = { title: 'home', index: 0 }
-
   render () {
     return (
       <Navigator
@@ -45,5 +42,8 @@ export default class Routes extends Component {
       index: 0,
     })
   }
+
+  // initialRoute = { title: 'Game title', index: 1 }
+  initialRoute = { title: 'home', index: 0 }
 
 }
