@@ -19,30 +19,30 @@ describe('shared/middlewares/storage.native', () => {
       cut.AsyncStorage.getItem.reset()
     })
 
-    it('should call local storage bestScore with empty object, and not call dispatch', async function () {
+    it('should call local storage bestScores with empty object, and not call dispatch', async function () {
       // given
-      cut.AsyncStorage.getItem.withArgs('bestScore').returns(undefined)
+      cut.AsyncStorage.getItem.withArgs('bestScores').returns(undefined)
 
       // when
       await cut.onInitApp(dispatch)
 
       // then
-      expect(cut.AsyncStorage.setItem).to.have.been.calledWith('bestScore', '{}')
+      expect(cut.AsyncStorage.setItem).to.have.been.calledWith('bestScores', '{}')
       expect(cut.AsyncStorage.setItem).to.have.been.calledOnce
       expect(dispatch).to.not.have.been.called
     })
 
     it('should dispatch syncBestScore, and shouldnt call set local storage', async function () {
       // given
-      const bestScore = JSON.stringify({ dual1: 40 })
-      cut.AsyncStorage.getItem.withArgs('bestScore').returns(bestScore)
+      const bestScores = JSON.stringify({ dual1: 40 })
+      cut.AsyncStorage.getItem.withArgs('bestScores').returns(bestScores)
 
       // when
       await cut.onInitApp(dispatch)
 
       // then
       expect(cut.AsyncStorage.setItem).to.not.have.been.called
-      expect(dispatch).to.have.been.calledWith(syncBestScore(JSON.parse(bestScore)))
+      expect(dispatch).to.have.been.calledWith(syncBestScore(JSON.parse(bestScores)))
       expect(dispatch).to.have.been.calledOnce
     })
   })
@@ -54,7 +54,7 @@ describe('shared/middlewares/storage.native', () => {
         mode: 'dual',
         nBack: 2,
         score: 20,
-        bestScore: { dual2: 25 },
+        bestScores: { dual2: 25 },
       }
 
       // when
@@ -65,37 +65,37 @@ describe('shared/middlewares/storage.native', () => {
     })
 
     // beating an old record
-    it('should call AsyncStorage.mergeItem with the new bestScore', async function () {
+    it('should call AsyncStorage.mergeItem with the new bestScores', async function () {
       // given
       const playState = {
         mode: 'dual',
         nBack: 2,
         score: 50,
-        bestScore: { dual2: 25, simple1: 10 },
+        bestScores: { dual2: 25, simple1: 10 },
       }
 
       // when
       await cut.onEndGame(playState)
 
       // then
-      expect(cut.AsyncStorage.mergeItem).to.have.been.calledWith('bestScore', JSON.stringify({ dual2: 50 }))
+      expect(cut.AsyncStorage.mergeItem).to.have.been.calledWith('bestScores', JSON.stringify({ dual2: 50 }))
     })
 
     // first time playing a new mode+nBack configuration
-    it('should call AsyncStorage.mergeItem with the new bestScore', async function () {
+    it('should call AsyncStorage.mergeItem with the new bestScores', async function () {
       // given
       const playState = {
         mode: 'simple',
         nBack: 2,
         score: 13,
-        bestScore: { dual2: 25, simple1: 10 },
+        bestScores: { dual2: 25, simple1: 10 },
       }
 
       // when
       await cut.onEndGame(playState)
 
       // then
-      expect(cut.AsyncStorage.mergeItem).to.have.been.calledWith('bestScore', JSON.stringify({ simple2: 13 }))
+      expect(cut.AsyncStorage.mergeItem).to.have.been.calledWith('bestScores', JSON.stringify({ simple2: 13 }))
     })
   })
 

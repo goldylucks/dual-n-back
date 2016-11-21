@@ -39,21 +39,21 @@ export default class StorageMiddleware {
   }
 
   syncBestScore (dispatch) {
-    const bestScore = localStorage.getItem('bestScore')
+    const bestScores = localStorage.getItem('bestScores')
     // initialize empty object on first run
-    if (!bestScore) {
-      localStorage.setItem('bestScore', '{}')
+    if (!bestScores) {
+      localStorage.setItem('bestScores', '{}')
       return
     }
-    dispatch(syncBestScore(JSON.parse(bestScore)))
+    dispatch(syncBestScore(JSON.parse(bestScores)))
   }
 
-  onEndGame ({ bestScore, mode, nBack, score }) {
-    if (bestScore[mode + nBack] >= score) {
+  onEndGame ({ bestScores, mode, nBack, score }) {
+    if (bestScores[mode + nBack] >= score) {
       return
     }
-    bestScore[mode + nBack] = score
-    localStorage.setItem('bestScore', JSON.stringify(bestScore))
+    bestScores[mode + nBack] = score
+    localStorage.setItem('bestScores', JSON.stringify(bestScores))
   }
 
   onAuthSuccess (user) {

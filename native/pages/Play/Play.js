@@ -20,7 +20,7 @@ class PlayPage extends Component {
     activeSquareColor: PropTypes.string,
     activeSquareIdx: PropTypes.number,
     score: PropTypes.number.isRequired,
-    bestScore: PropTypes.object.isRequired,
+    bestScores: PropTypes.object.isRequired,
     routeToHome: PropTypes.func.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
       activeSquareColor: PropTypes.string,
@@ -161,8 +161,8 @@ class PlayPage extends Component {
   }
 
   getBestScore () {
-    const { mode, bestScore, nBack } = this.props
-    return bestScore[mode + nBack] || 0
+    const { mode, bestScores, nBack } = this.props
+    return bestScores[mode + nBack] || 0
   }
 
   onPause = () => {

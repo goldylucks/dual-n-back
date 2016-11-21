@@ -27,4 +27,4 @@ export const decrementN = createAction('decrement n')
 export const incrementSpeed = createAction('increment speed')
 export const decrementSpeed = createAction('decrement speed')
 
-export const syncBestScore = createAction('sync bestScore')
+export const syncBestScore = createAction('sync bestScores')

@@ -25,26 +25,26 @@ export default class StorageMiddleware {
 
   async onInitApp (dispatch) {
     try {
-      const bestScore = await this.AsyncStorage.getItem('bestScore')
+      const bestScores = await this.AsyncStorage.getItem('bestScores')
       // initialize empty object on first run
-      if (!bestScore) {
-        await this.AsyncStorage.setItem('bestScore', JSON.stringify({}))
+      if (!bestScores) {
+        await this.AsyncStorage.setItem('bestScores', JSON.stringify({}))
         return
       }
-      dispatch(syncBestScore(JSON.parse(bestScore)))
+      dispatch(syncBestScore(JSON.parse(bestScores)))
     } catch (err) {
-      logger.warn('[StorageMiddleware] Error fetching bestScore:', err)
+      logger.warn('[StorageMiddleware] Error fetching bestScores:', err)
     }
   }
 
-  async onEndGame ({ bestScore, mode, nBack, score }) {
-    if (bestScore[mode + nBack] >= score) {
+  async onEndGame ({ bestScores, mode, nBack, score }) {
+    if (bestScores[mode + nBack] >= score) {
       return
     }
     try {
-      await this.AsyncStorage.mergeItem('bestScore', JSON.stringify({ [mode + nBack]: score }))
+      await this.AsyncStorage.mergeItem('bestScores', JSON.stringify({ [mode + nBack]: score }))
     } catch (err) {
-      logger.warn('[StorageMIddleware] Error saving bestScore:', err)
+      logger.warn('[StorageMIddleware] Error saving bestScores:', err)
     }
   }
 

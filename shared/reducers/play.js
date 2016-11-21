@@ -20,7 +20,7 @@ const initialState = {
   colors: ['red', 'purple', 'yellow'],
   letters: ['M', 'Q', 'R'],
   history: [],
-  bestScore: {},
+  bestScores: {},
   score: 0,
 }
 
@@ -197,21 +197,21 @@ export default handleActions({
     }
   },
 
-  'sync bestScore' (state, action) {
+  'sync bestScores' (state, action) {
     return {
       ...state,
-      bestScore: action.payload,
+      bestScores: action.payload,
     }
   },
 
 }, initialState)
 
 function gameOverState (state) {
-  const { bestScore, mode, nBack, score } = state
-  bestScore[mode + nBack] = Math.max(score, bestScore[mode + nBack])
+  const { bestScores, mode, nBack, score } = state
+  bestScores[mode + nBack] = Math.max(score, bestScores[mode + nBack])
   return {
     ...state,
-    bestScore,
+    bestScores,
     status: 'gameOver',
   }
 }

@@ -10,30 +10,30 @@ describe('shared/middlewares/storage', () => {
   })
 
   describe('syncBestScore', () => {
-    it('should call local storage bestScore with empty object, and not call dispatch', () => {
+    it('should call local storage bestScores with empty object, and not call dispatch', () => {
       // given
-      localStorage.getItem.withArgs('bestScore').returns(undefined)
+      localStorage.getItem.withArgs('bestScores').returns(undefined)
 
       // when
       cut.syncBestScore(dispatch)
 
       // then
-      expect(localStorage.setItem).to.have.been.calledWith('bestScore', '{}')
+      expect(localStorage.setItem).to.have.been.calledWith('bestScores', '{}')
       expect(localStorage.setItem).to.have.been.calledOnce
       expect(dispatch).to.not.have.been.called
     })
 
     it('should dispatch syncBestScore, and shouldnt call set local storage', () => {
       // given
-      const bestScore = JSON.stringify({ dual1: 40 })
-      localStorage.getItem.withArgs('bestScore').returns(bestScore)
+      const bestScores = JSON.stringify({ dual1: 40 })
+      localStorage.getItem.withArgs('bestScores').returns(bestScores)
 
       // when
       cut.syncBestScore(dispatch)
 
       // then
       expect(localStorage.setItem).to.not.have.been.called
-      expect(dispatch).to.have.been.calledWith(syncBestScore(JSON.parse(bestScore)))
+      expect(dispatch).to.have.been.calledWith(syncBestScore(JSON.parse(bestScores)))
       expect(dispatch).to.have.been.calledOnce
     })
   })
@@ -45,7 +45,7 @@ describe('shared/middlewares/storage', () => {
         mode: 'dual',
         nBack: 2,
         score: 20,
-        bestScore: { dual2: 25 },
+        bestScores: { dual2: 25 },
       }
 
       // when
@@ -56,37 +56,37 @@ describe('shared/middlewares/storage', () => {
     })
 
     // beating an old record
-    it('should call localStorage.setItem with the new bestScore', () => {
+    it('should call localStorage.setItem with the new bestScores', () => {
       // given
       const playState = {
         mode: 'dual',
         nBack: 2,
         score: 50,
-        bestScore: { dual2: 25, simple1: 10 },
+        bestScores: { dual2: 25, simple1: 10 },
       }
 
       // when
       cut.onEndGame(playState)
 
       // then
-      expect(localStorage.setItem).to.have.been.calledWith('bestScore', JSON.stringify({ dual2: 50, simple1: 10 }))
+      expect(localStorage.setItem).to.have.been.calledWith('bestScores', JSON.stringify({ dual2: 50, simple1: 10 }))
     })
 
     // first time playing a new mode+nBack configuration
-    it('should call localStorage.setItem with the new bestScore', () => {
+    it('should call localStorage.setItem with the new bestScores', () => {
       // given
       const playState = {
         mode: 'simple',
         nBack: 2,
         score: 13,
-        bestScore: { dual2: 25, simple1: 10 },
+        bestScores: { dual2: 25, simple1: 10 },
       }
 
       // when
       cut.onEndGame(playState)
 
       // then
-      expect(localStorage.setItem).to.have.been.calledWith('bestScore', JSON.stringify({ dual2: 25, simple1: 10, simple2: 13 }))
+      expect(localStorage.setItem).to.have.been.calledWith('bestScores', JSON.stringify({ dual2: 25, simple1: 10, simple2: 13 }))
     })
   })
 

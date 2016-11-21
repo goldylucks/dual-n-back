@@ -13,7 +13,7 @@ class HomePage extends Component {
     mode: PropTypes.object.isRequired,
     nBack: PropTypes.number.isRequired,
     speed: PropTypes.number.isRequired,
-    bestScore: PropTypes.object.isRequired,
+    bestScores: PropTypes.object.isRequired,
     user: PropTypes.object,
     actions: PropTypes.shape({
       toggleMode: PropTypes.func.isRequired,
@@ -101,8 +101,8 @@ class HomePage extends Component {
   }
 
   getBestScore () {
-    const { mode, bestScore, nBack } = this.props
-    return bestScore[mode + nBack] || 0
+    const { mode, bestScores, nBack } = this.props
+    return bestScores[mode + nBack] || 0
   }
 
 }
