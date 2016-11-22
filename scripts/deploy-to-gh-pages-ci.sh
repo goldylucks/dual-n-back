@@ -1,7 +1,6 @@
 #!/bin/bash
 # See https://medium.com/@nthgergo/publishing-gh-pages-with-travis-ci-53a8270e87db
 set -o errexit
-echo foo
 # only deploy merges of master
 if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "master" ]; then exit 0; fi
 
@@ -15,6 +14,6 @@ cd web-dist
 git init
 git add .
 git commit -m "Deploy to Github Pages"
-echo bar
-git push --force --quiet "https://${GITHUB_TOKEN}@$github.com/${TRAVIS_REPO_SLUG}.git" master:gh-pages > /dev/null 2>&1
+echo "pushing to ${TRAVIS_REPO_SLUG}"
+git push --force --quiet "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" master:gh-pages > /dev/null 2>&1
 echo "successfully deployed to ${TRAVIS_REPO_SLUG}"
