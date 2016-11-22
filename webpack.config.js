@@ -18,7 +18,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'web-dist'),
-    filename: '[name].js',
+    filename: '[name].[hash].js',
   },
   module: {
     loaders: [
