@@ -1,12 +1,12 @@
-var rucksack = require('rucksack-css')
-var webpack = require('webpack')
-var path = require('path')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var ENV = process.env.NODE_ENV || 'development'
-var isProd = ENV === 'production'
-var WebpackErrorNotificationPlugin = require('webpack-error-notification')
-var FB_ID = process.env.FB_ID || '329879750722396'
+const rucksack = require('rucksack-css')
+const webpack = require('webpack')
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ENV = process.env.NODE_ENV || 'development'
+const isProd = ENV === 'production'
+const WebpackErrorNotificationPlugin = require('webpack-error-notification')
+const FB_ID = process.env.FB_ID || '329879750722396'
 
 module.exports = {
   debug: !isProd,
@@ -73,7 +73,7 @@ module.exports = {
     }),
   ],
   plugins: (function () {
-    var plugins = [
+    const plugins = [
       new HtmlWebpackPlugin({
         template: 'index.ejs',
       }),
