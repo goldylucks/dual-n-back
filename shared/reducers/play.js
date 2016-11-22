@@ -5,7 +5,7 @@ import _ from 'lodash'
 import * as utils from '../utils'
 
 const initialState = {
-  nBack: 1,
+  nBack: 2,
   speed: 2000,
   modes: {
     audio: false,
@@ -57,7 +57,7 @@ export default handleActions({
   },
 
   'toggle modes' (state, action) {
-    const { modes } = state
+    const modes = Object.assign({}, state.modes)
     modes[action.payload] = !modes[action.payload]
     // don't toggle this modes if all others are off
     if (!_.some(Object.values(modes))) {
@@ -65,7 +65,7 @@ export default handleActions({
     }
     return {
       ...state,
-      modes: Object.assign({}, modes),
+      modes,
     }
   },
 
