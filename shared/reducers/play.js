@@ -219,7 +219,7 @@ export default handleActions({
 
 function gameOverState (state) {
   let { bestScores, modes, nBack, score } = state
-  if (utils.getBestScore(modes, nBack, bestScores) >= score) {
+  if (utils.getBestScore(modes, nBack, bestScores) <= score) {
     bestScores = utils.updateBestScores(modes, nBack, bestScores, score)
   }
   return {
