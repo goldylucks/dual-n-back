@@ -5,9 +5,9 @@
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 3000",
     "server": "nodemon server/server.js",
-    "clean:client": "rm -rf client-dist",
-    "prebuild:client": "npm run clean:client",
-    "build:client": "NODE_ENV=production webpack --progress -colors",
+    "clean:web": "rm -rf web-dist",
+    "prebuild:web": "npm run clean:web",
+    "build:web": "NODE_ENV=production webpack --progress -colors",
     "appium": "appium",
     "test": "mocha ./test/babel.js shared/**/*.spec.js test/setup.spec.js",
     "test:native": "mocha --opts test/mocha.native.opts shared/**/*.nspec.js test/setup.spec.js",
