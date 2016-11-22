@@ -2,7 +2,7 @@ var rucksack = require('rucksack-css')
 var webpack = require('webpack')
 var path = require('path')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
-
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ENV = process.env.NODE_ENV || 'development'
 var isProd = ENV === 'production'
 var WebpackErrorNotificationPlugin = require('webpack-error-notification')
@@ -74,6 +74,9 @@ module.exports = {
   ],
   plugins: (function () {
     var plugins = [
+      new HtmlWebpackPlugin({
+        template: 'index.ejs',
+      }),
       new WebpackErrorNotificationPlugin(),
       new webpack.DefinePlugin({
         FB_ID: JSON.stringify(FB_ID),
