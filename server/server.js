@@ -1,4 +1,3 @@
-const path = require('path')
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 const express = require('express')
@@ -14,7 +13,6 @@ require('./middlewares/appMiddleware')(app)
 app.use('/api', api)
 app.use('/api', require('./middlewares/404Middleware'))
 app.use(require('./middlewares/errorMiddleware'))
-app.use('/', express.static(path.join(__dirname, '..', 'client-dist')))
 
 if (!module.parent) {
   app.listen(config.port)

@@ -1,18 +1,31 @@
 language: node_js
+
 node_js:
   - 'node'
 
 sudo: false
+
+env:
+  global:
+    # GITHUB_TOKEN (deploy to github pages)
+    - secure: sZcFjfLyET1gEOGxkHtzitx/lbbJ//0domDJEpd/yRFXJtR7hU4fzMbugDhCjwFP2se5K6BTmrfVWQt2ZMIuiefOC1Q34hlgTVpKJaUTBEHq3VCfjZBAoORMwpMJzPPdnB22Be7r7UBhtSOvAvIPTTDxbKKc2XUqVzIEWAcllfK4ssionU5uOWxupCpi3A1Np1GNFLN+5GaBEvMfKfvEmVUt1mXDaYS+79ZIH538DIL/FX+VOgTSupEnZfgdE64PHZb/4CTLSeVyHrdyqPZvHxjRgXiAzv0b1oUl/S3iH8XN4WckQK8ZgbWCcYZ4jgVFUaBGgOn6dILtUcbpLSwvigtwL4T4kM92r6HV3Nccdj8f5f8OelB5s4KMTKfsJ+iPl7uAgPQ/kFTW8gLf9OxeQq01Srf3Xza+9ZKxDTG7zK6ttOuknWZR9KuFpHSg8LI4IRPEksjRgEWx/5S2ROtqQZ5bAg2Yvn2bB8PxfEOrp22qQd9Obs3hn8TsJ/xJhvnq8oYC/BXhE9TmXSRNKiiOGeijCft6ehQce0jP53B7lMwbuIHIE8bRRvial5xoOzpNW2IiOAW2PAsbbEw8sVEUmbhcekMY/CcO08XMYG6zQXBa7xY3oQDTtAnqCDQMIUM0s+6uVmp8VKSojz8V+p92Ijirq3LqdfkFF5ARfnroDbQ=
+
 branches:
   only:
   - master
   - "/v\\d\\./"
+
 matrix:
   include:
   - env: SCRIPT=lint
   - env: SCRIPT=test
+
 cache:
   directories:
   - node_modules
+
 script:
-- if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
+  - if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
+
+after_success:
+  - ./scripts/deploy-to-gh-pages-ci.sh
