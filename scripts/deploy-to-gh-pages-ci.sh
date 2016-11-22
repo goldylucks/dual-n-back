@@ -21,7 +21,7 @@ fi
 SHA=`git rev-parse --verify HEAD`
 
 # config git
-git config --global user.email "travis@travis-ci.com"
+git config --global user.email "admin@travis-ci.com"
 git config --global user.name "Travis CI"
 
 # deploy
