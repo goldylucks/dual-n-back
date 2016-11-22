@@ -31,39 +31,39 @@ class HomePage extends Component {
       <div className={ styles.container }>
         <div className={ styles.headline }>MEMORY N-BACK</div>
         <div className={ `${styles.settings} ${styles.modes}` }>
-          <i onClick={ this.toggleMode.bind(this, 'position') } className={ `fa fa-th ${modes.position ? styles.active : ''}` } />
-          <i onClick={ this.toggleMode.bind(this, 'audio') } className={ `fa fa-headphones ${modes.audio ? styles.active : ''}` } />
-          <i onClick={ this.toggleMode.bind(this, 'color') } className={ `fa fa-paint-brush ${modes.color ? styles.active : ''}` } />
+          <i onClick={ this.toggleMode.bind(this, 'position') } className={ `fa fa-th ${modes.position ? styles.active : ''}` } { ...this._test('modePosition') } />
+          <i onClick={ this.toggleMode.bind(this, 'audio') } className={ `fa fa-headphones ${modes.audio ? styles.active : ''}` } { ...this._test('modeAudio') } />
+          <i onClick={ this.toggleMode.bind(this, 'color') } className={ `fa fa-paint-brush ${modes.color ? styles.active : ''}` } { ...this._test('modeColor') } />
         </div>
         <div className={ styles.settings }>
-          <a onClick={ this.decrementN } className={ styles.leftSetting }>
+          <a onClick={ this.decrementN } className={ styles.leftSetting } { ...this._test('nBackDecrement') }>
             <i className={ [styles.leftSettingIcon, 'fa fa-minus'].join(' ') } />
           </a>
           <div className={ styles.middleSetting }>
-            <div className={ styles.middleSettingText }>{ nBack }</div>
+            <div className={ styles.middleSettingText } { ...this._test('nBack') }>{ nBack }</div>
           </div>
-          <a onClick={ this.incrementN } className={ styles.rightSetting }>
+          <a onClick={ this.incrementN } className={ styles.rightSetting } { ...this._test('nBackIncrement') }>
             <i className={ [styles.rightSettingIcon, 'fa fa-plus'].join(' ') } />
           </a>
         </div>
         <div className={ styles.settings }>
-          <a onClick={ this.decrementSpeed } className={ styles.leftSetting }>
+          <a onClick={ this.decrementSpeed } className={ styles.leftSetting } { ...this._test('speedDecrement') }>
             <i className={ [styles.leftSettingIcon, 'fa fa-minus'].join(' ') } />
           </a>
           <div className={ styles.middleSetting }>
-            <div className={ styles.middleSettingText }>{ speed }</div>
+            <div className={ styles.middleSettingText } { ...this._test('speed') }>{ speed }</div>
           </div>
-          <a onClick={ this.incrementSpeed } className={ styles.rightSetting }>
+          <a onClick={ this.incrementSpeed } className={ styles.rightSetting } { ...this._test('speedIncrement') }>
             <i className={ [styles.rightSettingIcon, 'fa fa-plus'].join(' ') } />
           </a>
         </div>
         <div className={ styles.play }>
           { this.renderLogin() }
-          <Link to={ '/play' }>
+          <Link to={ '/play' } { ...this._test('routeToPlay') }>
             <i className={ [styles.playIcon, 'fa fa-play-circle'].join(' ') } />
           </Link>
         </div>
-        <div className={ styles.record }>
+        <div className={ styles.record } { ...this._test('bestScore') }>
           BEST SCORE: { utils.getBestScore(modes, nBack, bestScores) }
         </div>
       </div>
@@ -75,7 +75,7 @@ class HomePage extends Component {
       return
     }
     return (
-      <Link to={ '/auth' } className={ styles.auth }>
+      <Link to={ '/auth' } className={ styles.auth } { ...this._test('routeToAuth') }>
         <i className={ [styles.authIcon, 'fa fa-sign-in'].join(' ') } />
       </Link>
     )
