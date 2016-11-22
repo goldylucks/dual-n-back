@@ -1,9 +1,23 @@
 #!/bin/bash
+
+# Bail on first error
 # See https://medium.com/@nthgergo/publishing-gh-pages-with-travis-ci-53a8270e87db
 set -o errexit
-# only deploy merges of master
-if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "master" ]; then exit 0; fi
 
+# dont deploy pull requests, only merges
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+  echo PR detected, bailing
+  exit 0;
+fi
+
+# dont deploy non master branch
+if [ "$TRAVIS_BRANCH" != "master" ]; then
+  echo not master branch, bailing
+  exit 0;
+fi
+
+
+# store src commit hash
 SHA=`git rev-parse --verify HEAD`
 
 # config git
@@ -15,13 +29,6 @@ npm run build:web
 cd web-dist
 git init
 git add .
-
-# If there are no changes to the compiled out (e.g. this is a README update) then just bail.
-if [ -z `git diff --exit-code` ]; then
-    echo "No changes to the output on this push; exiting."
-    exit 0
-fi
-
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 
 git push --force --quiet "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" master:gh-pages > /dev/null 2>&1
