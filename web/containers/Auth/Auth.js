@@ -80,7 +80,7 @@ class AuthContainer extends Component {
   renderForm () {
     const { modes, name, nameError, email, emailError, password, passwordError, rePassword, serverError } = this.props
     return (
-      <form>
+      <form onSubmit={ this.onSubmit }>
         { utils.renderIf(modes === 'signup')(
           <div className={ styles.formControl }>
             <label>Name <small>(public)</small></label>
@@ -117,9 +117,9 @@ class AuthContainer extends Component {
   renderActions () {
     const { isProcessing, modes } = this.props
     if (modes === 'signup') {
-      return <Button onClick={ this.signup } isProcessing={ isProcessing }>Signup</Button>
+      return <Button type='submit' isProcessing={ isProcessing }>Signup</Button>
     }
-    return <Button onClick={ this.login } isProcessing={ isProcessing }>Login</Button>
+    return <Button type='submit' isProcessing={ isProcessing }>Login</Button>
   }
 
   toggleAuthMode = () => {
@@ -140,6 +140,11 @@ class AuthContainer extends Component {
 
   onRePasswordChange = evt => {
     this.props.actions.updateRePassword(evt.target.value)
+  }
+
+  onSubmit = evt => {
+    evt.preventDefault()
+    this.props.modes === 'signup' ? this.signup() : this.login()
   }
 
   signup = () => {

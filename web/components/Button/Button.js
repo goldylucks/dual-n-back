@@ -5,16 +5,21 @@ export default class Button extends Component {
 
   static propTypes = {
     isProcessing: PropTypes.bool.isRequired,
+    type: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
   }
 
+  defaultProps = {
+    type: 'button',
+  }
+
   render () {
-    const { isProcessing, onClick, children } = this.props
+    const { isProcessing, onClick, children, type } = this.props
     return (
       <div className={ styles.container }>
         <button
-          type='button'
+          type={ type }
           className={ styles.button }
           disabled={ isProcessing }
           onClick={ onClick }
