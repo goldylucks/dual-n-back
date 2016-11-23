@@ -90,7 +90,7 @@ function saucelab (platform, browserName, browserVersion) {
     'desiredCapabilities': {
       'tunnel-identifier': '${TRAVIS_JOB_NUMBER}',
       'build': 'build-${TRAVIS_JOB_NUMBER}',
-      'name': 'typing',
+      'name': 'dual-n-back',
       'browserName': browserName,
       'unexpectedAlertBehaviour': 'accept',
       'platform': platform,
