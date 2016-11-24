@@ -8,7 +8,7 @@ import * as actions from '../../../shared/actions/play'
 
 import styles from './Home.css'
 
-class HomePage extends Component {
+class HomeContainer extends Component {
 
   static propTypes = {
     modes: PropTypes.object.isRequired,
@@ -119,4 +119,4 @@ function mapDispatchToProps (dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(HomePage)
+)(HomeContainer)
