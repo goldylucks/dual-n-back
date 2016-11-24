@@ -14,7 +14,7 @@ export default class Square extends Component {
 
   render () {
     return (
-      <div style={ this.getContainerStyle() } className={ styles.container }>
+      <div style={ this.getContainerStyle() } className={ styles.container } { ...this._test() }>
         { this.props.children }
       </div>
     )

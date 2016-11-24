@@ -85,12 +85,12 @@ class PlayContainer extends Component {
     const { status, score } = this.props
     if (status === 'idle') {
       return (
-        <a onClick={ this.startGame } className={ styles.header }>Start</a>
+        <a onClick={ this.startGame } className={ styles.header } { ...this._test('start') }>Start</a>
       )
     }
     if (status === 'gameOver') {
       return (
-        <div className={ styles.header }>
+        <div className={ styles.header } { ...this._test('gameOver') }>
           <i className='fa fa-frown-o' />
         </div>
       )
@@ -109,7 +109,7 @@ class PlayContainer extends Component {
       return
     }
     return (
-      <div className={ styles.gameOverAudio }>
+      <div className={ styles.gameOverAudio } { ...this._test('gameOverAudio') }>
         <span>{ nBack } ago</span>
         <i className='fa fa-long-arrow-right' />
         <span>{ _.last(history).activeAudioLetter }/{ _.nth(history, -nBack - 1).activeAudioLetter }</span>
@@ -139,12 +139,12 @@ class PlayContainer extends Component {
   renderPauseResume () {
     if (this.props.status === 'paused') {
       return (
-        <i onClick={ this.onResume } className={ [styles.headerPauseResumeIcon, 'fa fa-play'].join(' ') } />
+        <i onClick={ this.onResume } className={ [styles.headerPauseResumeIcon, 'fa fa-play'].join(' ') } { ...this._test('resume') } />
       )
     }
 
     return (
-      <i onClick={ this.onPause } className={ [styles.headerPauseResumeIcon, 'fa fa-pause'].join(' ') } />
+      <i onClick={ this.onPause } className={ [styles.headerPauseResumeIcon, 'fa fa-pause'].join(' ') } { ...this._test('pause') } />
     )
   }
 
@@ -157,23 +157,23 @@ class PlayContainer extends Component {
       <div className={ styles.controls }>
         {
           utils.renderIf(position)(
-            <div className={ styles.control } onClick={ this.guessPosition }>
+            <a className={ styles.control } onClick={ this.guessPosition } { ...this._test('guessPosition') }>
               <i className={ ['fa fa-th', styles.controlIcon].join(' ') } />
-            </div>
+            </a>
           )
         }
         {
           utils.renderIf(color)(
-            <div className={ styles.control } onClick={ this.guessColor }>
+            <a className={ styles.control } onClick={ this.guessColor } { ...this._test('guessColor') }>
               <i className={ ['fa fa-paint-brush', styles.controlIcon].join(' ') } />
-            </div>
+            </a>
           )
         }
         {
           utils.renderIf(audio)(
-            <div className={ styles.control } onClick={ this.guessAudio }>
+            <a className={ styles.control } onClick={ this.guessAudio } { ...this._test('guessAudio') }>
               <i className={ ['fa fa-headphones', styles.controlIcon].join(' ') } />
-            </div>
+            </a>
           )
         }
       </div>
@@ -186,8 +186,8 @@ class PlayContainer extends Component {
     }
     return (
       <div className={ styles.gameOverControls }>
-        <Link to='/home' className={ styles.gameOverControl }>MENU</Link>
-        <div className={ styles.gameOverControl } onClick={ this.startGame }>RETRY</div>
+        <Link to='/home' className={ styles.gameOverControl } { ...this._test('menu') }>MENU</Link>
+        <div className={ styles.gameOverControl } onClick={ this.startGame } { ...this._test('retry') }>RETRY</div>
       </div>
     )
   }
@@ -199,8 +199,11 @@ class PlayContainer extends Component {
     }
     return (
       <div>
-        <div className={ styles.gameOverMode }>{ nBack }-Back </div>
-        Score / Best Score: <span className={ styles.strong }>{ score }/{ utils.getBestScore(modes, nBack, bestScores) }</span>
+        <div className={ styles.gameOverMode } { ...this._test('gameOverNBack') }>{ nBack }-Back </div>
+        Score / Best Score:
+        <span className={ styles.strong } { ...this._test('gameOverScore') }>
+          { score }/{ utils.getBestScore(modes, nBack, bestScores) }
+        </span>
       </div>
     )
   }
