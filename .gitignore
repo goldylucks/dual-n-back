@@ -4,8 +4,7 @@
 
 # Xcode
 #
-build/
-web-dist/
+
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -29,16 +28,18 @@ project.xcworkspace
 .idea
 .gradle
 local.properties
-
+android/app/libs
+android/keystores/debug.keystore
+build
 # node.js
 #
 node_modules/
-npm-debug.log
-
 # BUCK
 buck-out/
 \.buckd/
-android/app/libs
-android/keystores/debug.keystore
+
+# misc 
 *.sublime*
 *.keystore
+*.log
+web-dist/

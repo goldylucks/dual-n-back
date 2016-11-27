@@ -8,7 +8,8 @@ export default class StorageMiddleware {
       if (action.type === 'init app') {
         lsUtils.sync(store.dispatch, syncUser, 'user')
         lsUtils.sync(store.dispatch, syncBestScores, 'bestScores')
-        lsUtils.sync(store.dispatch, syncGameConfig, 'gameConfig')
+        const { modes, nBack, speed } = store.getState().play
+        lsUtils.sync(store.dispatch, syncGameConfig, 'gameConfig', { modes, nBack, speed })
         next(action)
         return
       }

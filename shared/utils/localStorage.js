@@ -1,10 +1,10 @@
 import logger from './logger'
 
-export function sync (dispatch, action, key) {
+export function sync (dispatch, action, key, initValue = {}) {
   const value = localStorage.getItem(key)
   // initialize empty object on first run
   if (!value) {
-    localStorage.setItem(key, '{}')
+    localStorage.setItem(key, JSON.stringify(initValue))
     return
   }
   try {

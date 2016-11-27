@@ -109,16 +109,7 @@ export default handleActions({
   },
 
   'play interval' (state, action) {
-    const turn = {}
-    if (state.modes.color) {
-      turn.activeSquareColor = _.sample(state.colors)
-    }
-    if (state.modes.position) {
-      turn.activeSquareIdx = _.sample(state.idxs)
-    }
-    if (state.modes.audio) {
-      turn.activeAudioLetter = _.sample(state.letters)
-    }
+    const turn = getTurn(state)
     return {
       ...state,
       activeSquareColor: turn.activeSquareColor || state.colors[0],
@@ -228,3 +219,73 @@ function gameOverState (state) {
     status: 'gameOver',
   }
 }
+
+function getTurn (state) {
+  if (process.env.NODE_ENV === 'e2e') {
+    return _TEST_TURNS.shift()
+  }
+  const turn = {}
+  if (state.modes.color) {
+    turn.activeSquareColor = _.sample(state.colors)
+  }
+  if (state.modes.position) {
+    turn.activeSquareIdx = _.sample(state.idxs)
+  }
+  if (state.modes.audio) {
+    turn.activeAudioLetter = _.sample(state.letters)
+  }
+  return turn
+}
+
+const _TEST_TURNS = [
+  // game 1 - 2Back Color Position
+  { activeSquareColor: 'red', activeSquareIdx: 1 },
+  { activeSquareColor: 'yellow', activeSquareIdx: 2 },
+  { activeSquareColor: 'red', activeSquareIdx: 3 }, // click color correct
+  { activeSquareColor: 'purple', activeSquareIdx: 2 }, // click position correct
+  { activeSquareColor: 'red', activeSquareIdx: 3 }, // click both correct
+  { activeSquareColor: 'purple', activeSquareIdx: 3 }, // miss color, score -> 4
+  // game 2 - 2Back Color Position
+  { activeSquareColor: 'purple', activeSquareIdx: 7 },
+  { activeSquareColor: 'yellow', activeSquareIdx: 5 },
+  { activeSquareColor: 'yellow', activeSquareIdx: 7 }, // keypress position correct
+  { activeSquareColor: 'yellow', activeSquareIdx: 7 }, // keypress color correct
+  { activeSquareColor: 'yellow', activeSquareIdx: 7 }, // keypress both correct
+  { activeSquareColor: 'red', activeSquareIdx: 7 }, // miss position, score -> 4
+  // game 3 - 2Back Color Position
+  { activeSquareColor: 'purple', activeSquareIdx: 7 },
+  { activeSquareColor: 'purple', activeSquareIdx: 7 },
+  { activeSquareColor: 'purple', activeSquareIdx: 7 }, // miss both, score -> 0
+  // game 4 - 1Back Color Position
+  { activeSquareColor: 'purple', activeSquareIdx: 7 },
+  { activeSquareColor: 'purple', activeSquareIdx: 2 }, // click position wrong, score -> 0
+  // game 5 - 1Back Color Position
+  { activeSquareColor: 'purple', activeSquareIdx: 7 },
+  { activeSquareColor: 'yellow', activeSquareIdx: 2 }, // click color wrong, score -> 0
+  // game 6 - 1Back Color Position
+  { activeSquareColor: 'purple', activeSquareIdx: 7 },
+  { activeSquareColor: 'purple', activeSquareIdx: 2 }, // keypress position wrong, score -> 0
+  // game 7 - 1Back Color Position
+  { activeSquareColor: 'purple', activeSquareIdx: 7 },
+  { activeSquareColor: 'yellow', activeSquareIdx: 2 }, // keypress color wrong, score -> 0
+  // game 8 - 1Back Color Position Audio
+  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'Q' },
+  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'Q' }, // click all correct
+  { activeSquareColor: 'yellow', activeSquareIdx: 2, activeAudioLetter: 'Q' }, // click audio correct
+  { activeSquareColor: 'red', activeSquareIdx: 2, activeAudioLetter: 'R' }, // click position correct
+  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'M' }, // click color correct
+  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'Q' },
+  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'Q' }, // keypress all correct
+  { activeSquareColor: 'yellow', activeSquareIdx: 2, activeAudioLetter: 'Q' }, // keypress audio correct
+  { activeSquareColor: 'red', activeSquareIdx: 2, activeAudioLetter: 'R' }, // keypress position correct
+  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'M' }, // keypress color correct
+  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'M' }, // miss color, score -> 12
+  // game 9 - 3Back Audio
+  { activeAudioLetter: 'M' },
+  { activeAudioLetter: 'Q' },
+  { activeAudioLetter: 'R' },
+  { activeAudioLetter: 'R' },
+  { activeAudioLetter: 'Q' }, // click Audio correct
+  { activeAudioLetter: 'R' }, // keypress Audio correct
+
+]
