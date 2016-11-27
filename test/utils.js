@@ -1,5 +1,6 @@
 module.exports = {
   el: el,
+  BASE_URL: 'http://localhost:4000/#',
 }
 
 function el (base, innerSelector) {

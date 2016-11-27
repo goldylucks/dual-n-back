@@ -1,6 +1,6 @@
 const _ = require('lodash')
-const el = require('./utils').el
-const url = 'http://localhost:3000/'
+const el = require('../utils').el
+const url = require('../utils').BASE_URL
 
 module.exports = {
   tags: ['Home Page'],

@@ -7,6 +7,7 @@ module.exports = {
   'globals_path': '',
   'globals': {
     'waitForConditionTimeout': 20000,
+    'asyncHookTimeout': 1000 * 20,
     'retryAssertionTimeout': 20000,
   },
   'selenium': {

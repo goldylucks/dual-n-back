@@ -90,14 +90,14 @@ class PlayContainer extends Component {
     }
     if (status === 'gameOver') {
       return (
-        <div className={ styles.header } { ...this._test('gameOver') }>
+        <div className={ styles.header } { ...this._test('gameOverHeader') }>
           <i className='fa fa-frown-o' />
         </div>
       )
     }
     return (
       <div className={ styles.header }>
-        <span className={ styles.headerText }>{ score }</span>
+        <span className={ styles.headerText } { ...this._test('score') }>{ score }</span>
         { this.renderPauseResume() }
       </div>
     )
