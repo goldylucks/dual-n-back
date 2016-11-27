@@ -1,5 +1,4 @@
 import { AsyncStorage } from 'react-native'
-
 import * as utils from '../utils'
 import logger from '../utils/logger'
 import { syncBestScores, syncGameConfig } from '../actions/play'
@@ -8,21 +7,18 @@ import * as lsUtils from '../utils/localStorage'
 
 export default class StorageMiddleware {
 
-  constructor (storage = AsyncStorage) {
-    this.AsyncStorage = storage
-  }
-
   toMiddleware () {
     return store => next => action => {
       if (action.type === 'init app') {
         lsUtils.sync(store.dispatch, syncUser, 'user')
         lsUtils.sync(store.dispatch, syncBestScores, 'bestScores')
-        lsUtils.sync(store.dispatch, syncGameConfig, 'gameConfig')
+        const { modes, nBack, speed } = store.getState().play
+        lsUtils.sync(store.dispatch, syncGameConfig, 'gameConfig', { modes, nBack, speed })
         next(action)
         return
       }
 
-      if (action.type.match(/crement n|rement speed|toggle modes/)) {
+      if (action.type.match(/crement n|rement speed|toggle mode/)) {
         next(action) // let reducer update the state before saving it to LS
         this.saveGameConf(store.getState().play)
         return
@@ -46,7 +42,7 @@ export default class StorageMiddleware {
 
   async saveGameConf ({ modes, nBack, speed }) {
     try {
-      this.AsyncStorage.setItem('gameConfig', JSON.stringify({ modes, nBack, speed }))
+      await AsyncStorage.setItem('gameConfig', JSON.stringify({ modes, nBack, speed }))
     } catch (err) {
       logger.error('[StorageMiddleware] Error saving gameConf:', { modes, nBack, speed }, err)
     }
@@ -57,7 +53,7 @@ export default class StorageMiddleware {
       return
     }
     try {
-      await this.AsyncStorage.mergeItem('bestScores', JSON.stringify({ [utils.getBestScoreKey]: score }))
+      await AsyncStorage.mergeItem('bestScores', JSON.stringify({ [utils.getBestScoreKey(modes, nBack)]: score }))
     } catch (err) {
       logger.error('[StorageMiddleware] Error saving bestScores:', err)
     }
@@ -65,7 +61,7 @@ export default class StorageMiddleware {
 
   async saveUser (user) {
     try {
-      await this.AsyncStorage.setItem('user', JSON.stringify(user))
+      await AsyncStorage.setItem('user', JSON.stringify(user))
     } catch (err) {
       logger.error('[StorageMiddleware] Error saving user:', user, err)
     }

@@ -45,7 +45,7 @@ describe('shared/middlewares/gameConf', () => {
   testToMiddleware({
     cut: new GameConfMiddleware({}),
     methods: [
-      { methodName: 'alertIfNoModes', actionType: 'toggle modes' },
+      { methodName: 'alertIfNoModes', actionType: 'toggle mode' },
     ],
   })
 })

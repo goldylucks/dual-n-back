@@ -31,9 +31,9 @@ class HomeContainer extends Component {
       <div className={ styles.container }>
         <div className={ styles.headline }>MEMORY N-BACK</div>
         <div className={ `${styles.settings} ${styles.modes}` }>
-          <i onClick={ this.toggleMode.bind(this, 'position') } className={ `fa fa-th ${modes.position ? styles.active : ''}` } { ...this._test('modePosition') } />
-          <i onClick={ this.toggleMode.bind(this, 'audio') } className={ `fa fa-headphones ${modes.audio ? styles.active : ''}` } { ...this._test('modeAudio') } />
-          <i onClick={ this.toggleMode.bind(this, 'color') } className={ `fa fa-paint-brush ${modes.color ? styles.active : ''}` } { ...this._test('modeColor') } />
+          <i onClick={ () => this.toggleMode('position') } className={ `fa fa-th ${modes.position ? styles.active : ''}` } { ...this._test('modePosition') } />
+          <i onClick={ () => this.toggleMode('audio') } className={ `fa fa-headphones ${modes.audio ? styles.active : ''}` } { ...this._test('modeAudio') } />
+          <i onClick={ () => this.toggleMode('color') } className={ `fa fa-paint-brush ${modes.color ? styles.active : ''}` } { ...this._test('modeColor') } />
         </div>
         <div className={ styles.settings }>
           <a onClick={ this.decrementN } className={ styles.leftSetting } { ...this._test('nBackDecrement') }>
@@ -81,8 +81,8 @@ class HomeContainer extends Component {
     )
   }
 
-  toggleMode = modes => {
-    this.props.actions.toggleMode(modes)
+  toggleMode = mode => {
+    this.props.actions.toggleMode(mode)
   }
 
   incrementN = evt => {

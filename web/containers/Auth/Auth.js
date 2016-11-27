@@ -13,7 +13,7 @@ import styles from './Auth.css'
 class AuthContainer extends Component {
 
   static propTypes = {
-    modes: PropTypes.string.isRequired,
+    modes: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,

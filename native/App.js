@@ -28,7 +28,6 @@ store.dispatch(initApp())
 
 // DEBUG STUFF
 // TODO [AdGo] - move to own file
-
 if (isDebuggingInChrome) {
-  global.store = store
+  require('../shared/utils/dev')(store)
 }

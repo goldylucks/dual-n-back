@@ -16,6 +16,7 @@
     "dispatch": true,
     "localStorage": true,
     "FB_ID": true,
+    "AsyncStorage": true,
     "SHOUT": true
   },
   "parserOptions": {

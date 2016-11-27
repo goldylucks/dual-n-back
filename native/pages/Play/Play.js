@@ -17,7 +17,7 @@ class PlayPage extends Component {
 
   static propTypes = {
     nBack: PropTypes.number.isRequired,
-    modes: PropTypes.string.isRequired,
+    modes: PropTypes.object.isRequired,
     status: PropTypes.string.isRequired,
     activeSquareColor: PropTypes.string,
     activeAudioLetter: PropTypes.string,
@@ -35,6 +35,7 @@ class PlayPage extends Component {
       pauseGame: PropTypes.func.isRequired,
       resumeGame: PropTypes.func.isRequired,
       guessColor: PropTypes.func.isRequired,
+      guessAudio: PropTypes.func.isRequired,
       guessPosition: PropTypes.func.isRequired,
     }).isRequired,
   }
@@ -68,7 +69,7 @@ class PlayPage extends Component {
         </View>
       )
     }
-    if (status === 'active') {
+    if (status === 'gameOver') {
       return (
         <View style={ styles.header }>
           <FaIcon style={ styles.headerGameOverIcon } name='frown-o' />
@@ -96,7 +97,7 @@ class PlayPage extends Component {
   }
 
   renderControls () {
-    const { history, nBack, status, modes } = this.props
+    const { status, modes } = this.props
     if (status === 'gameOver') {
       return
     }
@@ -104,22 +105,22 @@ class PlayPage extends Component {
       <View style={ styles.controls }>
         {
           utils.renderIf(modes.position)(
-            <TouchableHighlight style={ styles.control } onPress={ this.guessPosition } disabled={ this.isGuessDisabled(history, nBack, status) }>
+            <TouchableHighlight style={ styles.control } onPress={ this.guessPosition } disabled={ this.isGuessDisabled() }>
               <FaIcon style={ styles.controlIcon } name='th' />
             </TouchableHighlight>
           )
         }
         {
           utils.renderIf(modes.color)(
-            <TouchableHighlight style={ styles.control } onPress={ this.guessColor } disabled={ this.isGuessDisabled(history, nBack, status) }>
+            <TouchableHighlight style={ styles.control } onPress={ this.guessColor } disabled={ this.isGuessDisabled() }>
               <FdIcon style={ styles.controlIcon } name='paint-bucket' />
             </TouchableHighlight>
           )
         }
         {
           utils.renderIf(modes.audio)(
-            <TouchableHighlight style={ styles.control } onPress={ this.guessAudio } disabled={ this.isGuessDisabled(history, nBack, status) }>
-              <FdIcon style={ styles.controlIcon } name='headphones' />
+            <TouchableHighlight style={ styles.control } onPress={ this.guessAudio } disabled={ this.isGuessDisabled() }>
+              <FaIcon style={ styles.controlIcon } name='headphones' />
             </TouchableHighlight>
           )
         }
@@ -134,7 +135,7 @@ class PlayPage extends Component {
     }
     return (
       <View style={ styles.gameOverControls }>
-        <Text style={ styles.gameOverControl } onPress={ this.onMenuPress }>MENU</Text>
+        <Text style={ Object.assign({}, styles.gameOverControl, styles.gameOverControlFirst) } onPress={ () => this.props.routeToHome() }>MENU</Text>
         <Text style={ styles.gameOverControl } onPress={ this.startGame }>RETRY</Text>
       </View>
     )
@@ -147,10 +148,13 @@ class PlayPage extends Component {
     }
     return (
       <View style={ styles.gameOverStats }>
-        <Text style={ styles.gameOverScores }>
-          Score / Best Score: <Text style={ styles.strong }>{ score }/{ utils.getBestScore(modes, nBack, bestScores) }</Text>
+        <Text>
+          Score / Best Score:
+          <Text style={ styles.strong }>
+            { score }/{ utils.getBestScore(modes, nBack, bestScores) }
+          </Text>
         </Text>
-        <Text>{ utils.capitalize(modes) } { nBack }-Back </Text>
+        <Text style={ styles.gameOverMode }>{ nBack }-Back </Text>
       </View>
     )
   }
@@ -176,15 +180,24 @@ class PlayPage extends Component {
   }
 
   guessPosition = () => {
+    if (this.isGuessDisabled()) {
+      return
+    }
     this.props.actions.guessPosition()
   }
 
   guessColor = () => {
+    if (this.isGuessDisabled()) {
+      return
+    }
     this.props.actions.guessColor()
   }
 
-  onMenuPress = () => {
-    this.props.routeToHome()
+  guessAudio = () => {
+    if (this.isGuessDisabled()) {
+      return
+    }
+    this.props.actions.guessAudio()
   }
 
   onPause = () => {
@@ -193,6 +206,11 @@ class PlayPage extends Component {
 
   onResume = () => {
     this.props.actions.resumeGame()
+  }
+
+  isGuessDisabled () {
+    const { history, nBack, status } = this.props
+    return utils.isGuessDisabled(history, nBack, status)
   }
 
 }
@@ -282,6 +300,10 @@ const styles = {
     textAlignVertical: 'center',
     backgroundColor: 'gray',
     color: 'black',
+  },
+
+  gameOverControlFirst: {
+    marginRight: 2,
   },
 
   gameOverStats: {

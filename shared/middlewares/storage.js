@@ -14,7 +14,7 @@ export default class StorageMiddleware {
         return
       }
 
-      if (action.type.match(/crement n|rement speed|toggle modes/)) {
+      if (action.type.match(/crement n|rement speed|toggle mode/)) {
         next(action) // let reducer update the state before saving it to LS
         const { modes, nBack, speed } = store.getState().play
         localStorage.setItem('gameConfig', JSON.stringify({ modes, nBack, speed }))
