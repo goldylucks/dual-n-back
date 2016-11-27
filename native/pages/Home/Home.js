@@ -11,7 +11,7 @@ import * as actions from '../../../shared/actions/play'
 class HomePage extends Component {
 
   static propTypes = {
-    modes: PropTypes.string.isRequired,
+    modes: PropTypes.object.isRequired,
     nBack: PropTypes.number.isRequired,
     speed: PropTypes.number.isRequired,
     bestScores: PropTypes.object.isRequired,
@@ -30,16 +30,10 @@ class HomePage extends Component {
     return (
       <View style={ styles.container }>
         <Text style={ styles.headline }>MEMORY N-BACK</Text>
-        <View style={ styles.settings }>
-          <View style={ styles.leftSetting }>
-            <FaIcon onPress={ this.toggleMode } name='caret-left' style={ styles.leftSettingIcon } />
-          </View>
-          <View style={ styles.middleSetting }>
-            <Text style={ styles.middleSettingText }>{ modes }</Text>
-          </View>
-          <View style={ styles.rightSetting }>
-            <FaIcon onPress={ this.toggleMode } name='caret-right' style={ styles.rightSettingIcon } />
-          </View>
+        <View style={ Object.assign({}, styles.settings, styles.modes) }>
+          <FaIcon onPress={ () => this.toggleMode('position') } style={ Object.assign({}, styles.modesIcon, modes.position ? styles.modesIconActive : {}) } name='th' />
+          <FaIcon onPress={ () => this.toggleMode('audio') } style={ Object.assign({}, styles.modesIcon, modes.audio ? styles.modesIconActive : {}) } name='headphones' />
+          <FaIcon onPress={ () => this.toggleMode('color') } style={ Object.assign({}, styles.modesIcon, modes.color ? styles.modesIconActive : {}) } name='paint-brush' />
         </View>
         <View style={ styles.settings }>
           <View style={ styles.leftSetting }>
@@ -79,8 +73,8 @@ class HomePage extends Component {
     this.props.routeToGame()
   }
 
-  toggleMode = evt => {
-    this.props.actions.toggleMode()
+  toggleMode = mode => {
+    this.props.actions.toggleMode(mode)
   }
 
   incrementN = evt => {
@@ -137,6 +131,21 @@ const styles = {
     borderBottomColor: 'white',
     borderTopWidth: 1,
     borderTopColor: 'white',
+  },
+
+  modes: {
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+
+  modesIcon: {
+    fontSize: 40,
+    color: '#fff',
+    opacity: 0.5,
+  },
+
+  modesIconActive: {
+    opacity: 1,
   },
 
   leftSetting: {

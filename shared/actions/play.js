@@ -21,7 +21,7 @@ export const guessAudio = createAction('guess audio')
 export const guessAudioCorrect = createAction('guess audioCorrect')
 export const guessAudioWrong = createAction('guess audioWrong')
 
-export const toggleMode = createAction('toggle modes')
+export const toggleMode = createAction('toggle mode')
 export const incrementN = createAction('increment n')
 export const decrementN = createAction('decrement n')
 export const incrementSpeed = createAction('increment speed')

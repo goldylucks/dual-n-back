@@ -4,7 +4,7 @@ export default class GameConfMiddleware {
 
   toMiddleware () {
     return store => next => action => {
-      if (action.type === 'toggle modes') {
+      if (action.type === 'toggle mode') {
         this.alertIfNoModes(store.getState().play, action.payload)
       }
       next(action)

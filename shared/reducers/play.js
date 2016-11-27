@@ -56,7 +56,7 @@ export default handleActions({
     }
   },
 
-  'toggle modes' (state, action) {
+  'toggle mode' (state, action) {
     const modes = Object.assign({}, state.modes)
     modes[action.payload] = !modes[action.payload]
     // don't toggle this modes if all others are off

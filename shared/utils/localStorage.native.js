@@ -1,11 +1,13 @@
+import { AsyncStorage } from 'react-native'
+
 import logger from './logger'
 
-export async function sync (dispatch, action, key) {
+export async function sync (dispatch, action, key, initValue = {}) {
   try {
-    const value = await this.AsyncStorage.getItem(key)
+    const value = await AsyncStorage.getItem(key)
     // initialize empty object on first run
     if (!value) {
-      await this.AsyncStorage.setItem(key, JSON.stringify({}))
+      await AsyncStorage.setItem(key, JSON.stringify(initValue))
       return
     }
     dispatch(action(JSON.parse(value)))
