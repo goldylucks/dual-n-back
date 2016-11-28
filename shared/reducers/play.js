@@ -20,7 +20,7 @@ const initialState = {
   colorGuessed: false,
   idxs: [1, 2, 3, 4, 5, 6, 7, 8, 9],
   colors: ['red', 'purple', 'yellow'],
-  letters: ['M', 'Q', 'R'],
+  letters: ['m', 'q', 'r'],
   history: [],
   bestScores: {},
   score: 0,
@@ -269,23 +269,23 @@ const _TEST_TURNS = [
   { activeSquareColor: 'purple', activeSquareIdx: 7 },
   { activeSquareColor: 'yellow', activeSquareIdx: 2 }, // keypress color wrong, score -> 0
   // game 8 - 1Back Color Position Audio
-  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'Q' },
-  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'Q' }, // click all correct
-  { activeSquareColor: 'yellow', activeSquareIdx: 2, activeAudioLetter: 'Q' }, // click audio correct
-  { activeSquareColor: 'red', activeSquareIdx: 2, activeAudioLetter: 'R' }, // click position correct
-  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'M' }, // click color correct
-  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'Q' },
-  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'Q' }, // keypress all correct
-  { activeSquareColor: 'yellow', activeSquareIdx: 2, activeAudioLetter: 'Q' }, // keypress audio correct
-  { activeSquareColor: 'red', activeSquareIdx: 2, activeAudioLetter: 'R' }, // keypress position correct
-  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'M' }, // keypress color correct
-  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'M' }, // miss color, score -> 12
+  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' },
+  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' }, // click all correct
+  { activeSquareColor: 'yellow', activeSquareIdx: 2, activeAudioLetter: 'q' }, // click audio correct
+  { activeSquareColor: 'red', activeSquareIdx: 2, activeAudioLetter: 'r' }, // click position correct
+  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'm' }, // click color correct
+  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' },
+  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' }, // keypress all correct
+  { activeSquareColor: 'yellow', activeSquareIdx: 2, activeAudioLetter: 'q' }, // keypress audio correct
+  { activeSquareColor: 'red', activeSquareIdx: 2, activeAudioLetter: 'r' }, // keypress position correct
+  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'm' }, // keypress color correct
+  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'm' }, // miss color, score -> 12
   // game 9 - 3Back Audio
-  { activeAudioLetter: 'M' },
-  { activeAudioLetter: 'Q' },
-  { activeAudioLetter: 'R' },
-  { activeAudioLetter: 'R' },
-  { activeAudioLetter: 'Q' }, // click Audio correct
-  { activeAudioLetter: 'R' }, // keypress Audio correct
+  { activeAudioLetter: 'm' },
+  { activeAudioLetter: 'q' },
+  { activeAudioLetter: 'r' },
+  { activeAudioLetter: 'r' },
+  { activeAudioLetter: 'q' }, // click Audio correct
+  { activeAudioLetter: 'r' }, // keypress Audio correct
 
 ]

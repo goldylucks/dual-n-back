@@ -217,15 +217,15 @@ class PlayContainer extends Component {
       <div>
         <Sound
           url={ mPath }
-          playStatus={ activeAudioLetter === 'M' ? Sound.status.PLAYING : 'STOPPED' }
+          playStatus={ activeAudioLetter === 'm' ? Sound.status.PLAYING : 'STOPPED' }
         />
         <Sound
           url={ qPath }
-          playStatus={ activeAudioLetter === 'Q' ? Sound.status.PLAYING : 'STOPPED' }
+          playStatus={ activeAudioLetter === 'q' ? Sound.status.PLAYING : 'STOPPED' }
         />
         <Sound
           url={ rPath }
-          playStatus={ activeAudioLetter === 'R' ? Sound.status.PLAYING : 'STOPPED' }
+          playStatus={ activeAudioLetter === 'r' ? Sound.status.PLAYING : 'STOPPED' }
         />
       </div>
     )
