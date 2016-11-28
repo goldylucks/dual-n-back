@@ -113,7 +113,7 @@ export default handleActions({
     return {
       ...state,
       activeSquareColor: turn.activeSquareColor || state.colors[0],
-      activeSquareIdx: turn.activeSquareIdx,
+      activeSquareIdx: turn.activeSquareIdx || 5, // middle square when there's no position
       activeAudioLetter: turn.activeAudioLetter,
       positionGuessed: false,
       colorGuessed: false,
