@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e # stop on error
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 cd ..

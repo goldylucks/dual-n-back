@@ -1,5 +1,4 @@
 import { AsyncStorage } from 'react-native'
-
 import logger from './logger'
 
 export async function sync (dispatch, action, key, initValue = {}) {

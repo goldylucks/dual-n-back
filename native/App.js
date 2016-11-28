@@ -14,7 +14,7 @@ import { initApp } from '../shared/actions/play'
 
 const store = configureStore(middlewares())
 
-export default class dualMobile extends Component {
+export default class memoryNBack extends Component {
   render () {
     return (
       <Provider store={ store }>

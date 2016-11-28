@@ -1,4 +1,4 @@
-package com.dualNbackDev;
+package com.memoryNbackDev;
 
 import android.app.Application;
 import android.util.Log;

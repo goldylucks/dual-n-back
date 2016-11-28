@@ -1,4 +1,4 @@
-# Dual N back
+# Memory N Back
 ## React Native and mobile
 
 This project share (almost) 100% of the logic (redux) between native and web, leaving only specific render implementations to different clients.
