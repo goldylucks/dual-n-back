@@ -26,6 +26,8 @@ matrix:
   - env: E2E:web=true
     addons:
       sauce_connect: true
+  exclude:
+    - compiler: gcc
 
 cache:
   directories:
