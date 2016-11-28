@@ -27,7 +27,7 @@ matrix:
     addons:
       sauce_connect: true
   exclude:
-    - compiler: gcc
+    - compiler: g++
 
 cache:
   directories:
