@@ -37,13 +37,13 @@
     "react-dom": "^15.4.0",
     "react-facebook-login": "^3.3.3",
     "react-native": "^0.38.0",
+    "react-native-sound": "^0.8.3",
     "react-native-vector-icons": "^2.1.0",
     "react-redux": "^4.4.5",
     "react-sound": "^0.5.2",
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0",
     "redux-logger": "^2.7.4",
-    "underscore": "^1.8.3",
     "validator": "^6.1.0"
   },
   "devDependencies": {
