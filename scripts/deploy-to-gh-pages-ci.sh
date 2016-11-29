@@ -18,7 +18,7 @@ fi
 
 REPO="$TRAVIS_REPO_SLUG"
 if [ -z "$var" ]; then
-  echo "deploying to staging!"
+  echo "no tag detected, deploying to staging"
   REPO="goldylucks/memory-n-back-staging"
 fi
 
