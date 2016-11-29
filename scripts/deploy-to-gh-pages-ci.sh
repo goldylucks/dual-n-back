@@ -11,10 +11,16 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 fi
 
 # dont deploy non master branch
-if [ "$TRAVIS_BRANCH" != "master" ]; then
-  echo not master branch, bailing
-  exit 0;
-fi
+# if [ "$TRAVIS_BRANCH" != "master" ]; then
+#   echo not master branch, bailing
+#   exit 0;
+# fi
+
+REPO=TRAVIS_REPO_SLUG
+if [ -z "$var" ]; then
+  echo deploying to staging!
+  REPO=goldylucks/memory-n-back-staging
+if
 
 
 # store src commit hash
@@ -31,5 +37,5 @@ git init
 git add .
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 
-git push --force --quiet "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" master:gh-pages > /dev/null 2>&1
+git push --force --quiet "https://${GITHUB_TOKEN}@github.com/${REPO}.git" master:gh-pages > /dev/null 2>&1
 echo "successfully deployed commit ${SHA} to branch gh-pages"
