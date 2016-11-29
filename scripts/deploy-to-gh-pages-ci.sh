@@ -20,7 +20,7 @@ REPO="$TRAVIS_REPO_SLUG"
 if [ -z "$var" ]; then
   echo "deploying to staging!"
   REPO="goldylucks/memory-n-back-staging"
-if
+fi
 
 
 # store src commit hash
