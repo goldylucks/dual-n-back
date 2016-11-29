@@ -4,6 +4,7 @@ if (isDebuggingInChrome) {
 }
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
+import KeepAwake from 'react-native-keep-awake'
 
 import Routes from './routes'
 
@@ -15,6 +16,21 @@ import { initApp } from '../shared/actions/play'
 const store = configureStore(middlewares())
 
 export default class memoryNBack extends Component {
+
+  componentWillMount () {
+    if (!__DEV__) {
+      return
+    }
+    KeepAwake.activate()
+  }
+
+  componentWillUnmount () {
+    if (!__DEV__) {
+      return
+    }
+    KeepAwake.deactivate()
+  }
+
   render () {
     return (
       <Provider store={ store }>
@@ -25,9 +41,3 @@ export default class memoryNBack extends Component {
 }
 
 store.dispatch(initApp())
-
-// DEBUG STUFF
-// TODO [AdGo] - move to own file
-if (isDebuggingInChrome) {
-  require('../shared/utils/dev')(store)
-}
