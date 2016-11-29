@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const el = require('../utils').el
 const url = require('../utils').BASE_URL + '/play'
-const EXEC_DELAY_FACTOR = process.env.EXEC_DELAY_FACTOR || 1
+const EXEC_DELAY_FACTOR = Number(process.env.EXEC_DELAY_FACTOR) || 1
 
 module.exports = {
   tags: ['Play Page'],
