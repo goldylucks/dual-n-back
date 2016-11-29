@@ -23,7 +23,7 @@ matrix:
   include:
   - env: SCRIPT=lint
   - env: SCRIPT=test
-  - env: E2E:web=true
+  - env: E2Eweb=true
     addons:
       sauce_connect: true
 
@@ -33,8 +33,7 @@ cache:
 
 script:
   - if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
-  - if [ "E2E:web" && SAUCE_ACCESS_KEY ]; then npm run $SCRIPT; fi
-  - if [ "$E2E:web" ] && [ "$SAUCE_ACCESS_KEY" ]; then npm run build:web && sleep 10 && npm run e2e:web:ci; fi
+  - if [ "$E2Eweb" ] && [ "$SAUCE_ACCESS_KEY" ]; then npm run build:web &&  npm run e2e:web:ci; fi
 
 after_success:
   - ./scripts/deploy-to-gh-pages-ci.sh
