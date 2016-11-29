@@ -1,24 +1,19 @@
 language: node_js
-
 node_js:
-  - 'node'
-
+- node
 sudo: false
-
 env:
   global:
-    # GITHUB_TOKEN (deploy to github pages)
-    - secure: SGmI2gSHYSL7iM9KIWYsOdZ3iS0KpVxXsJsTaobEvvY6n0tpDM6BVlatrDSggQjX/YT4V6vz14Fv3SXLaL/eZGQ3K0gOK7NMv7kkg4pEkLwVMjUe4DvSyLOp2GDDfQR3SKXy/+5iRHIX+gLf2QJMlK2T92cyftt3DgnBiZPke7LUa9roMP1jPaWacRwgu3TNEmd7wQ7sdf8QZNWhQDxIUQNjnQDrdXyta6ist4smzK3BNCdJh8NpsxK9gdi2Y3tvRlvfYAE70kkadIPwc/pZpZPxMaX2U3Ac4z7Dgjbv3gCGNt9kKZ4iBnRAzZ+gaQAkYV1v7AURT2Ccm2sPGD0yQX5ZUAqI+wWrjZdK52j6rI01A+0WsYxZYO5k+dGVUkBbPXJE93WFmaA1YDZ6G0ijojanMINwYKiPVfipZPe/aeD1/uxUFLRjx4n3aEe3GmJRkcbU6maX5dk7hVD+XLLQ7dUuBOdcrOuJNYtDXmbUeLFzHZLMOVc8fzyhrbKgVujgSTXn7X+Xn51fANUBKlbbTSJ7xWday7w/Ni3tuPm92HZTT3/Nnuc4uIiLHVIRJjZQ/9MYltDRn4uzcPBXzyYM+daMiD3b3Sza9PbDfdnyGr2bg6xNR0GOeV5YoSjOa+Kkc2EszNs5s6t9CjVki+h/G4ljAq5sep8fFhRusPJ/15w=
-    # SAUCE_USERNAME (required by sauce-connect and nightwatch)
-    - secure: rgZYURTu83ybnLloQki8m/MUZokd5bDPLzcrQrNcIYRpWcl5nxq3wLhQha7UKUMXObW1AyjYFeS27w58wLdlDFRb51/pUc+GyFv0Nowohe6tFXR7PRDV7Kmly2ABkgKzfVVYqWjAxSojACCVjcdzYJMXUswiOeCJCHFS7lLZrncQYWBDX7Qt66z6fYo+wlyJQtgqGg1HFW9l0lqHCs2NbLSc/xKSoss2ZTZas9T4Rk89923f7gWw9+CaXCk4wvRnt88KeNuwfq8bHeuCPg+q98TVTUG2/UB/LwyY8i68HJaXSPGsQK18voqYj/yhHeTVB5o2+787h5GJv8SxkmeoA4oaWc4flRuHqB8r3+XrKvn7l03VLNpRhs2GWVS3z6nM11Huq31ag0ZYTR/yWnpOnM3WNXdsnB8CYVL/ZWD0hu+nz2ENWskBbkIAhG6bBAgGUdLfkYuYNzwno08aLBoMyRlwJltbmS2rKlLGazWT0G35j1lh/6PaO3JeTjNV6n99VjH7EfvhmrUNzX+7Fca8LhcRfY1WM002i7U8Oi4n2oEtai1+kwIa3uoWoHoEif51b2rWOyaWiQURzDdY6ECHi4b3RMnIZJUexFc2zEt+tAolr/jF19zDRCZCDAn7cyvIBKjfVRymROkiQ919ZUmKMcZXDoPhvG5PT1YUSByva+c=
-    # SAUCE_ACCESS_KEY (required by sauce-connect and nightwatch)
-    - secure: b3n8iO8WQSIRRJPMhDayCaFcD26RvSMtaqPD15t7UbnHVKsuzooGnmoJ5QasDEu8y3Ks9R3e/gJnObaMK89dLIcRDnmakLc22fSo7KCJraduDa3btrIT5amwuwN7UggslD/FW0K3YUxNL3o4mR4y5u29GEq60U94OOmAG9duoaW31T4vpe/eNLzrMCDljQiIWBlbQYqGqUuEtHWuUbBqr/ltbLD2+UrCs9uq6lR/6tnXrW4RZMefmd6M4CSPzEBwQzaLBUtTyFO9KpjRhr3xIbscPXIicV834JIjwT0mTsut0r8XAObStyT4HDrGBwwaAeFoT4iSSCxCXzwCKVjHDPXZ8OOmPvKAYXrOhW1jq1BhPn8Gb8tV7SbH+Ef0uzw8Jq7tDAph2HtxjeRJHDMtbPxw9XPXCBS3MqelY4tsVvzv4TXDfTiruf8RmtfVC00xkZ6E8Cs8Dubgo8sQG8KF0Rr11/x3rHhM6e5WF5wUF/2JhZVHE3qQpozkw0tW4eRNiAcprmEnGiHxpjxnkIk1OjALco+XeovGzlqE/aeiiZ8sDq2KcFAMi98R2RUrK5XqY1E/hBpSvmf5ipBbAN08R/10M/ZZEUgzGUbT2BHTaVCHC66NCkxJqIs7xvi8uQZ5IiJnVKeZevk7f0toBso9qNUtMf0Y9TZc+Y3fW3VniyY=
-
+  # GITHUB_TOKEN (deploy to github pages)
+  - secure: SGmI2gSHYSL7iM9KIWYsOdZ3iS0KpVxXsJsTaobEvvY6n0tpDM6BVlatrDSggQjX/YT4V6vz14Fv3SXLaL/eZGQ3K0gOK7NMv7kkg4pEkLwVMjUe4DvSyLOp2GDDfQR3SKXy/+5iRHIX+gLf2QJMlK2T92cyftt3DgnBiZPke7LUa9roMP1jPaWacRwgu3TNEmd7wQ7sdf8QZNWhQDxIUQNjnQDrdXyta6ist4smzK3BNCdJh8NpsxK9gdi2Y3tvRlvfYAE70kkadIPwc/pZpZPxMaX2U3Ac4z7Dgjbv3gCGNt9kKZ4iBnRAzZ+gaQAkYV1v7AURT2Ccm2sPGD0yQX5ZUAqI+wWrjZdK52j6rI01A+0WsYxZYO5k+dGVUkBbPXJE93WFmaA1YDZ6G0ijojanMINwYKiPVfipZPe/aeD1/uxUFLRjx4n3aEe3GmJRkcbU6maX5dk7hVD+XLLQ7dUuBOdcrOuJNYtDXmbUeLFzHZLMOVc8fzyhrbKgVujgSTXn7X+Xn51fANUBKlbbTSJ7xWday7w/Ni3tuPm92HZTT3/Nnuc4uIiLHVIRJjZQ/9MYltDRn4uzcPBXzyYM+daMiD3b3Sza9PbDfdnyGr2bg6xNR0GOeV5YoSjOa+Kkc2EszNs5s6t9CjVki+h/G4ljAq5sep8fFhRusPJ/15w=
+  # SAUCE_USERNAME
+  - secure: Cz4H2Ge9iWfVKUlRStjxDzNGwNTJX7LFYMGBARrh+dj4IvQSATUZ6KeFWu/tNOwfXar1RMrIa/rWk4TdjJAkQpN0iefwCc5eYxizSBRjjJSqal8cfK6Mi4rPjYcP7J4613/v3xmgJDeAhoMaq0njy16fRcYu0bf/fHqOA6hPQeayZYXhol13n5RdfnR82dSUFeBuydEWBMXC/3A7XrzWPJJZRmql/Cf6y9K+1aE+coZ/UGcjIQV+af/kF/m+vKbJfIn7hCvX+q8cwR/oUFtZtz1TPALHOjFsVJnUQO0IbsDHYGvrMhAPZ43lGwnif/4E2zJe1MStxT0u1HhP5TpQdtuE2l0qnnMbIgQyScoozGrhkNN3QxCebakHn/BYS3jwWxHj++GE3LO++WR2OOiu9HTeeECswt/qdXiXGYMn05tokaTknUz9W48uoma8tokEKky12IZUGpjJRNvz9mZWBVoNRLsFhTyG5Ic7wYXJNec33b5wz69ww+sOHHtHfJfGHJdmlBscRomT2cK3OO/RrTKFHzcq+A/EtxShm97TRjObVpP2uiF7/aeR7RF4lV3xgKCLEbv3jPyb+bGbGCetUkuA19Ct68pQCmTEGVYunp28Br46MZxqbrplxVhc9Qowb+9gwC9pfC1lVRtruI0T94r1I90PEAqylL6T97j01b0=
+  # SAUCE_ACCESS_KEY
+  - secure: YcRqk1H5YK/JvmFoWGjeGE1GJeW+sZEOxOZ7Ynxrrv3K57nteBG7MbleyF5gNEBjbIbRJonvpWPauiTIPuqi2RBPB89PRhqplSh55giIXBMUBrrUYRaSTuNgT8uFO7ry9kGjtRnD0bPRq6dTYlc5z2B2kH33F2UYWOn/k3wS/G6iPYRSQfLW3mU9lQQy15KJNYywIgfpZL2lpvwYUKfypXsYYm5U/BIR9hQ8/kzptq8l9LSpYMsA+o/8tG3lmQsC0dz8FqP4TjETmqY1yP9zkZAhi/tue5dCbcQGoEvGeloKpkrNMczUOzzCls86V82ORNNj34ZNiffM1WFPhRLzAKnKadi8NQ8RPaPmcbSE8Tad584xW+l1jcb62FoXvnAaqdrLZG+n2y6zbTjrJLC4Yf88Y2B/DnCFJx8qa8SVgW0TifaC4pW4SWSXpK6sOd8hxCym/a5dcapZuXpmdQL2t6i179WQ5lSMEjN+lQ61SI6HmF1QZVn2vHz+wTau1DojPAxPOSqL1KCB2kJCRGp7CjdYBo7PwcagXtzT1KTqZOPgtvTze/MRPfdk0Ymvbzm85vXE6L8FdAiMI5rMqw6hFg7/Y+1NPxRKNfk+k60S82Or6Bux+1xaosyK/Gi1tZivOk2rAm1eYJrEqHMjjhfVHY4vkZeXAgDURsJDfL13IWg=
 branches:
   only:
   - master
   - "/v\\d\\./"
-
 matrix:
   include:
   - env: SCRIPT=lint
@@ -26,14 +21,12 @@ matrix:
   - env: E2Eweb=true
     addons:
       sauce_connect: true
-
 cache:
   directories:
   - node_modules
-
 script:
-  - if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
-  - if [ "$E2Eweb" ] && [ "$SAUCE_ACCESS_KEY" ]; then npm run build:web &&  npm run e2e:web:ci; fi
-
+- if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
+- if [ "$E2Eweb" ] && [ "$SAUCE_ACCESS_KEY" ]; then npm run build:web &&  npm run
+  e2e:web:ci; fi
 after_success:
-  - ./scripts/deploy-to-gh-pages-ci.sh
+- "./scripts/deploy-to-gh-pages-ci.sh"
