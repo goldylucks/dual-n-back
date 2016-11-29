@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 global.SHOUT = function SHOUT (...args) {
   console.log('*********************')
   console.log.apply(null, args)

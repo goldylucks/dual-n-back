@@ -50,6 +50,7 @@
     "object-curly-spacing": [2, "always"],
     "arrow-parens": [2, "as-needed"],
     "no-debugger": 2,
+    "no-console": 2,
     "no-alert": 2,
     "comma-dangle": [2, "always-multiline"],
     "prefer-const": ["error", {

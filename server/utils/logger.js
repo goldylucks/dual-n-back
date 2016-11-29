@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 // no var needed here, colors will attached colors to String.prototype
 require('colors')
 const _ = require('lodash')
@@ -36,14 +37,6 @@ const logger = {
     // with the console object as the context
     // and the new colored args :)
     consoleLog.apply(console, args)
-  },
-
-  LOG: function () {
-    consoleLog('\n\n')
-    consoleLog('                                                                           '.bgYellow)
-    logger.log.apply(this, arguments)
-    consoleLog('                                                                           '.bgYellow)
-    consoleLog('\n\n')
   },
 
   error: function () {

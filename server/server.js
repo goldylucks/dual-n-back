@@ -3,6 +3,7 @@ mongoose.Promise = global.Promise
 const express = require('express')
 const app = express()
 
+const logger = require('./utils/logger')
 const config = require('./config')
 const api = require('./api')
 
@@ -18,5 +19,5 @@ if (!module.parent) {
   app.listen(config.port)
 }
 
-console.log('listening on port ' + config.port)
+logger.log('listening on port ' + config.port)
 module.exports = app
