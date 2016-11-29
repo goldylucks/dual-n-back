@@ -82,7 +82,8 @@ function saucelab (platform, browserName, browserVersion) {
     'output': true,
     'globals': {
       'waitForConditionTimeout': 20000,
-      'retryAssertionTimeout': 3000,
+      'asyncHookTimeout': 1000 * 20,
+      'retryAssertionTimeout': 20000,
     },
     'screenshots': {
       'enabled': false,
