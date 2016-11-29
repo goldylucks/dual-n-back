@@ -1,3 +1,5 @@
-rootProject.name = 'memoryNBack'
+include ':RNSound', ':app'
+project(':RNSound').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sound/android')
 
+rootProject.name = 'memoryNBack'
 include ':app'

@@ -5,10 +5,11 @@ import { bindActionCreators } from 'redux'
 
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
-
+import Sound from 'react-native-sound'
 import _ from 'lodash'
 
 import * as utils from '../../../shared/utils'
+import logger from '../../../shared/utils/logger'
 import * as actions from '../../../shared/actions/play'
 
 import Board from '../../components/Board'
@@ -18,6 +19,7 @@ class PlayPage extends Component {
   static propTypes = {
     nBack: PropTypes.number.isRequired,
     modes: PropTypes.object.isRequired,
+    letters: PropTypes.arrayOf(PropTypes.string).isRequired,
     status: PropTypes.string.isRequired,
     activeSquareColor: PropTypes.string,
     activeAudioLetter: PropTypes.string,
@@ -39,20 +41,20 @@ class PlayPage extends Component {
       guessPosition: PropTypes.func.isRequired,
     }).isRequired,
   }
+  componentDidMount () {
+    this.loadSoundFiles()
+  }
+
+  componentWillReceiveProps (playSound) {
+    this.playSound(playSound)
+  }
 
   render () {
-    const { activeSquareColor, activeSquareIdx, status, history, nBack } = this.props
     return (
       <View style={ styles.container }>
         { this.renderHeader() }
-        <Board
-          nBack={ nBack }
-          status={ status }
-          lastTurn={ history[history.length - 1] }
-          nBackTurn={ history[history.length - 1 - nBack] }
-          activeSquareColor={ activeSquareColor }
-          activeSquareIdx={ activeSquareIdx }
-        />
+        { this.renderGameOverAudio() }
+        { this.renderBoard() }
         { this.renderControls() }
         { this.renderGameOverControls() }
         { this.renderGameOverStats() }
@@ -93,6 +95,23 @@ class PlayPage extends Component {
 
     return (
       <FaIcon onPress={ this.onPause } style={ styles.headerPauseResumeIcon } name='pause' />
+    )
+  }
+
+  renderBoard () {
+    const { modes, history, nBack, status, activeSquareColor, activeSquareIdx } = this.props
+    if (!modes.color && !modes.position) {
+      return
+    }
+    return (
+      <Board
+        nBack={ nBack }
+        status={ status }
+        lastTurn={ history[history.length - 1] }
+        nBackTurn={ history[history.length - 1 - nBack] }
+        activeSquareColor={ activeSquareColor }
+        activeSquareIdx={ activeSquareIdx }
+      />
     )
   }
 
@@ -165,7 +184,7 @@ class PlayPage extends Component {
       return
     }
     return (
-      <View className={ styles.gameOverAudio }>
+      <View style={ styles.gameOverAudio }>
         <Text>{ nBack } ago</Text>
         <FaIcon name='long-arrow-right' />
         <Text>{ _.last(history).activeAudioLetter }/{ _.nth(history, -nBack - 1).activeAudioLetter }</Text>
@@ -211,6 +230,33 @@ class PlayPage extends Component {
   isGuessDisabled () {
     const { history, nBack, status } = this.props
     return utils.isGuessDisabled(history, nBack, status)
+  }
+
+  loadSoundFiles () {
+    if (!this.props.modes.audio) {
+      return
+    }
+    this.sounds = {}
+    this.props.letters.forEach(l => {
+      this.sounds[l] = new Sound(l + '.wav', Sound.MAIN_BUNDLE, err => {
+        if (err) {
+          logger.error('failed to load the sound', err)
+          return
+        }
+        logger.log('duration in seconds: ' + this.sounds[l].getDuration() +
+            'number of channels: ' + this.sounds[l].getNumberOfChannels())
+      })
+    })
+  }
+
+  playSound (nextProps) {
+    if (!this.props.modes.audio) {
+      return
+    }
+    if (this.props.history.length === nextProps.history.length) {
+      return
+    }
+    this.sounds[nextProps.activeAudioLetter].play()
   }
 
 }
@@ -259,6 +305,11 @@ const styles = {
 
   headerGameOverIcon: {
     fontSize: 50,
+  },
+
+  gameOverAudio: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   controls: {

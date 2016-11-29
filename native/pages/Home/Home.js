@@ -32,7 +32,7 @@ class HomePage extends Component {
         <Text style={ styles.headline }>MEMORY N-BACK</Text>
         <View style={ Object.assign({}, styles.settings, styles.modes) }>
           <FaIcon onPress={ () => this.toggleMode('position') } style={ Object.assign({}, styles.modesIcon, modes.position ? styles.modesIconActive : {}) } name='th' />
-          { /* <FaIcon onPress={ () => this.toggleMode('audio') } style={ Object.assign({}, styles.modesIcon, modes.audio ? styles.modesIconActive : {}) } name='headphones' /> */ }
+          <FaIcon onPress={ () => this.toggleMode('audio') } style={ Object.assign({}, styles.modesIcon, modes.audio ? styles.modesIconActive : {}) } name='headphones' />
           <FaIcon onPress={ () => this.toggleMode('color') } style={ Object.assign({}, styles.modesIcon, modes.color ? styles.modesIconActive : {}) } name='paint-brush' />
         </View>
         <View style={ styles.settings }>
