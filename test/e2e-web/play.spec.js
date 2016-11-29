@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const el = require('../utils').el
 const url = require('../utils').BASE_URL + '/play'
+const EXEC_DELAY_FACTOR = process.env.EXEC_DELAY_FACTOR || 1
 
 module.exports = {
   tags: ['Play Page'],
@@ -28,10 +29,9 @@ module.exports = {
     client
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-start'))
-      .pause(1000)
-      .pause(1000)
+      .pause(2000 * EXEC_DELAY_FACTOR)
       // score click color
-      .pause(1000, () => {
+      .pause(1000 * EXEC_DELAY_FACTOR, () => {
         client
           .click(el('PlayContainer-guessColor'))
           .expect.element(el('PlayContainer-score')).text.to.equal(1)
@@ -42,7 +42,7 @@ module.exports = {
           .expect.element(el('PlayContainer-score')).text.to.equal(1)
       })
       // score click position
-      .pause(1000, () => {
+      .pause(1000 * EXEC_DELAY_FACTOR, () => {
         client
           .click(el('PlayContainer-guessPosition'))
           .expect.element(el('PlayContainer-score')).text.to.equal(2)
@@ -53,7 +53,7 @@ module.exports = {
           .expect.element(el('PlayContainer-score')).text.to.equal(2)
       })
       // score click color & position
-      .pause(1000, () => {
+      .pause(1000 * EXEC_DELAY_FACTOR, () => {
         client
           .click(el('PlayContainer-guessColor'))
           .expect.element(el('PlayContainer-score')).text.to.equal(3)
@@ -82,10 +82,9 @@ module.exports = {
     client
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(1000)
-      .pause(1000)
+      .pause(2000 * EXEC_DELAY_FACTOR)
       // score keypress position
-      .pause(1000, () => {
+      .pause(1000 * EXEC_DELAY_FACTOR, () => {
         client
           .keys('p')
           .expect.element(el('PlayContainer-score')).text.to.equal(1)
@@ -96,7 +95,7 @@ module.exports = {
           .expect.element(el('PlayContainer-score')).text.to.equal(1)
       })
       // score keypress color
-      .pause(1000, () => {
+      .pause(1000 * EXEC_DELAY_FACTOR, () => {
         client
           .keys('c')
           .expect.element(el('PlayContainer-score')).text.to.equal(2)
@@ -107,7 +106,7 @@ module.exports = {
           .expect.element(el('PlayContainer-score')).text.to.equal(2)
       })
       // score color & position
-      .pause(1000, () => {
+      .pause(1000 * EXEC_DELAY_FACTOR, () => {
         client
           .click(el('PlayContainer-guessColor'))
           .expect.element(el('PlayContainer-score')).text.to.equal(3)
@@ -136,8 +135,7 @@ module.exports = {
     client
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(1000)
-      .pause(1000)
+      .pause(2000 * EXEC_DELAY_FACTOR)
       // lose - miss color match
       .pause(2500, () => {
         assertGameOver(client, { score: 0, bestScore: 4 })
@@ -148,9 +146,8 @@ module.exports = {
     client
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(1000)
       // lose - click position wrong
-      .pause(1000, () => {
+      .pause(2000 * EXEC_DELAY_FACTOR, () => {
         client.click(el('PlayContainer-guessPosition'))
         assertGameOver(client, { score: 0, bestScore: 4 })
       })
@@ -160,9 +157,8 @@ module.exports = {
     client
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(1000)
       // lose - click color wrong
-      .pause(1000, () => {
+      .pause(2000 * EXEC_DELAY_FACTOR, () => {
         client.click(el('PlayContainer-guessColor'))
         assertGameOver(client, { score: 0, bestScore: 4 })
       })
@@ -172,9 +168,8 @@ module.exports = {
     client
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(1000)
       // lose - keypress position wrong
-      .pause(1000, () => {
+      .pause(2000 * EXEC_DELAY_FACTOR, () => {
         client.keys('p')
         assertGameOver(client, { score: 0, bestScore: 4 })
       })
@@ -184,9 +179,8 @@ module.exports = {
     client
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(1000)
       // lose - keypress color wrong
-      .pause(1000, () => {
+      .pause(2000 * EXEC_DELAY_FACTOR, () => {
         client.keys('c')
         assertGameOver(client, { score: 0, bestScore: 4 })
       })
