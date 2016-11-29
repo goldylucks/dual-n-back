@@ -16,10 +16,10 @@ fi
 #   exit 0;
 # fi
 
-REPO=TRAVIS_REPO_SLUG
+REPO="$TRAVIS_REPO_SLUG"
 if [ -z "$var" ]; then
-  echo deploying to staging!
-  REPO=goldylucks/memory-n-back-staging
+  echo "deploying to staging!"
+  REPO="goldylucks/memory-n-back-staging"
 if
 
 
