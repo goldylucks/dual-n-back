@@ -240,11 +240,10 @@ class PlayPage extends Component {
     this.props.letters.forEach(l => {
       this.sounds[l] = new Sound(l + '.wav', Sound.MAIN_BUNDLE, err => {
         if (err) {
-          logger.error('failed to load the sound', err)
+          logger.error('load sound err:', l, err)
           return
         }
-        logger.log('duration in seconds: ' + this.sounds[l].getDuration() +
-            'number of channels: ' + this.sounds[l].getNumberOfChannels())
+        logger.log('load sound success:', l)
       })
     })
   }
