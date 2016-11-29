@@ -26,12 +26,12 @@ module.exports = {
 
   'game 1 - 2Back position color' (client) {
     client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 400, modes: { audio: false, position: true, color: true } } })')
+      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-start'))
-      .pause(390)
-      .pause(390)
+      .pause(1000)
+      .pause(1000)
       // score click color
-      .pause(390, () => {
+      .pause(1000, () => {
         client
           .click(el('PlayContainer-guessColor'))
           .expect.element(el('PlayContainer-score')).text.to.equal(1)
@@ -42,7 +42,7 @@ module.exports = {
           .expect.element(el('PlayContainer-score')).text.to.equal(1)
       })
       // score click position
-      .pause(390, () => {
+      .pause(1000, () => {
         client
           .click(el('PlayContainer-guessPosition'))
           .expect.element(el('PlayContainer-score')).text.to.equal(2)
@@ -53,7 +53,7 @@ module.exports = {
           .expect.element(el('PlayContainer-score')).text.to.equal(2)
       })
       // score click color & position
-      .pause(100, () => {
+      .pause(1000, () => {
         client
           .click(el('PlayContainer-guessColor'))
           .expect.element(el('PlayContainer-score')).text.to.equal(3)
@@ -73,19 +73,19 @@ module.exports = {
           .expect.element(el('PlayContainer-score')).text.to.equal(4)
       })
       // lose - miss color match
-      .pause(600, () => {
+      .pause(2500, () => {
         assertGameOver(client, { score: 4, bestScore: 4 })
       })
   },
 
   'game 2 - 2Back position color' (client) {
     client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 400, modes: { audio: false, position: true, color: true } } })')
+      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(400)
-      .pause(400)
+      .pause(1000)
+      .pause(1000)
       // score keypress position
-      .pause(400, () => {
+      .pause(1000, () => {
         client
           .keys('p')
           .expect.element(el('PlayContainer-score')).text.to.equal(1)
@@ -96,7 +96,7 @@ module.exports = {
           .expect.element(el('PlayContainer-score')).text.to.equal(1)
       })
       // score keypress color
-      .pause(400, () => {
+      .pause(1000, () => {
         client
           .keys('c')
           .expect.element(el('PlayContainer-score')).text.to.equal(2)
@@ -107,7 +107,7 @@ module.exports = {
           .expect.element(el('PlayContainer-score')).text.to.equal(2)
       })
       // score color & position
-      .pause(100, () => {
+      .pause(1000, () => {
         client
           .click(el('PlayContainer-guessColor'))
           .expect.element(el('PlayContainer-score')).text.to.equal(3)
@@ -127,30 +127,30 @@ module.exports = {
           .expect.element(el('PlayContainer-score')).text.to.equal(4)
       })
       // lose - miss color match
-      .pause(600, () => {
+      .pause(2500, () => {
         assertGameOver(client, { score: 4, bestScore: 4 })
       })
   },
 
   'game 3 - 2Back position color' (client) {
     client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 400, modes: { audio: false, position: true, color: true } } })')
+      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(400)
-      .pause(400)
+      .pause(1000)
+      .pause(1000)
       // lose - miss color match
-      .pause(800, () => {
+      .pause(2500, () => {
         assertGameOver(client, { score: 0, bestScore: 4 })
       })
   },
 
   'game 4 - 1Back position color' (client) {
     client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 400, modes: { audio: false, position: true, color: true } } })')
+      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(400)
+      .pause(1000)
       // lose - click position wrong
-      .pause(400, () => {
+      .pause(1000, () => {
         client.click(el('PlayContainer-guessPosition'))
         assertGameOver(client, { score: 0, bestScore: 4 })
       })
@@ -158,11 +158,11 @@ module.exports = {
 
   'game 5 - 1Back position color' (client) {
     client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 400, modes: { audio: false, position: true, color: true } } })')
+      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(400)
+      .pause(1000)
       // lose - click color wrong
-      .pause(400, () => {
+      .pause(1000, () => {
         client.click(el('PlayContainer-guessColor'))
         assertGameOver(client, { score: 0, bestScore: 4 })
       })
@@ -170,11 +170,11 @@ module.exports = {
 
   'game 6 - 1Back position color' (client) {
     client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 400, modes: { audio: false, position: true, color: true } } })')
+      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(400)
+      .pause(1000)
       // lose - keypress position wrong
-      .pause(400, () => {
+      .pause(1000, () => {
         client.keys('p')
         assertGameOver(client, { score: 0, bestScore: 4 })
       })
@@ -182,11 +182,11 @@ module.exports = {
 
   'game 7 - 1Back position color' (client) {
     client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 400, modes: { audio: false, position: true, color: true } } })')
+      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 1000, modes: { audio: false, position: true, color: true } } })')
       .click(el('PlayContainer-retry'))
-      .pause(400)
+      .pause(1000)
       // lose - keypress color wrong
-      .pause(400, () => {
+      .pause(1000, () => {
         client.keys('c')
         assertGameOver(client, { score: 0, bestScore: 4 })
       })
