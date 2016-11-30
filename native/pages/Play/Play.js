@@ -252,7 +252,7 @@ class PlayPage extends Component {
     if (!this.props.modes.audio) {
       return
     }
-    if (this.props.history.length === nextProps.history.length) {
+    if (this.props.history.length >= nextProps.history.length) {
       return
     }
     this.sounds[nextProps.activeAudioLetter].play()
