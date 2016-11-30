@@ -9,6 +9,7 @@ module.exports = {
     client
       .url(url)
       .execute('localStorage.clear()')
+      .url(url)
       .waitForElementVisible('body', 5000)
   },
 
