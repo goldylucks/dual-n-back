@@ -5,14 +5,9 @@ module.exports = {
   'custom_assertions_path': '',
   'page_objects_path': '',
   'globals_path': '',
-  'globals': {
-    'waitForConditionTimeout': 20000,
-    'asyncHookTimeout': 1000 * 20,
-    'retryAssertionTimeout': 20000,
-  },
   'selenium': {
     'start_process': true,
-    'server_path': 'node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-3.0.1.jar',
+    'server_path': 'node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-2.53.1.jar',
     'log_path': '',
     'host': '127.0.0.1',
     'port': 4444,
@@ -32,9 +27,6 @@ module.exports = {
     },
 
     'chrome': {
-      'globals': {
-        'retryAssertionTimeout': 20000,
-      },
       'desiredCapabilities': {
         'browserName': 'chrome',
         'javascriptEnabled': true,
@@ -57,8 +49,6 @@ module.exports = {
         'acceptSslCerts': true,
       },
     },
-    'saucelabs-ie-10': saucelab('Windows 8', 'internet explorer', '10'),
-    'saucelabs-ie-11': saucelab('Windows 10', 'internet explorer', '11'),
     'saucelabs-edge': saucelab('Windows 10', 'MicrosoftEdge'),
     'saucelabs-chrome-win': saucelab('Windows 10', 'chrome'),
     'saucelabs-chrome-linux': saucelab('Linux', 'chrome'),
@@ -80,10 +70,6 @@ function saucelab (platform, browserName, browserVersion) {
     'use_ssl': false,
     'silent': true,
     'output': true,
-    'globals': {
-      'waitForConditionTimeout': 20000,
-      'retryAssertionTimeout': 3000,
-    },
     'screenshots': {
       'enabled': false,
       'path': '',

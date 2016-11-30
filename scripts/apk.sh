@@ -12,12 +12,21 @@ cd ..
 
 echo "apk generated"
 
+# copy to project root?
 read -r -p "copy apk to home directory? [Y/n] " response
 response=${response,,}    # tolower
 if [[ $response =~ ^(yes|y|'')$ ]]; then
-  cp ./android/app/build/outputs/apk/app-release.apk .
+  NAME=$(cat package.json | python3 -c "import sys, json; print(json.load(sys.stdin)['name'])")
+  VERSION=$(cat package.json | python3 -c "import sys, json; print(json.load(sys.stdin)['version'])")
+  cp ./android/app/build/outputs/apk/app-release.apk ./"${NAME}"-release-"${VERSION}".apk
   echo "apk copied to project root directory"
 fi
-exit 0
+
+# config back for DEV?
+read -r -p "config app for DEV? [Y/n] " response
+response=${response,,}    # tolower
+if [[ $response =~ ^(yes|y|'')$ ]]; then
+  npm run configDevice
+fi
 
 exit 0

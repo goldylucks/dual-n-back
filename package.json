@@ -1,6 +1,6 @@
 {
   "name": "memoryNBack",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 3000",
@@ -13,7 +13,7 @@
     "test": "mocha ./test/babel.js shared/**/*.spec.js test/setup.spec.js",
     "test:native": "mocha --opts test/mocha.native.opts shared/**/*.nspec.js test/setup.spec.js",
     "e2e:web": "nightwatch -e chrome",
-    "e2e:web:ci": "nightwatch -e saucelabs-chrome-win,saucelabs-chrome-linux,saucelabs-chrome-mac,saucelabs-firefox-win,saucelabs-firefox-linux,saucelabs-firefox-mac,saucelabs-safari-mac,saucelabs-ie-10,saucelabs-ie-11,saucelabs-edge",
+    "e2e:web:ci": "EXEC_DELAY_FACTOR=0.80 nightwatch -e saucelabs-chrome-win,saucelabs-chrome-linux,saucelabs-chrome-mac,saucelabs-firefox-win,saucelabs-firefox-linux,saucelabs-firefox-mac,saucelabs-safari-mac,saucelabs-edge",
     "apk": "./scripts/apk.sh",
     "configDevice": "node scripts/configGradlew",
     "installOnDevice": "./scripts/installOnDevice.sh",
@@ -97,7 +97,7 @@
     "redux-middleware-test-helper": "0.0.0",
     "replace": "^0.3.0",
     "rucksack-css": "^0.8.5",
-    "selenium-server-standalone-jar": "^3.0.1",
+    "selenium-server-standalone-jar": "^2.53.1",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",

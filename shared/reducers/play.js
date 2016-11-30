@@ -222,7 +222,7 @@ function gameOverState (state) {
 
 function getTurn (state) {
   if (process.env.NODE_ENV === 'e2e') {
-    return _TEST_TURNS.shift()
+    return _TEST_TURNS[0]
   }
   const turn = {}
   if (state.modes.color) {
@@ -238,54 +238,5 @@ function getTurn (state) {
 }
 
 const _TEST_TURNS = [
-  // game 1 - 2Back Color Position
-  { activeSquareColor: 'red', activeSquareIdx: 1 },
-  { activeSquareColor: 'yellow', activeSquareIdx: 2 },
-  { activeSquareColor: 'red', activeSquareIdx: 3 }, // click color correct
-  { activeSquareColor: 'purple', activeSquareIdx: 2 }, // click position correct
-  { activeSquareColor: 'red', activeSquareIdx: 3 }, // click both correct
-  { activeSquareColor: 'purple', activeSquareIdx: 3 }, // miss color, score -> 4
-  // game 2 - 2Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'yellow', activeSquareIdx: 5 },
-  { activeSquareColor: 'yellow', activeSquareIdx: 7 }, // keypress position correct
-  { activeSquareColor: 'yellow', activeSquareIdx: 7 }, // keypress color correct
-  { activeSquareColor: 'yellow', activeSquareIdx: 7 }, // keypress both correct
-  { activeSquareColor: 'red', activeSquareIdx: 7 }, // miss position, score -> 4
-  // game 3 - 2Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'purple', activeSquareIdx: 7 }, // miss both, score -> 0
-  // game 4 - 1Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'purple', activeSquareIdx: 2 }, // click position wrong, score -> 0
-  // game 5 - 1Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'yellow', activeSquareIdx: 2 }, // click color wrong, score -> 0
-  // game 6 - 1Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'purple', activeSquareIdx: 2 }, // keypress position wrong, score -> 0
-  // game 7 - 1Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'yellow', activeSquareIdx: 2 }, // keypress color wrong, score -> 0
-  // game 8 - 1Back Color Position Audio
   { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' },
-  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' }, // click all correct
-  { activeSquareColor: 'yellow', activeSquareIdx: 2, activeAudioLetter: 'q' }, // click audio correct
-  { activeSquareColor: 'red', activeSquareIdx: 2, activeAudioLetter: 'r' }, // click position correct
-  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'm' }, // click color correct
-  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' },
-  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' }, // keypress all correct
-  { activeSquareColor: 'yellow', activeSquareIdx: 2, activeAudioLetter: 'q' }, // keypress audio correct
-  { activeSquareColor: 'red', activeSquareIdx: 2, activeAudioLetter: 'r' }, // keypress position correct
-  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'm' }, // keypress color correct
-  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'm' }, // miss color, score -> 12
-  // game 9 - 3Back Audio
-  { activeAudioLetter: 'm' },
-  { activeAudioLetter: 'q' },
-  { activeAudioLetter: 'r' },
-  { activeAudioLetter: 'r' },
-  { activeAudioLetter: 'q' }, // click Audio correct
-  { activeAudioLetter: 'r' }, // keypress Audio correct
-
 ]

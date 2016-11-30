@@ -24,184 +24,37 @@ module.exports = {
     assertInitialUi(client) // check that controls didn't do anything. There's probably a better way to test this ...
   },
 
-  'game 1 - 2Back position color' (client) {
-    client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 400, modes: { audio: false, position: true, color: true } } })')
-      .click(el('PlayContainer-start'))
-      .pause(390)
-      .pause(390)
-      // score click color
-      .pause(390, () => {
-        client
-          .click(el('PlayContainer-guessColor'))
-          .expect.element(el('PlayContainer-score')).text.to.equal(1)
-         // disabled after correct guess
-        client
-          .click(el('PlayContainer-guessColor'))
-          .keys('c')
-          .expect.element(el('PlayContainer-score')).text.to.equal(1)
-      })
-      // score click position
-      .pause(390, () => {
-        client
-          .click(el('PlayContainer-guessPosition'))
-          .expect.element(el('PlayContainer-score')).text.to.equal(2)
-         // disabled after correct guess
-        client
-          .click(el('PlayContainer-guessPosition'))
-          .keys('p')
-          .expect.element(el('PlayContainer-score')).text.to.equal(2)
-      })
-      // score click color & position
-      .pause(100, () => {
-        client
-          .click(el('PlayContainer-guessColor'))
-          .expect.element(el('PlayContainer-score')).text.to.equal(3)
-         // disabled after correct guess
-        client
-          .click(el('PlayContainer-guessColor'))
-          .keys('c')
-          .expect.element(el('PlayContainer-score')).text.to.equal(3)
-        client
-          .click(el('PlayContainer-guessPosition'))
-          .expect.element(el('PlayContainer-score')).text.to.equal(4)
-        // disabled after correct guess
-        client
-          .click(el('PlayContainer-guessPosition'))
-          .click(el('PlayContainer-guessColor'))
-          .keys('cp')
-          .expect.element(el('PlayContainer-score')).text.to.equal(4)
-      })
-      // lose - miss color match
-      .pause(600, () => {
-        assertGameOver(client, { score: 4, bestScore: 4 })
-      })
-  },
+  // 'game 1 - color' (client) {
+  //   const modes = { audio: false, position: false, color: true }
+  //   client
+  //     .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 500, modes: { audio: false, position: false, color: true } } })')
+  //     .click(el('PlayContainer-start'))
+  //   assertActiveUi(client, { modes })
+  //   client.pause(10000, () => {
+  //     assertGameOver(client, { modes })
+  //   })
+  // },
 
-  'game 2 - 2Back position color' (client) {
-    client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 400, modes: { audio: false, position: true, color: true } } })')
-      .click(el('PlayContainer-retry'))
-      .pause(400)
-      .pause(400)
-      // score keypress position
-      .pause(400, () => {
-        client
-          .keys('p')
-          .expect.element(el('PlayContainer-score')).text.to.equal(1)
-        // disabled after correct guess
-        client
-          .keys('p')
-          .click(el('PlayContainer-guessPosition'))
-          .expect.element(el('PlayContainer-score')).text.to.equal(1)
-      })
-      // score keypress color
-      .pause(400, () => {
-        client
-          .keys('c')
-          .expect.element(el('PlayContainer-score')).text.to.equal(2)
-        // disabled after correct guess
-        client
-          .keys('c')
-          .click(el('PlayContainer-guessColor'))
-          .expect.element(el('PlayContainer-score')).text.to.equal(2)
-      })
-      // score color & position
-      .pause(100, () => {
-        client
-          .click(el('PlayContainer-guessColor'))
-          .expect.element(el('PlayContainer-score')).text.to.equal(3)
-        // disabled after correct guess
-        client
-          .keys('c')
-          .click(el('PlayContainer-guessColor'))
-          .expect.element(el('PlayContainer-score')).text.to.equal(3)
-        client
-          .click(el('PlayContainer-guessPosition'))
-          .expect.element(el('PlayContainer-score')).text.to.equal(4)
-        // disabled after correct guess
-        client
-          .click(el('PlayContainer-guessPosition'))
-          .click(el('PlayContainer-guessColor'))
-          .keys('pc')
-          .expect.element(el('PlayContainer-score')).text.to.equal(4)
-      })
-      // lose - miss color match
-      .pause(600, () => {
-        assertGameOver(client, { score: 4, bestScore: 4 })
-      })
-  },
+  // 'game 2 - audio' (client) {
+  //   const modes = { audio: true, position: false, color: false }
+  //   client
+  //     .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 500, modes: { audio: true, position: false, color: false } } })')
+  //     .click(el('PlayContainer-retry'))
+  //   assertActiveUi(client, { modes })
+  //   client.pause(10000, () => {
+  //     assertGameOver(client, { modes })
+  //   })
+  // },
 
-  'game 3 - 2Back position color' (client) {
-    client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 400, modes: { audio: false, position: true, color: true } } })')
-      .click(el('PlayContainer-retry'))
-      .pause(400)
-      .pause(400)
-      // lose - miss color match
-      .pause(800, () => {
-        assertGameOver(client, { score: 0, bestScore: 4 })
-      })
-  },
-
-  'game 4 - 1Back position color' (client) {
-    client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 400, modes: { audio: false, position: true, color: true } } })')
-      .click(el('PlayContainer-retry'))
-      .pause(400)
-      // lose - click position wrong
-      .pause(400, () => {
-        client.click(el('PlayContainer-guessPosition'))
-        assertGameOver(client, { score: 0, bestScore: 4 })
-      })
-  },
-
-  'game 5 - 1Back position color' (client) {
-    client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 400, modes: { audio: false, position: true, color: true } } })')
-      .click(el('PlayContainer-retry'))
-      .pause(400)
-      // lose - click color wrong
-      .pause(400, () => {
-        client.click(el('PlayContainer-guessColor'))
-        assertGameOver(client, { score: 0, bestScore: 4 })
-      })
-  },
-
-  'game 6 - 1Back position color' (client) {
-    client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 400, modes: { audio: false, position: true, color: true } } })')
-      .click(el('PlayContainer-retry'))
-      .pause(400)
-      // lose - keypress position wrong
-      .pause(400, () => {
-        client.keys('p')
-        assertGameOver(client, { score: 0, bestScore: 4 })
-      })
-  },
-
-  'game 7 - 1Back position color' (client) {
-    client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 400, modes: { audio: false, position: true, color: true } } })')
-      .click(el('PlayContainer-retry'))
-      .pause(400)
-      // lose - keypress color wrong
-      .pause(400, () => {
-        client.keys('c')
-        assertGameOver(client, { score: 0, bestScore: 4 })
-      })
-  },
-
-    // client.expect.element(el('PlayContainer-score')).to.be.present
-    // client.expect.element(el('PlayContainer-start')).to.not.be.present
-    // client.expect.element(el('PlayContainer-pause')).to.be.visible
-    // client.expect.element(el('PlayContainer-resume')).to.not.be.present
-
-  // 'controls disabled on init' (client) {
-  //   client.click(el('PlayContainer-guessPosition'))
-  //   client.click(el('PlayContainer-guessColor'))
-  //   client.keys('cap')
-  //   client.expect.element(el('PlayContainer-gameOverScore')).to.not.be.present
+  // 'game 3 - position' (client) {
+  //   const modes = { audio: false, position: true, color: false }
+  //   client
+  //     .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 500, modes: { audio: false, position: true, color: false } } })')
+  //     .click(el('PlayContainer-retry'))
+  //   assertActiveUi(client, { modes })
+  //   client.pause(10000, () => {
+  //     assertGameOver(client, { modes })
+  //   })
   // },
 
   // 'pause button' (client) {
@@ -253,21 +106,46 @@ function assertInitialUi (client) {
   client.expect.element(el('PlayContainer-gameOverScore')).to.not.be.present
 }
 
-// TODO - pass best score, nBack turn and last turn
-function assertGameOver (client, { score }) {
+function assertActiveUi (client, { modes }) {
   client.expect.element(el('PlayContainer-start')).to.not.be.present
-  client.elements('css selector', el('Square'), res => client.expect(res.value.length).to.equal(9))
+  client.expect.element(el('PlayContainer-score')).to.be.present
+  client.expect.element(el('PlayContainer-pause')).to.be.present
+  client.expect.element(el('PlayContainer-resume')).to.not.be.present
+  client.expect.element(el('PlayContainer-menu')).to.not.be.present
+  client.expect.element(el('PlayContainer-retry')).to.not.be.present
+  client.expect.element(el('PlayContainer-gameOverAudio')).to.not.be.present
+  client.expect.element(el('PlayContainer-gameOverNBack')).to.not.be.present
+  client.expect.element(el('PlayContainer-gameOverScore')).to.not.be.present
+  _.forOwn(modes, (isActive, mode) => {
+    isActive && client.expect.element(el(`PlayContainer-guess${_.capitalize(mode)}`)).to.be.present
+    !isActive && client.expect.element(el(`PlayContainer-guess${_.capitalize(mode)}`)).to.not.be.present
+  })
+  if (modes.position) {
+    client.elements('css selector', el('Square'), res => client.expect(res.value.length).to.equal(9))
+  }
+}
+
+// TODO - pass nBack turn and last turn
+function assertGameOver (client, { score, bestScore, modes } = {}) {
+  client.expect.element(el('PlayContainer-start')).to.not.be.present
   client.expect.element(el('PlayContainer-guessPosition')).to.not.be.present
   client.expect.element(el('PlayContainer-guessColor')).to.not.be.present
   client.expect.element(el('PlayContainer-guessAudio')).to.not.be.present
   client.expect.element(el('PlayContainer-score')).to.not.be.present
   client.expect.element(el('PlayContainer-pause')).to.not.be.present
   client.expect.element(el('PlayContainer-resume')).to.not.be.present
-  client.expect.element(el('PlayContainer-gameOverAudio')).to.not.be.present
   client.expect.element(el('PlayContainer-menu')).to.be.present
   client.expect.element(el('PlayContainer-retry')).to.be.present
   client.expect.element(el('PlayContainer-gameOverHeader')).to.be.present
   client.expect.element(el('PlayContainer-gameOverNBack')).to.be.present
   client.expect.element(el('PlayContainer-gameOverScore')).to.be.present
-  client.expect.element(el('PlayContainer-gameOverScore')).text.to.contain(`${score}/`)
+  modes.audio && client.expect.element(el('PlayContainer-gameOverAudio')).to.be.present
+  !modes.audio && client.expect.element(el('PlayContainer-gameOverAudio')).to.not.be.present
+
+  if (score) {
+    client.expect.element(el('PlayContainer-gameOverScore')).text.to.contain(`${score}/`)
+  }
+  if (bestScore) {
+    client.expect.element(el('PlayContainer-gameOverScore')).text.to.contain(`${bestScore}/`)
+  }
 }

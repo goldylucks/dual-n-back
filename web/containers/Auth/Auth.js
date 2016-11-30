@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router'
 import FacebookLogin from 'react-facebook-login'
+import _ from 'lodash'
 
 import Button from '../../components/Button'
 import * as actions from '../../../shared/actions/auth'
@@ -51,7 +52,7 @@ class AuthContainer extends Component {
         <div className={ styles.leadContainer }>
           <Link to='home' className={ styles.backIcon }><i className='fa fa-arrow-left' /></Link>
           <p className={ styles.lead }>
-            { utils.capitalize(this.props.modes) } to backup and sync your progress between devices
+            { _.capitalize(this.props.modes) } to backup and sync your progress between devices
           </p>
         </div>
         { this.renderFacebookAuth() }
