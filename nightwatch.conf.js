@@ -6,9 +6,8 @@ module.exports = {
   'page_objects_path': '',
   'globals_path': '',
   'globals': {
-    'waitForConditionTimeout': 20000,
-    'asyncHookTimeout': 1000 * 20,
-    'retryAssertionTimeout': 20000,
+    'waitForConditionTimeout': 1000,
+    'retryAssertionTimeout': 1000,
   },
   'selenium': {
     'start_process': true,
@@ -32,9 +31,6 @@ module.exports = {
     },
 
     'chrome': {
-      'globals': {
-        'retryAssertionTimeout': 20000,
-      },
       'desiredCapabilities': {
         'browserName': 'chrome',
         'javascriptEnabled': true,
@@ -81,9 +77,8 @@ function saucelab (platform, browserName, browserVersion) {
     'silent': true,
     'output': true,
     'globals': {
-      'waitForConditionTimeout': 20000,
-      'asyncHookTimeout': 1000 * 20,
-      'retryAssertionTimeout': 20000,
+      'waitForConditionTimeout': 1000,
+      'retryAssertionTimeout': 1000,
     },
     'screenshots': {
       'enabled': false,
