@@ -27,10 +27,10 @@ module.exports = {
   'game 1 - color' (client) {
     const modes = { audio: false, position: false, color: true }
     client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 100, modes: { audio: false, position: false, color: true } } })')
+      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 500, modes: { audio: false, position: false, color: true } } })')
       .click(el('PlayContainer-start'))
     assertActiveUi(client, { modes })
-    client.pause(400, () => {
+    client.pause(2000, () => {
       assertGameOver(client, { modes })
     })
   },
@@ -38,10 +38,10 @@ module.exports = {
   'game 2 - audio' (client) {
     const modes = { audio: true, position: false, color: false }
     client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 100, modes: { audio: true, position: false, color: false } } })')
+      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 500, modes: { audio: true, position: false, color: false } } })')
       .click(el('PlayContainer-retry'))
     assertActiveUi(client, { modes })
-    client.pause(400, () => {
+    client.pause(2000, () => {
       assertGameOver(client, { modes })
     })
   },
@@ -49,10 +49,10 @@ module.exports = {
   'game 3 - position' (client) {
     const modes = { audio: false, position: true, color: false }
     client
-      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 100, modes: { audio: false, position: true, color: false } } })')
+      .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 500, modes: { audio: false, position: true, color: false } } })')
       .click(el('PlayContainer-retry'))
     assertActiveUi(client, { modes })
-    client.pause(400, () => {
+    client.pause(2000, () => {
       assertGameOver(client, { modes })
     })
   },
