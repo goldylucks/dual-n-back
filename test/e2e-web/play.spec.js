@@ -28,7 +28,7 @@ module.exports = {
     const modes = { audio: false, position: false, color: true }
     client
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 100, modes: { audio: false, position: false, color: true } } })')
-      .click(el('PlayContainer-retry'))
+      .click(el('PlayContainer-start'))
     assertActiveUi(client, { modes })
     client.pause(400, () => {
       assertGameOver(client, { modes })
