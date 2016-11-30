@@ -1,7 +1,21 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+import groovy.json.JsonSlurper
+def getNpmVersion() {
+    def inputFile = new File("../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+    return packageJson["version"]
+}
+def _versionCode = getNpmVersion().tokenize('.').join().toInteger()
+def _versionName = getNpmVersion()
 
+println('\n')
+println('===================================')
+println('versionCode: ' + _versionCode)
+println('versionName: ' + _versionName)
+println('===================================')
+println('\n')
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -90,8 +104,8 @@ android {
         applicationId "com.memoryNbackDev"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode _versionCode
+        versionName _versionName
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

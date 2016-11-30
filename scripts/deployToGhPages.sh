@@ -7,13 +7,15 @@ BUILD_FOLDER="web-dist"
 STAGING_REPO="goldylucks/memory-n-back-staging"
 REMOTE="staging"
 
-if [ "$1" = -p ] || [ "$1" = --prod ]; then
+# if production flag is passed, confirm with user
+if [ "$1" = -p ] || [ "$1" = --production ]; then
   read -r -p "Deploy to production, R U SURE? [y/N] " response
   response=${response,,}    # tolower
   if [[ $response =~ ^(yes|y)$ ]]; then
     echo "ok buddy, let's hope everything works ..."
   else
     echo "smart move, push a tag and let the CI deploy for u :)"
+    exit 0
   fi
 fi
 
