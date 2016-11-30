@@ -1,6 +1,6 @@
 {
   "name": "memoryNBack",
-  "version": "0.0.1",
+  "version": "1.0.3",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 3000",
@@ -15,6 +15,9 @@
     "e2e:web": "nightwatch -e chrome",
     "e2e:web:ci": "EXEC_DELAY_FACTOR=0.80 nightwatch -e saucelabs-chrome-win,saucelabs-chrome-linux,saucelabs-chrome-mac,saucelabs-firefox-win,saucelabs-firefox-linux,saucelabs-firefox-mac,saucelabs-safari-mac,saucelabs-ie-10,saucelabs-ie-11,saucelabs-edge",
     "apk": "./scripts/apk.sh",
+    "configDevice": "node scripts/configGradlew",
+    "installOnDevice": "./scripts/installOnDevice.sh",
+    "deployToGhPages": "./scripts/deployToGhPages.sh",
     "lint": "eslint native shared web server --ignore-path .gitignore",
     "startOld": "node node_modules/react-native/local-cli/cli.js start"
   },

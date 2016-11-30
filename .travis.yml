@@ -28,4 +28,4 @@ script:
 - if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
 - if [ "$E2Eweb" ] && [ "$SAUCE_ACCESS_KEY" ]; then npm run start:e2e & sleep 30 && npm run e2e:web:ci; fi
 after_success:
-- "./scripts/deploy-to-gh-pages-ci.sh"
+  - ./scripts/deployToGhPagesCi.sh
