@@ -30,7 +30,7 @@ module.exports = {
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 500, modes: { audio: false, position: false, color: true } } })')
       .click(el('PlayContainer-start'))
     assertActiveUi(client, { modes })
-    client.pause(2000, () => {
+    client.pause(10000, () => {
       assertGameOver(client, { modes })
     })
   },
@@ -41,7 +41,7 @@ module.exports = {
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 500, modes: { audio: true, position: false, color: false } } })')
       .click(el('PlayContainer-retry'))
     assertActiveUi(client, { modes })
-    client.pause(2000, () => {
+    client.pause(10000, () => {
       assertGameOver(client, { modes })
     })
   },
@@ -52,7 +52,7 @@ module.exports = {
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 1, speed: 500, modes: { audio: false, position: true, color: false } } })')
       .click(el('PlayContainer-retry'))
     assertActiveUi(client, { modes })
-    client.pause(2000, () => {
+    client.pause(10000, () => {
       assertGameOver(client, { modes })
     })
   },
