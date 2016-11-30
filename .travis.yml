@@ -21,6 +21,6 @@ cache:
   - node_modules
 script:
 - if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
-- if [ "$E2Eweb" ]; then ./scripts/e2e-web-travis.sh
+- if [ "$E2Eweb" ]; then ./scripts/e2e-web-travis.sh; fi
 after_success:
   - ./scripts/deployToGhPagesCi.sh
