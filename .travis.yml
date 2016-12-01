@@ -1,15 +1,12 @@
 language: node_js
 node_js:
 - node
-sudo: false
+sudo: true
+dist: trusty
 env:
   global:
   # GITHUB_TOKEN (deploy to github pages)
   - secure: SGmI2gSHYSL7iM9KIWYsOdZ3iS0KpVxXsJsTaobEvvY6n0tpDM6BVlatrDSggQjX/YT4V6vz14Fv3SXLaL/eZGQ3K0gOK7NMv7kkg4pEkLwVMjUe4DvSyLOp2GDDfQR3SKXy/+5iRHIX+gLf2QJMlK2T92cyftt3DgnBiZPke7LUa9roMP1jPaWacRwgu3TNEmd7wQ7sdf8QZNWhQDxIUQNjnQDrdXyta6ist4smzK3BNCdJh8NpsxK9gdi2Y3tvRlvfYAE70kkadIPwc/pZpZPxMaX2U3Ac4z7Dgjbv3gCGNt9kKZ4iBnRAzZ+gaQAkYV1v7AURT2Ccm2sPGD0yQX5ZUAqI+wWrjZdK52j6rI01A+0WsYxZYO5k+dGVUkBbPXJE93WFmaA1YDZ6G0ijojanMINwYKiPVfipZPe/aeD1/uxUFLRjx4n3aEe3GmJRkcbU6maX5dk7hVD+XLLQ7dUuBOdcrOuJNYtDXmbUeLFzHZLMOVc8fzyhrbKgVujgSTXn7X+Xn51fANUBKlbbTSJ7xWday7w/Ni3tuPm92HZTT3/Nnuc4uIiLHVIRJjZQ/9MYltDRn4uzcPBXzyYM+daMiD3b3Sza9PbDfdnyGr2bg6xNR0GOeV5YoSjOa+Kkc2EszNs5s6t9CjVki+h/G4ljAq5sep8fFhRusPJ/15w=
-  # SAUCE_USERNAME
-  - secure: Cz4H2Ge9iWfVKUlRStjxDzNGwNTJX7LFYMGBARrh+dj4IvQSATUZ6KeFWu/tNOwfXar1RMrIa/rWk4TdjJAkQpN0iefwCc5eYxizSBRjjJSqal8cfK6Mi4rPjYcP7J4613/v3xmgJDeAhoMaq0njy16fRcYu0bf/fHqOA6hPQeayZYXhol13n5RdfnR82dSUFeBuydEWBMXC/3A7XrzWPJJZRmql/Cf6y9K+1aE+coZ/UGcjIQV+af/kF/m+vKbJfIn7hCvX+q8cwR/oUFtZtz1TPALHOjFsVJnUQO0IbsDHYGvrMhAPZ43lGwnif/4E2zJe1MStxT0u1HhP5TpQdtuE2l0qnnMbIgQyScoozGrhkNN3QxCebakHn/BYS3jwWxHj++GE3LO++WR2OOiu9HTeeECswt/qdXiXGYMn05tokaTknUz9W48uoma8tokEKky12IZUGpjJRNvz9mZWBVoNRLsFhTyG5Ic7wYXJNec33b5wz69ww+sOHHtHfJfGHJdmlBscRomT2cK3OO/RrTKFHzcq+A/EtxShm97TRjObVpP2uiF7/aeR7RF4lV3xgKCLEbv3jPyb+bGbGCetUkuA19Ct68pQCmTEGVYunp28Br46MZxqbrplxVhc9Qowb+9gwC9pfC1lVRtruI0T94r1I90PEAqylL6T97j01b0=
-  # SAUCE_ACCESS_KEY
-  - secure: YcRqk1H5YK/JvmFoWGjeGE1GJeW+sZEOxOZ7Ynxrrv3K57nteBG7MbleyF5gNEBjbIbRJonvpWPauiTIPuqi2RBPB89PRhqplSh55giIXBMUBrrUYRaSTuNgT8uFO7ry9kGjtRnD0bPRq6dTYlc5z2B2kH33F2UYWOn/k3wS/G6iPYRSQfLW3mU9lQQy15KJNYywIgfpZL2lpvwYUKfypXsYYm5U/BIR9hQ8/kzptq8l9LSpYMsA+o/8tG3lmQsC0dz8FqP4TjETmqY1yP9zkZAhi/tue5dCbcQGoEvGeloKpkrNMczUOzzCls86V82ORNNj34ZNiffM1WFPhRLzAKnKadi8NQ8RPaPmcbSE8Tad584xW+l1jcb62FoXvnAaqdrLZG+n2y6zbTjrJLC4Yf88Y2B/DnCFJx8qa8SVgW0TifaC4pW4SWSXpK6sOd8hxCym/a5dcapZuXpmdQL2t6i179WQ5lSMEjN+lQ61SI6HmF1QZVn2vHz+wTau1DojPAxPOSqL1KCB2kJCRGp7CjdYBo7PwcagXtzT1KTqZOPgtvTze/MRPfdk0Ymvbzm85vXE6L8FdAiMI5rMqw6hFg7/Y+1NPxRKNfk+k60S82Or6Bux+1xaosyK/Gi1tZivOk2rAm1eYJrEqHMjjhfVHY4vkZeXAgDURsJDfL13IWg=
 branches:
   only:
   - master
@@ -19,13 +16,19 @@ matrix:
   - env: SCRIPT=lint
   - env: SCRIPT=test
   - env: E2Eweb=true
-    addons:
-      sauce_connect: true
+before_install:  
+ - export CHROME_BIN=/usr/bin/google-chrome
+ - export DISPLAY=:99.0
+ - sh -e /etc/init.d/xvfb start
+ - sudo apt-get update
+ - sudo apt-get install -y libappindicator1 fonts-liberation
+ - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+ - sudo dpkg -i google-chrome*.deb
 cache:
   directories:
   - node_modules
 script:
 - if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
-- if [ "$E2Eweb" ] && [ "$SAUCE_ACCESS_KEY" ]; then npm run start:e2e & sleep 30 && npm run e2e:web:ci; fi
+- if [ "$E2Eweb" ]; then ./scripts/e2e-web-travis.sh; fi
 after_success:
   - ./scripts/deployToGhPagesCi.sh
