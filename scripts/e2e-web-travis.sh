@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e # stop on error
 
+./node_modules/.bin/selenium-standalone install
+
 # fire up xvfb on port :99.0
 export DISPLAY=:99.0
 sh -e /etc/init.d/xvfb start
