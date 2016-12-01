@@ -18,6 +18,14 @@
   position: relative;
 }
 
+.home {
+  position: absolute;
+  left: 5px;
+  color: #eee;
+  font-size: 30px;
+  top: 5px;
+}
+
 .headerPauseResumeIcon {
   font-size: 20px;
   position: absolute;
