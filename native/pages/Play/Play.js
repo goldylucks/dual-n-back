@@ -67,6 +67,7 @@ class PlayPage extends Component {
     if (status === 'idle') {
       return (
         <View style={ styles.header }>
+          <FaIcon onPress={ () => this.props.routeToHome() } name='home' style={ styles.home } />
           <Text onPress={ this.startGame } style={ styles.headerText }>Start</Text>
         </View>
       )
@@ -286,6 +287,14 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
+  },
+
+  home: {
+    position: 'absolute',
+    left: 10,
+    color: '#eee',
+    fontSize: 30,
+    top: 30,
   },
 
   headerText: {

@@ -10,8 +10,9 @@
 }
 
 .backIcon {
-  font-size: 24px;
+  font-size: 30px;
   margin-right: 10px;
+  color: rgb(0, 100, 255);
 }
 
 .lead {
