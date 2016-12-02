@@ -25,6 +25,14 @@ module.exports = {
     assertInitialUi(client) // check that controls didn't do anything. There's probably a better way to test this ...
   },
 
+  'home button' (client) {
+    client
+      .click(el('PlayContainer-home'))
+      .assert.urlContains('/home')
+      .url(url)
+      .waitForElementVisible('body', 5000)
+  },
+
   'game 1 - 2Back position color' (client) {
     client
       .execute('store.dispatch({ type: "sync gameConfig", payload: { nBack: 2, speed: 1000, modes: { audio: false, position: true, color: true } } })')
