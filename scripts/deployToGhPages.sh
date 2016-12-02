@@ -2,7 +2,7 @@
 set -e # stop on error
 
 CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-TARGET_BRANCH="gh-dummy"
+TARGET_BRANCH="gh-pages"
 BUILD_FOLDER="web-dist"
 STAGING_REPO="goldylucks/memory-n-back-staging"
 REMOTE="staging"
