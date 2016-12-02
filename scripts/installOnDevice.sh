@@ -4,7 +4,8 @@ set -e # stop on error
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 cd ..
-node ./scripts/configGradlew $1 # pass -p as first argument to set to production
+
+npm run configGradle -- $1 # pass -p as first argument to set to production
 
 if [ "$1" = '-p' ]; then
   cd android

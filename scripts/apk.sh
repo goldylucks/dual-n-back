@@ -4,7 +4,8 @@ set -e # stop on error
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 cd ..
-node ./scripts/configGradlew -p # passing -p as first argument to set to production
+
+npm run configGradle -- -p # passing -p as first argument to set to production
 
 cd android
 ./gradlew assembleRelease
@@ -26,7 +27,7 @@ fi
 read -r -p "config app for DEV? [Y/n] " response
 response=${response,,}    # tolower
 if [[ $response =~ ^(yes|y|'')$ ]]; then
-  npm run configDevice
+  npm run configGradle
 fi
 
 exit 0
