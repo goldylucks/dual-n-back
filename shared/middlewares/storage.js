@@ -21,7 +21,7 @@ export default class StorageMiddleware {
         return
       }
 
-      if (action.type.match(/guess colorWrong|guess positionWrong|guess audioWrong/)) {
+      if (action.type === 'guess wrong') {
         next(action) // let reducer update the state before saving it to LS
         localStorage.setItem('bestScores', JSON.stringify(store.getState().play.bestScores))
         return
