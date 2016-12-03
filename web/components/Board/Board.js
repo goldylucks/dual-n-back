@@ -8,20 +8,20 @@ export default class Board extends Component {
   static propTypes = {
     nBack: PropTypes.number.isRequired,
     activeSquareColor: PropTypes.string,
-    activeSquareIdx: PropTypes.number,
+    activeSquarePosition: PropTypes.number,
     status: PropTypes.string.isRequired,
     lastTurn: PropTypes.shape({
-      activeSquareColor: PropTypes.string,
-      activeSquareIdx: PropTypes.number,
+      color: PropTypes.string,
+      position: PropTypes.number,
     }),
     nBackTurn: PropTypes.shape({
-      activeSquareColor: PropTypes.string,
-      activeSquareIdx: PropTypes.number,
+      color: PropTypes.string,
+      position: PropTypes.number,
     }),
   }
 
   render () {
-    const { activeSquareIdx, activeSquareColor } = this.props
+    const { activeSquarePosition, activeSquareColor } = this.props
     return (
       <div className={ styles.container }>
         <div className={ styles.row }>
@@ -29,7 +29,7 @@ export default class Board extends Component {
             idx={ 1 }
             style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
-            activeSquareIdx={ activeSquareIdx }
+            activeSquarePosition={ activeSquarePosition }
           >
             { this.renderOnLose(1) }
           </Square>
@@ -37,14 +37,14 @@ export default class Board extends Component {
             idx={ 2 }
             style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
-            activeSquareIdx={ activeSquareIdx }
+            activeSquarePosition={ activeSquarePosition }
           >
             { this.renderOnLose(2) }
           </Square>
           <Square
             idx={ 3 }
             activeSquareColor={ activeSquareColor }
-            activeSquareIdx={ activeSquareIdx }
+            activeSquarePosition={ activeSquarePosition }
           >
             { this.renderOnLose(3) }
           </Square>
@@ -54,7 +54,7 @@ export default class Board extends Component {
             idx={ 4 }
             style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
-            activeSquareIdx={ activeSquareIdx }
+            activeSquarePosition={ activeSquarePosition }
           >
             { this.renderOnLose(4) }
           </Square>
@@ -62,14 +62,14 @@ export default class Board extends Component {
             idx={ 5 }
             style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
-            activeSquareIdx={ activeSquareIdx }
+            activeSquarePosition={ activeSquarePosition }
           >
             { this.renderOnLose(5) }
           </Square>
           <Square
             idx={ 6 }
             activeSquareColor={ activeSquareColor }
-            activeSquareIdx={ activeSquareIdx }
+            activeSquarePosition={ activeSquarePosition }
           >
             { this.renderOnLose(6) }
           </Square>
@@ -79,7 +79,7 @@ export default class Board extends Component {
             idx={ 7 }
             style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
-            activeSquareIdx={ activeSquareIdx }
+            activeSquarePosition={ activeSquarePosition }
           >
             { this.renderOnLose(7) }
           </Square>
@@ -87,14 +87,14 @@ export default class Board extends Component {
             idx={ 8 }
             style={ { marginRight: 3 } }
             activeSquareColor={ activeSquareColor }
-            activeSquareIdx={ activeSquareIdx }
+            activeSquarePosition={ activeSquarePosition }
           >
             { this.renderOnLose(8) }
           </Square>
           <Square
             idx={ 9 }
             activeSquareColor={ activeSquareColor }
-            activeSquareIdx={ activeSquareIdx }
+            activeSquarePosition={ activeSquarePosition }
           >
             { this.renderOnLose(9) }
           </Square>
@@ -110,16 +110,16 @@ export default class Board extends Component {
     }
     let lastTurnText
     let nBackTurnText
-    if (lastTurn.activeSquareIdx === idx) {
+    if (lastTurn.position === idx) {
       lastTurnText = (
-        <div style={ { color: lastTurn.activeSquareColor } }>
+        <div style={ { color: lastTurn.color } }>
           Last turn
         </div>
       )
     }
-    if (nBackTurn.activeSquareIdx === idx) {
+    if (nBackTurn.position === idx) {
       nBackTurnText = (
-        <div style={ { color: nBackTurn.activeSquareColor } }>
+        <div style={ { color: nBackTurn.color } }>
           { nBack } { nBack === 1 ? 'turn ' : 'turns' } ago
         </div>
       )

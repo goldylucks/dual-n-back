@@ -23,22 +23,20 @@ class PlayPage extends Component {
     status: PropTypes.string.isRequired,
     activeSquareColor: PropTypes.string,
     activeAudioLetter: PropTypes.string,
-    activeSquareIdx: PropTypes.number,
+    activeSquarePosition: PropTypes.number,
     score: PropTypes.number.isRequired,
     bestScores: PropTypes.object.isRequired,
     routeToHome: PropTypes.func.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
-      activeSquareColor: PropTypes.string,
-      activeAudioLetter: PropTypes.string,
-      activeSquareIdx: PropTypes.number,
+      color: PropTypes.string,
+      audio: PropTypes.string,
+      position: PropTypes.number,
     })).isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,
       pauseGame: PropTypes.func.isRequired,
       resumeGame: PropTypes.func.isRequired,
-      guessColor: PropTypes.func.isRequired,
-      guessAudio: PropTypes.func.isRequired,
-      guessPosition: PropTypes.func.isRequired,
+      guess: PropTypes.func.isRequired,
     }).isRequired,
   }
   componentDidMount () {
@@ -100,7 +98,7 @@ class PlayPage extends Component {
   }
 
   renderBoard () {
-    const { modes, history, nBack, status, activeSquareColor, activeSquareIdx } = this.props
+    const { modes, history, nBack, status, activeSquareColor, activeSquarePosition } = this.props
     if (!modes.color && !modes.position) {
       return
     }
@@ -111,7 +109,7 @@ class PlayPage extends Component {
         lastTurn={ history[history.length - 1] }
         nBackTurn={ history[history.length - 1 - nBack] }
         activeSquareColor={ activeSquareColor }
-        activeSquareIdx={ activeSquareIdx }
+        activeSquarePosition={ activeSquarePosition }
       />
     )
   }
@@ -188,7 +186,7 @@ class PlayPage extends Component {
       <View style={ styles.gameOverAudio }>
         <Text>{ nBack } ago</Text>
         <FaIcon name='long-arrow-right' />
-        <Text>{ _.last(history).activeAudioLetter }/{ _.nth(history, -nBack - 1).activeAudioLetter }</Text>
+        <Text>{ _.last(history).audio.toUpperCase() }/{ _.nth(history, -nBack - 1).audio.toUpperCase() }</Text>
         <FaIcon name='long-arrow-left' />
         <Text>last</Text>
       </View>
@@ -203,21 +201,21 @@ class PlayPage extends Component {
     if (this.isGuessDisabled()) {
       return
     }
-    this.props.actions.guessPosition()
+    this.props.actions.guess('position')
   }
 
   guessColor = () => {
     if (this.isGuessDisabled()) {
       return
     }
-    this.props.actions.guessColor()
+    this.props.actions.guess('color')
   }
 
   guessAudio = () => {
     if (this.isGuessDisabled()) {
       return
     }
-    this.props.actions.guessAudio()
+    this.props.actions.guess('audio')
   }
 
   onPause = () => {

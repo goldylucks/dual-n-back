@@ -7,7 +7,7 @@ export default class Square extends Component {
   static propTypes = {
     style: PropTypes.object,
     idx: PropTypes.number.isRequired,
-    activeSquareIdx: PropTypes.number,
+    activeSquarePosition: PropTypes.number,
     activeSquareColor: PropTypes.string,
     children: PropTypes.node,
   }
@@ -31,6 +31,6 @@ export default class Square extends Component {
   }
 
   isActive () {
-    return this.props.activeSquareIdx === this.props.idx
+    return this.props.activeSquarePosition === this.props.idx
   }
 }
