@@ -1,7 +1,3 @@
-const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent
-if (isDebuggingInChrome) {
-  require('../shared/utils/dev')
-}
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import KeepAwake from 'react-native-keep-awake'
@@ -41,3 +37,8 @@ export default class memoryNBack extends Component {
 }
 
 store.dispatch(initApp())
+
+const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent
+if (isDebuggingInChrome) {
+  require('../shared/utils/dev')(store)
+}
