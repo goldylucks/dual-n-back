@@ -24,7 +24,7 @@ export default class StorageMiddleware {
         return
       }
 
-      if (action.type.match(/guess colorWrong|guess positionWrong|guess audioWrong/)) {
+      if (action.type === 'guess wrong') {
         this.saveBestScores(store.getState().play)
         next(action)
         return
