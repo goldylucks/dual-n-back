@@ -6,25 +6,17 @@ export const renderIf = predicate => elem => {
   return predicate ? elem : null
 }
 
-export function isColorMatch (history, nBack) {
-  return history[history.length - 1 - nBack].activeSquareColor === history[history.length - 1].activeSquareColor
+export function isGuessCorrect (history, nBack, guess) {
+  return history[history.length - 1 - nBack][guess] === history[history.length - 1][guess]
 }
 
-export function isPositionMatch (history, nBack) {
-  return history[history.length - 1 - nBack].activeSquareIdx === history[history.length - 1].activeSquareIdx
-}
-
-export function isAudioMatch (history, nBack) {
-  return history[history.length - 1 - nBack].activeAudioLetter === history[history.length - 1].activeAudioLetter
-}
-
-export function missedAMatch (history, nBack, modes, positionGuessed, colorGuessed, audioGuessed) {
+export function missedAMatch (history, nBack, modes, guessed) {
   if (history.length - 1 < nBack) {
     return false
   }
-  return (isPositionMatch(history, nBack) && !positionGuessed && modes.position) ||
-    (isColorMatch(history, nBack) && !colorGuessed && modes.color) ||
-    (isAudioMatch(history, nBack) && !audioGuessed && modes.audio)
+  return (isGuessCorrect(history, nBack, 'position') && !guessed.position && modes.position) ||
+    (isGuessCorrect(history, nBack, 'color') && !guessed.color && modes.color) ||
+    (isGuessCorrect(history, nBack, 'audio') && !guessed.audio && modes.audio)
 }
 
 export function getBestScore (modes, nBack, bestScores) {

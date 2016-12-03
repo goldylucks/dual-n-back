@@ -12,12 +12,15 @@ const initialState = {
     position: true,
     color: true,
   },
+  guessed: {
+    position: false,
+    color: false,
+    audio: false,
+  },
   status: 'idle',
   activeSquareColor: undefined,
   activeAudioLetter: undefined,
-  activeSquareIdx: undefined,
-  positionGuessed: false,
-  colorGuessed: false,
+  activeSquarePosition: undefined,
   idxs: [1, 2, 3, 4, 5, 6, 7, 8, 9],
   colors: ['red', 'purple', 'yellow'],
   letters: ['m', 'q', 'r'],
@@ -74,7 +77,7 @@ export default handleActions({
       ...state,
       activeSquareColor: '',
       activeAudioLetter: '',
-      activeSquareIdx: 0,
+      activeSquarePosition: 0,
     }
   },
 
@@ -82,15 +85,17 @@ export default handleActions({
     return {
       ...state,
       status: 'active',
-      colorGuessed: false,
-      positionGuessed: false,
-      audioGuessed: false,
+      guessed: {
+        position: false,
+        color: false,
+        audio: false,
+      },
       // reset in case an old game had highlighted square
       history: [],
       score: 0,
       activeSquareColor: '',
       activeAudioLetter: '',
-      activeSquareIdx: 0,
+      activeSquarePosition: 0,
     }
   },
 
@@ -112,12 +117,14 @@ export default handleActions({
     const turn = getTurn(state)
     return {
       ...state,
-      activeSquareColor: turn.activeSquareColor || state.colors[0],
-      activeSquareIdx: turn.activeSquareIdx || 5, // middle square when there's no position
-      activeAudioLetter: turn.activeAudioLetter,
-      positionGuessed: false,
-      colorGuessed: false,
-      audioGuessed: false,
+      activeSquareColor: turn.color || state.colors[0],
+      activeSquarePosition: turn.position || 5, // middle square when there's no position
+      activeAudioLetter: turn.audio,
+      guessed: {
+        position: false,
+        color: false,
+        audio: false,
+      },
       history: state.history.concat(turn),
     }
   },
@@ -126,48 +133,18 @@ export default handleActions({
     return gameOverState(state)
   },
 
-  'guess colorCorrect' (state, action) {
-    if (state.colorGuessed) {
+  'guess correct' (state, { payload: guess }) {
+    if (state.guessed[guess]) {
       return state
     }
+    state.guessed = Object.assign({}, state.guessed, { [guess]: true })
     return {
       ...state,
-      colorGuessed: true,
       score: state.score + 1,
     }
   },
 
-  'guess colorWrong' (state, action) {
-    return gameOverState(state)
-  },
-
-  'guess positionCorrect' (state, action) {
-    if (state.positionGuessed) {
-      return state
-    }
-    return {
-      ...state,
-      positionGuessed: true,
-      score: state.score + 1,
-    }
-  },
-
-  'guess positionWrong' (state, action) {
-    return gameOverState(state)
-  },
-
-  'guess audioCorrect' (state, action) {
-    if (state.audioGuessed) {
-      return state
-    }
-    return {
-      ...state,
-      audioGuessed: true,
-      score: state.score + 1,
-    }
-  },
-
-  'guess audioWrong' (state, action) {
+  'guess wrong' (state, action) {
     return gameOverState(state)
   },
 
@@ -178,15 +155,17 @@ export default handleActions({
     return {
       ...state,
       status: 'idle',
-      colorGuessed: false,
-      positionGuessed: false,
-      audioGuessed: false,
+      guessed: {
+        position: false,
+        color: false,
+        audio: false,
+      },
       // reset in c1ase an old game had highlighted square
       history: [],
       score: 0,
       activeSquareColor: '',
       activeAudioLetter: '',
-      activeSquareIdx: 0,
+      activeSquarePosition: 0,
     }
   },
 
@@ -226,65 +205,65 @@ function getTurn (state) {
   }
   const turn = {}
   if (state.modes.color) {
-    turn.activeSquareColor = _.sample(state.colors)
+    turn.color = _.sample(state.colors)
   }
   if (state.modes.position) {
-    turn.activeSquareIdx = _.sample(state.idxs)
+    turn.position = _.sample(state.idxs)
   }
   if (state.modes.audio) {
-    turn.activeAudioLetter = _.sample(state.letters)
+    turn.audio = _.sample(state.letters)
   }
   return turn
 }
 
 const _TEST_TURNS = [
   // game 1 - 2Back Color Position
-  { activeSquareColor: 'red', activeSquareIdx: 1 },
-  { activeSquareColor: 'yellow', activeSquareIdx: 2 },
-  { activeSquareColor: 'red', activeSquareIdx: 3 }, // click color correct
-  { activeSquareColor: 'purple', activeSquareIdx: 2 }, // click position correct
-  { activeSquareColor: 'red', activeSquareIdx: 3 }, // click both correct
-  { activeSquareColor: 'purple', activeSquareIdx: 3 }, // miss color, score -> 4
+  { color: 'red', position: 1 },
+  { color: 'yellow', position: 2 },
+  { color: 'red', position: 3 }, // click color correct
+  { color: 'purple', position: 2 }, // click position correct
+  { color: 'red', position: 3 }, // click both correct
+  { color: 'purple', position: 3 }, // miss color, score -> 4
   // game 2 - 2Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'yellow', activeSquareIdx: 5 },
-  { activeSquareColor: 'yellow', activeSquareIdx: 7 }, // keypress position correct
-  { activeSquareColor: 'yellow', activeSquareIdx: 7 }, // keypress color correct
-  { activeSquareColor: 'yellow', activeSquareIdx: 7 }, // keypress both correct
-  { activeSquareColor: 'red', activeSquareIdx: 7 }, // miss position, score -> 4
+  { color: 'purple', position: 7 },
+  { color: 'yellow', position: 5 },
+  { color: 'yellow', position: 7 }, // keypress position correct
+  { color: 'yellow', position: 7 }, // keypress color correct
+  { color: 'yellow', position: 7 }, // keypress both correct
+  { color: 'red', position: 7 }, // miss position, score -> 4
   // game 3 - 2Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'purple', activeSquareIdx: 7 }, // miss both, score -> 0
+  { color: 'purple', position: 7 },
+  { color: 'purple', position: 7 },
+  { color: 'purple', position: 7 }, // miss both, score -> 0
   // game 4 - 1Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'purple', activeSquareIdx: 2 }, // click position wrong, score -> 0
+  { color: 'purple', position: 7 },
+  { color: 'purple', position: 2 }, // click position wrong, score -> 0
   // game 5 - 1Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'yellow', activeSquareIdx: 2 }, // click color wrong, score -> 0
+  { color: 'purple', position: 7 },
+  { color: 'yellow', position: 2 }, // click color wrong, score -> 0
   // game 6 - 1Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'purple', activeSquareIdx: 2 }, // keypress position wrong, score -> 0
+  { color: 'purple', position: 7 },
+  { color: 'purple', position: 2 }, // keypress position wrong, score -> 0
   // game 7 - 1Back Color Position
-  { activeSquareColor: 'purple', activeSquareIdx: 7 },
-  { activeSquareColor: 'yellow', activeSquareIdx: 2 }, // keypress color wrong, score -> 0
+  { color: 'purple', position: 7 },
+  { color: 'yellow', position: 2 }, // keypress color wrong, score -> 0
   // game 8 - 1Back Color Position Audio
-   { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' },
-  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' }, // click all correct
-  { activeSquareColor: 'yellow', activeSquareIdx: 2, activeAudioLetter: 'q' }, // click audio correct
-  { activeSquareColor: 'red', activeSquareIdx: 2, activeAudioLetter: 'r' }, // click position correct
-  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'm' }, // click color correct
-  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' },
-  { activeSquareColor: 'purple', activeSquareIdx: 7, activeAudioLetter: 'q' }, // keypress all correct
-  { activeSquareColor: 'yellow', activeSquareIdx: 2, activeAudioLetter: 'q' }, // keypress audio correct
-  { activeSquareColor: 'red', activeSquareIdx: 2, activeAudioLetter: 'r' }, // keypress position correct
-  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'm' }, // keypress color correct
-  { activeSquareColor: 'red', activeSquareIdx: 4, activeAudioLetter: 'm' }, // miss color, score -> 12
+   { color: 'purple', position: 7, audio: 'q' },
+  { color: 'purple', position: 7, audio: 'q' }, // click all correct
+  { color: 'yellow', position: 2, audio: 'q' }, // click audio correct
+  { color: 'red', position: 2, audio: 'r' }, // click position correct
+  { color: 'red', position: 4, audio: 'm' }, // click color correct
+  { color: 'purple', position: 7, audio: 'q' },
+  { color: 'purple', position: 7, audio: 'q' }, // keypress all correct
+  { color: 'yellow', position: 2, audio: 'q' }, // keypress audio correct
+  { color: 'red', position: 2, audio: 'r' }, // keypress position correct
+  { color: 'red', position: 4, audio: 'm' }, // keypress color correct
+  { color: 'red', position: 4, audio: 'm' }, // miss color, score -> 12
   // game 9 - 3Back Audio
-  { activeAudioLetter: 'm' },
-  { activeAudioLetter: 'q' },
-  { activeAudioLetter: 'r' },
-  { activeAudioLetter: 'r' },
-  { activeAudioLetter: 'q' }, // click Audio correct
-  { activeAudioLetter: 'r' }, // keypress Audio correct
+  { audio: 'm' },
+  { audio: 'q' },
+  { audio: 'r' },
+  { audio: 'r' },
+  { audio: 'q' }, // click Audio correct
+  { audio: 'r' }, // keypress Audio correct
 ]

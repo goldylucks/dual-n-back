@@ -9,17 +9,9 @@ export const missAMatch = createAction('miss aMatch')
 export const pauseGame = createAction('pause game')
 export const resumeGame = createAction('resume game')
 
-export const guessPosition = createAction('guess position')
-export const guessPositionCorrect = createAction('guess positionCorrect')
-export const guessPositionWrong = createAction('guess positionWrong')
-
-export const guessColor = createAction('guess color')
-export const guessColorCorrect = createAction('guess colorCorrect')
-export const guessColorWrong = createAction('guess colorWrong')
-
-export const guessAudio = createAction('guess audio')
-export const guessAudioCorrect = createAction('guess audioCorrect')
-export const guessAudioWrong = createAction('guess audioWrong')
+export const guess = createAction('guess')
+export const guessCorrect = createAction('guess correct')
+export const guessWrong = createAction('guess wrong')
 
 export const toggleMode = createAction('toggle mode')
 export const incrementN = createAction('increment n')

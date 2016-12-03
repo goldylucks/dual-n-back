@@ -22,20 +22,18 @@ class PlayContainer extends Component {
     bestScores: PropTypes.object.isRequired,
     activeAudioLetter: PropTypes.string,
     activeSquareColor: PropTypes.string,
-    activeSquareIdx: PropTypes.number,
+    activeSquarePosition: PropTypes.number,
     score: PropTypes.number.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
-      activeSquareColor: PropTypes.string,
-      activeAudioLetter: PropTypes.string,
-      activeSquareIdx: PropTypes.number,
+      color: PropTypes.string,
+      letter: PropTypes.string,
+      position: PropTypes.number,
     })).isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,
       pauseGame: PropTypes.func.isRequired,
       resumeGame: PropTypes.func.isRequired,
-      guessColor: PropTypes.func.isRequired,
-      guessPosition: PropTypes.func.isRequired,
-      guessAudio: PropTypes.func.isRequired,
+      guess: PropTypes.func.isRequired,
     }).isRequired,
   }
 
@@ -115,7 +113,7 @@ class PlayContainer extends Component {
       <div className={ styles.gameOverAudio } { ...this._test('gameOverAudio') }>
         <span>{ nBack } ago</span>
         <i className='fa fa-long-arrow-right' />
-        <span>{ _.last(history).activeAudioLetter }/{ _.nth(history, -nBack - 1).activeAudioLetter }</span>
+        <span>{ _.last(history).audio.toUpperCase() }/{ _.nth(history, -nBack - 1).audio.toUpperCase() }</span>
         <i className='fa fa-long-arrow-left' />
         <span>last</span>
       </div>
@@ -123,7 +121,7 @@ class PlayContainer extends Component {
   }
 
   renderBoard () {
-    const { modes, history, nBack, status, activeSquareColor, activeSquareIdx } = this.props
+    const { modes, history, nBack, status, activeSquareColor, activeSquarePosition } = this.props
     if (!modes.color && !modes.position) {
       return
     }
@@ -134,7 +132,7 @@ class PlayContainer extends Component {
         lastTurn={ history[history.length - 1] }
         nBackTurn={ history[history.length - 1 - nBack] }
         activeSquareColor={ activeSquareColor }
-        activeSquareIdx={ activeSquareIdx }
+        activeSquarePosition={ activeSquarePosition }
       />
     )
   }
@@ -242,21 +240,21 @@ class PlayContainer extends Component {
     if (this.isGuessDisabled()) {
       return
     }
-    this.props.actions.guessPosition()
+    this.props.actions.guess('position')
   }
 
   guessColor = () => {
     if (this.isGuessDisabled()) {
       return
     }
-    this.props.actions.guessColor()
+    this.props.actions.guess('color')
   }
 
   guessAudio = () => {
     if (this.isGuessDisabled()) {
       return
     }
-    this.props.actions.guessAudio()
+    this.props.actions.guess('audio')
   }
 
   onPause = () => {
