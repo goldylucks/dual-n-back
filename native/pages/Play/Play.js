@@ -277,6 +277,7 @@ export default connect(
 const styles = {
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
 
   header: {
