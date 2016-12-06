@@ -41,7 +41,6 @@ describe('shared/middlewares/play', () => {
       // then
       expect(cut.missedAMatch).to.have.been.calledWith(history, nBack, modes, guessed)
       expect(dispatch).to.have.been.calledWith(missAMatch())
-      expect(cut.endGame).to.have.been.calledOnce
       expect(dispatch).to.not.have.been.calledWith(playInterval())
       expect(setTimeout).to.not.have.been.called
     })
@@ -138,19 +137,6 @@ describe('shared/middlewares/play', () => {
       expect(cut.isGuessCorrect).to.have.been.calledWith(history, nBack, guess)
       expect(dispatch).to.have.been.calledWith(guessWrong(guess))
       expect(dispatch).to.not.have.been.calledWith(guessCorrect(guess))
-    })
-  })
-
-  describe('endGame', () => {
-    beforeEach('setup spies', () => {
-      cut.resetTimers = spy()
-    })
-    it('should call reset timers', () => {
-      // when
-      cut.endGame()
-
-      // then
-      expect(cut.resetTimers).to.have.been.calledOnce
     })
   })
 

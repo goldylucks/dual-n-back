@@ -186,6 +186,13 @@ export default handleActions({
     }
   },
 
+  'sync losingMoves' (state, action) {
+    return {
+      ...state,
+      losingMoves: action.payload,
+    }
+  },
+
 }, initialState)
 
 function gameOverState (state) {
