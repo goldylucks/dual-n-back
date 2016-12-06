@@ -30,7 +30,7 @@ export default class memoryNBack extends Component {
   render () {
     return (
       <Provider store={ store }>
-        <Routes />
+        <Routes dispatch={ store.dispatch } />
       </Provider>
     )
   }

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { View, Text, TouchableHighlight } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Actions } from 'react-native-router-flux'
 
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 
@@ -15,7 +16,6 @@ class HomePage extends Component {
     nBack: PropTypes.number.isRequired,
     speed: PropTypes.number.isRequired,
     bestScores: PropTypes.object.isRequired,
-    routeToGame: PropTypes.func.isRequired,
     actions: PropTypes.shape({
       toggleMode: PropTypes.func.isRequired,
       incrementN: PropTypes.func.isRequired,
@@ -70,7 +70,7 @@ class HomePage extends Component {
   }
 
   routeToGame = evt => {
-    this.props.routeToGame()
+    Actions.play()
   }
 
   toggleMode = mode => {
