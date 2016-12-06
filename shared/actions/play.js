@@ -21,3 +21,4 @@ export const decrementSpeed = createAction('decrement speed')
 
 export const syncBestScores = createAction('sync bestScores')
 export const syncGameConfig = createAction('sync gameConfig')
+export const syncLosingMoves = createAction('sync losingMoves')

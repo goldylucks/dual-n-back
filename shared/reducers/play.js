@@ -25,6 +25,7 @@ const initialState = {
   colors: ['red', 'purple', 'yellow'],
   letters: ['m', 'q', 'r'],
   history: [],
+  losingMoves: {},
   bestScores: {},
   score: 0,
 }
@@ -185,18 +186,41 @@ export default handleActions({
     }
   },
 
+  'sync losingMoves' (state, action) {
+    return {
+      ...state,
+      losingMoves: action.payload,
+    }
+  },
+
 }, initialState)
 
 function gameOverState (state) {
-  let { bestScores, modes, nBack, score } = state
-  if (utils.getBestScore(modes, nBack, bestScores) <= score) {
-    bestScores = utils.updateBestScores(modes, nBack, bestScores, score)
-  }
+  let { bestScores, losingMoves } = state
+  losingMoves = getNewLosingMoves(state)
+  bestScores = getNewBestScore(state)
   return {
     ...state,
     bestScores,
+    losingMoves,
     status: 'gameOver',
   }
+}
+
+function getNewBestScore ({ modes, nBack, bestScores, score }) {
+  if (utils.getBestScore(modes, nBack, bestScores) <= score) {
+    bestScores = utils.updateBestScores(modes, nBack, bestScores, score)
+  }
+  return bestScores
+}
+
+function getNewLosingMoves ({ modes, nBack, history, losingMoves }) {
+  const losingMovesKey = utils.getBestScoreKey(modes, nBack)
+  const lastMoves = history.slice(history.length - nBack - 1)
+  const prevMoves = losingMoves[losingMovesKey] || []
+  return Object.assign({}, losingMoves, {
+    [losingMovesKey]: prevMoves.concat(lastMoves),
+  })
 }
 
 function getTurn (state) {
