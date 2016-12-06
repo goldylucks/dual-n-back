@@ -1,3 +1,8 @@
+import _ from 'lodash'
+import axios from 'axios'
+import logger from '../utils/logger'
+import * as utils from '../utils'
+import { API_URL } from '../constants'
 import { playInterval, missAMatch, resetBoard, guessCorrect, guessWrong } from '../actions/play'
 
 export default class PlayMiddleware {
@@ -35,6 +40,19 @@ export default class PlayMiddleware {
         return
       }
 
+      if (action.type.match(/guess wrong|miss aMatch/)) {
+        this.resetTimers()
+        const prevBestScores = store.getState().play.bestScores
+        next(action) // let reducer update the state before saving state to DB
+        const newBestScores = store.getState().play.bestScores
+        this.storeLosingMovesInDB(store)
+        if (_.isEqual(prevBestScores, newBestScores)) {
+          return
+        }
+        this.storeBestScoresInDB(store)
+        return
+      }
+
       next(action)
     }
   }
@@ -49,7 +67,6 @@ export default class PlayMiddleware {
   onTick ({ speed, history, nBack, modes, guessed }, dispatch) {
     if (this.missedAMatch(history, nBack, modes, guessed)) {
       dispatch(missAMatch())
-      this.endGame()
       return
     }
     dispatch(playInterval())
@@ -70,15 +87,33 @@ export default class PlayMiddleware {
   onGuess ({ history, nBack }, dispatch, guess) {
     if (!this.isGuessCorrect(history, nBack, guess)) {
       dispatch(guessWrong(guess))
-      this.endGame()
       return
     }
 
     dispatch(guessCorrect(guess))
   }
 
-  endGame () {
-    this.resetTimers()
+  storeLosingMovesInDB (store) {
+    const { _id } = store.getState().auth.user
+    if (!_id) {
+      return
+    }
+    const { losingMoves } = store.getState().play
+    axios.put(`${API_URL}/users/${_id}`, losingMoves)
+      .then(() => logger.log('store losing moves to DB:', losingMoves))
+      .catch(err => logger.error('store losing moves to DB error:', err))
+  }
+
+  storeBestScoresInDB (store) {
+    const { _id } = store.getState().auth.user
+    if (!_id) {
+      return
+    }
+    const { score, modes, nBack } = store.getState().play
+    const mode = utils.getBestScoreKey(modes, nBack)
+    axios.put(`${API_URL}/bestScores/addOrUpdate`, { mode, score })
+      .then(() => logger.log('store bestScore to DB: success', { mode, score }))
+      .catch(err => logger.error('store bestScore to DB: error:', err))
   }
 
   resetTimers () {

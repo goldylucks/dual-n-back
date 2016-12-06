@@ -27,6 +27,7 @@ export default class StorageMiddleware {
       if (action.type === 'guess wrong') {
         this.saveBestScores(store.getState().play)
         next(action)
+        AsyncStorage.setItem('losingMoves', JSON.stringify(store.getState().play.losingMoves))
         return
       }
 

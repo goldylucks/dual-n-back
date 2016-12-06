@@ -31,6 +31,12 @@ function getSchema () {
       select: false,
     },
 
+    losingMoves: {
+      type: {},
+      required: true,
+      default: {},
+    },
+
     fbUserId: String,
     fbPictureUrl: String,
 
