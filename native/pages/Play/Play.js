@@ -104,6 +104,7 @@ class PlayPage extends Component {
     }
     return (
       <Board
+        modes={ modes }
         nBack={ nBack }
         status={ status }
         lastTurn={ history[history.length - 1] }

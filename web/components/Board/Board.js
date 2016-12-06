@@ -10,6 +10,7 @@ export default class Board extends Component {
     activeSquareColor: PropTypes.string,
     activeSquarePosition: PropTypes.number,
     status: PropTypes.string.isRequired,
+    modes: PropTypes.object.isRequired,
     lastTurn: PropTypes.shape({
       color: PropTypes.string,
       position: PropTypes.number,
@@ -104,9 +105,12 @@ export default class Board extends Component {
   }
 
   renderOnLose (idx) {
-    const { nBack, status, lastTurn, nBackTurn } = this.props
+    const { status, modes, nBack, lastTurn, nBackTurn } = this.props
     if (status !== 'gameOver') {
       return
+    }
+    if (!modes.position) {
+      return this.renderOnLoseWithoutPosition(idx)
     }
     let lastTurnText
     let nBackTurnText
@@ -128,6 +132,23 @@ export default class Board extends Component {
       <div className={ styles.onLose }>
         { lastTurnText }
         { nBackTurnText }
+      </div>
+    )
+  }
+
+  renderOnLoseWithoutPosition (idx) {
+    const { nBack, lastTurn, nBackTurn } = this.props
+    if (idx !== 5) {
+      return
+    }
+    return (
+      <div className={ styles.onLose }>
+        <div style={ { color: lastTurn.color } }>
+          Last turn
+        </div>
+        <div style={ { color: nBackTurn.color } }>
+          { nBack } { nBack === 1 ? 'turn ' : 'turns' } ago
+        </div>
       </div>
     )
   }
