@@ -9,7 +9,7 @@ describe('shared/middlewares/play', () => {
     cut = new PlayMiddleware({
       interval: 1,
       resetBoardTimeout: 2,
-      isGuessCorrect: stub(),
+      isMatch: stub(),
       missedAMatch: stub(),
     })
   })
@@ -105,36 +105,36 @@ describe('shared/middlewares/play', () => {
   })
 
   describe('onGuess', () => {
-    it('should call isGuessCorrect(history, nBack, guess), store.dispatch(guessCorrect()), should not call store.dispatch(guessWrong)', () => {
+    it('should call isMatch(history, nBack, guess), store.dispatch(guessCorrect()), should not call store.dispatch(guessWrong)', () => {
       // given
       const guess = 'position'
       const history = [{}]
       const nBack = 2
       const playState = { history, nBack }
-      cut.isGuessCorrect.returns(true)
+      cut.isMatch.returns(true)
 
       // when
       cut.onGuess(playState, dispatch, guess)
 
       // then
-      expect(cut.isGuessCorrect).to.have.been.calledWith(history, nBack, guess)
+      expect(cut.isMatch).to.have.been.calledWith(history, nBack, guess)
       expect(dispatch).to.not.have.been.calledWith(guessWrong(guess))
       expect(dispatch).to.have.been.calledWith(guessCorrect(guess))
     })
 
-    it('should call isGuessCorrect(history, nBack, guess), store.dispatch(guessPositionCorrect), should not call store.dispatch(guessPositionWrong)', () => {
+    it('should call isMatch(history, nBack, guess), store.dispatch(guessPositionCorrect), should not call store.dispatch(guessPositionWrong)', () => {
       // given
       const guess = 'position'
       const history = [{}]
       const nBack = 2
       const playState = { history, nBack }
-      cut.isGuessCorrect.returns(false)
+      cut.isMatch.returns(false)
 
       // when
       cut.onGuess(playState, dispatch, guess)
 
       // then
-      expect(cut.isGuessCorrect).to.have.been.calledWith(history, nBack, guess)
+      expect(cut.isMatch).to.have.been.calledWith(history, nBack, guess)
       expect(dispatch).to.have.been.calledWith(guessWrong(guess))
       expect(dispatch).to.not.have.been.calledWith(guessCorrect(guess))
     })

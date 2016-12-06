@@ -26,6 +26,7 @@ class PlayPage extends Component {
     activeSquarePosition: PropTypes.number,
     score: PropTypes.number.isRequired,
     bestScores: PropTypes.object.isRequired,
+    loseReason: PropTypes.string,
     routeToHome: PropTypes.func.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
       color: PropTypes.string,
@@ -52,6 +53,7 @@ class PlayPage extends Component {
       <View style={ styles.container }>
         { this.renderHeader() }
         { this.renderGameOverAudio() }
+        { this.renderLoseReason() }
         { this.renderBoard() }
         { this.renderControls() }
         { this.renderGameOverControls() }
@@ -193,6 +195,17 @@ class PlayPage extends Component {
     )
   }
 
+  renderLoseReason () {
+    if (!this.props.loseReason) {
+      return
+    }
+    return (
+      <Text style={ styles.loseReason }>
+        { this.props.loseReason }
+      </Text>
+    )
+  }
+
   startGame = () => {
     this.props.actions.startGame()
   }
@@ -317,6 +330,11 @@ const styles = {
   gameOverAudio: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+
+  loseReason: {
+    fontSize: 20,
+    color: 'red',
   },
 
   controls: {
