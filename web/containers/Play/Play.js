@@ -283,10 +283,17 @@ class PlayContainer extends Component {
       this.startGame()
       return
     }
+
     if (keyCode === 109 && status === 'gameOver') { // m
       hashHistory.push('/home')
       return
     }
+
+    if (keyCode === 104 && status.match(/idle|gameOver/)) { // m
+      hashHistory.push('/home')
+      return
+    }
+
     if (keyCode === 115 && status === 'idle') { // s
       this.startGame()
       return

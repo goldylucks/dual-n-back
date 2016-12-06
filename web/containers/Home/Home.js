@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { Link, hashHistory } from 'react-router'
 
 import * as utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
@@ -23,6 +23,13 @@ class HomeContainer extends Component {
       incrementSpeed: PropTypes.func.isRequired,
       decrementSpeed: PropTypes.func.isRequired,
     }).isRequired,
+  }
+
+  componentDidMount () {
+    document.addEventListener('keypress', this.onKeyPress)
+  }
+  componentWillUnmount () {
+    document.removeEventListener('keypress', this.onKeyPress)
   }
 
   render () {
@@ -99,6 +106,12 @@ class HomeContainer extends Component {
 
   decrementSpeed = evt => {
     this.props.actions.decrementSpeed()
+  }
+
+  onKeyPress = ({ keyCode }) => {
+    if (keyCode === 13 || keyCode === 32) { // enter or spacebar
+      hashHistory.push('/play')
+    }
   }
 
 }
