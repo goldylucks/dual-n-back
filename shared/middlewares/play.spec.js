@@ -21,7 +21,8 @@ describe('shared/middlewares/play', () => {
 
     it('should call cut.missedAMatch(history, nBack, modes, guessed), dispatch(missAMatch()), cut.endGame, not call dispatch(playInterval()) and setTimeout', () => {
       // given
-      cut.missedAMatch.returns(true)
+      const missed = ['color']
+      cut.missedAMatch.returns(missed)
       const history = []
       const speed = 500
       const nBack = 1
@@ -40,7 +41,7 @@ describe('shared/middlewares/play', () => {
 
       // then
       expect(cut.missedAMatch).to.have.been.calledWith(history, nBack, modes, guessed)
-      expect(dispatch).to.have.been.calledWith(missAMatch())
+      expect(dispatch).to.have.been.calledWith(missAMatch(missed))
       expect(dispatch).to.not.have.been.calledWith(playInterval())
       expect(setTimeout).to.not.have.been.called
     })
