@@ -19,4 +19,12 @@ else
   react-native run-android
 fi
 
+if [ "$1" = '-p' ]; then
+  read -r -p "configure gradlew back to DEV? [Y/n] " response
+  response=${response,,}    # tolower
+  if [[ $response =~ ^(yes|y|'')$ ]]; then
+    npm run configGradle
+  fi
+fi
+
 exit 0
