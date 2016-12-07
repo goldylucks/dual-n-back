@@ -1,3 +1,5 @@
+import { SUPPORTED_MODES } from '../constants'
+
 export function capitalize (word) {
   return word[0].toUpperCase() + word.slice(1).toLowerCase()
 }
@@ -6,17 +8,15 @@ export const renderIf = predicate => elem => {
   return predicate ? elem : null
 }
 
-export function isGuessCorrect (history, nBack, guess) {
-  return history[history.length - 1 - nBack][guess] === history[history.length - 1][guess]
+export function isMatch (history, nBack, mode) {
+  return history[history.length - 1 - nBack][mode] === history[history.length - 1][mode]
 }
 
 export function missedAMatch (history, nBack, modes, guessed) {
   if (history.length - 1 < nBack) {
     return false
   }
-  return (isGuessCorrect(history, nBack, 'position') && !guessed.position && modes.position) ||
-    (isGuessCorrect(history, nBack, 'color') && !guessed.color && modes.color) ||
-    (isGuessCorrect(history, nBack, 'audio') && !guessed.audio && modes.audio)
+  return SUPPORTED_MODES.filter(mode => isMatch(history, nBack, mode) && !guessed[mode] && modes[mode])
 }
 
 export function getBestScore (modes, nBack, bestScores) {

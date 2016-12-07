@@ -7,10 +7,10 @@ import { playInterval, missAMatch, resetBoard, guessCorrect, guessWrong } from '
 
 export default class PlayMiddleware {
 
-  constructor ({ interval, resetBoardTimeout, isGuessCorrect, missedAMatch }) {
+  constructor ({ interval, resetBoardTimeout, isMatch, missedAMatch }) {
     this.interval = interval
     this.resetBoardTimeout = resetBoardTimeout
-    this.isGuessCorrect = isGuessCorrect
+    this.isMatch = isMatch
     this.missedAMatch = missedAMatch
   }
 
@@ -65,8 +65,9 @@ export default class PlayMiddleware {
   }
 
   onTick ({ speed, history, nBack, modes, guessed }, dispatch) {
-    if (this.missedAMatch(history, nBack, modes, guessed)) {
-      dispatch(missAMatch())
+    const missed = this.missedAMatch(history, nBack, modes, guessed)
+    if (missed.length) {
+      dispatch(missAMatch(missed))
       return
     }
     dispatch(playInterval())
@@ -85,7 +86,7 @@ export default class PlayMiddleware {
   }
 
   onGuess ({ history, nBack }, dispatch, guess) {
-    if (!this.isGuessCorrect(history, nBack, guess)) {
+    if (!this.isMatch(history, nBack, guess)) {
       dispatch(guessWrong(guess))
       return
     }
