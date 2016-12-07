@@ -1,49 +1,36 @@
-import React, { Component } from 'react'
-import { Navigator } from 'react-native'
+import React, { Component, PropTypes } from 'react'
+import { Scene, Router, Reducer } from 'react-native-router-flux'
+import { LOCATION_CHANGE } from 'react-router-redux'
 
 import Home from '../pages/Home'
 import Play from '../pages/Play'
 
 export default class Routes extends Component {
 
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+  }
+
   render () {
     return (
-      <Navigator
-        initialRoute={ this.initialRoute }
-        renderScene={ this.renderScene }
-      />
+      <Router hideNavBar createReducer={ this.createReducer }>
+        <Scene key='root'>
+          <Scene key='home' component={ Home } />
+          <Scene key='play' component={ Play } />
+        </Scene>
+      </Router>
     )
   }
 
-  renderScene = (route, navigator) => {
-    if (route.index === 0) {
-      return (
-        <Home routeToGame={ this.routeToGame.bind(this, route, navigator) } />
-      )
-    }
-
-    if (route.index === 1) {
-      return (
-        <Play routeToHome={ this.routeToHome.bind(this, route, navigator) } />
-      )
+  createReducer = params => {
+    const defaultReducer = Reducer(params)
+    return (state, action) => {
+      const pathname = action.key
+      if (pathname) {
+        this.props.dispatch({ type: LOCATION_CHANGE, payload: { pathname } })
+      }
+      return defaultReducer(state, action)
     }
   }
-
-  routeToGame (route, navigator) {
-    navigator.push({
-      title: 'Game title',
-      index: 1,
-    })
-  }
-
-  routeToHome (route, navigator) {
-    navigator.push({
-      title: 'Home title',
-      index: 0,
-    })
-  }
-
-  // initialRoute = { title: 'Game title', index: 1 }
-  initialRoute = { title: 'home', index: 0 }
 
 }

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { View, Text, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Actions } from 'react-native-router-flux'
 
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
@@ -27,7 +28,6 @@ class PlayPage extends Component {
     score: PropTypes.number.isRequired,
     bestScores: PropTypes.object.isRequired,
     loseReason: PropTypes.string,
-    routeToHome: PropTypes.func.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
       color: PropTypes.string,
       audio: PropTypes.string,
@@ -67,7 +67,7 @@ class PlayPage extends Component {
     if (status === 'idle') {
       return (
         <View style={ styles.header }>
-          <FaIcon onPress={ () => this.props.routeToHome() } name='home' style={ styles.home } />
+          <FaIcon onPress={ this.routeToHome } name='home' style={ styles.home } />
           <Text onPress={ this.startGame } style={ styles.headerText }>Start</Text>
         </View>
       )
@@ -156,7 +156,7 @@ class PlayPage extends Component {
     }
     return (
       <View style={ styles.gameOverControls }>
-        <Text style={ Object.assign({}, styles.gameOverControl, styles.gameOverControlFirst) } onPress={ () => this.props.routeToHome() }>MENU</Text>
+        <Text style={ Object.assign({}, styles.gameOverControl, styles.gameOverControlFirst) } onPress={ this.routeToHome }>MENU</Text>
         <Text style={ styles.gameOverControl } onPress={ this.startGame }>RETRY</Text>
       </View>
     )
@@ -269,6 +269,10 @@ class PlayPage extends Component {
       return
     }
     this.sounds[nextProps.activeAudioLetter].play()
+  }
+
+  routeToHome = () => {
+    Actions.home()
   }
 
 }
