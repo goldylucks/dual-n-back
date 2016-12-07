@@ -38,6 +38,11 @@
   justify-content: space-between;
 }
 
+.loseReason {
+  font-size: 20px;
+  color: red;
+}
+
 .controls {
   display: flex;
   flex: 0.2;

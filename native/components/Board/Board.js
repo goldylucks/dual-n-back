@@ -6,6 +6,7 @@ export default class Board extends Component {
 
   static propTypes = {
     nBack: PropTypes.number.isRequired,
+    modes: PropTypes.object.isRequired,
     status: PropTypes.string.isRequired,
     activeSquareColor: PropTypes.string,
     activeSquarePosition: PropTypes.number,
@@ -103,9 +104,12 @@ export default class Board extends Component {
   }
 
   renderOnLose (idx) {
-    const { nBack, status, lastTurn, nBackTurn } = this.props
+    const { modes, status, nBack, lastTurn, nBackTurn } = this.props
     if (status !== 'gameOver') {
       return
+    }
+    if (!modes.position) {
+      return this.renderOnLoseWithoutPosition(idx)
     }
     let lastTurnText
     let nBackTurnText
@@ -128,6 +132,24 @@ export default class Board extends Component {
         { lastTurnText }
         { lastTurnText && nBackTurnText && '\n' } { /* line break only if both texts are in same square */ }
         { nBackTurnText }
+      </Text>
+    )
+  }
+
+  renderOnLoseWithoutPosition (idx) {
+    const { nBack, lastTurn, nBackTurn } = this.props
+    if (idx !== 5) {
+      return
+    }
+    return (
+      <Text>
+        <Text style={ { color: lastTurn.color } }>
+          Last turn
+        </Text>
+        { '\n' }
+        <Text style={ { color: nBackTurn.color } }>
+          { nBack } turns back
+        </Text>
       </Text>
     )
   }

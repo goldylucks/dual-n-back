@@ -27,6 +27,7 @@ const initialState = {
   history: [],
   losingMoves: {},
   bestScores: {},
+  loseReason: null,
   score: 0,
 }
 
@@ -94,6 +95,7 @@ export default handleActions({
       // reset in case an old game had highlighted square
       history: [],
       score: 0,
+      loseReason: null,
       activeSquareColor: '',
       activeAudioLetter: '',
       activeSquarePosition: 0,
@@ -131,7 +133,11 @@ export default handleActions({
   },
 
   'miss aMatch' (state, action) {
-    return gameOverState(state)
+    return {
+      ...state,
+      ...gameOverState(state),
+      loseReason: `missed match: ${action.payload}`,
+    }
   },
 
   'guess correct' (state, { payload: guess }) {
@@ -146,7 +152,11 @@ export default handleActions({
   },
 
   'guess wrong' (state, action) {
-    return gameOverState(state)
+    return {
+      ...state,
+      ...gameOverState(state),
+      loseReason: `wrong guess: ${action.payload}`,
+    }
   },
 
   [LOCATION_CHANGE] (state, action) {
@@ -164,6 +174,7 @@ export default handleActions({
       // reset in c1ase an old game had highlighted square
       history: [],
       score: 0,
+      loseReason: null,
       activeSquareColor: '',
       activeAudioLetter: '',
       activeSquarePosition: 0,
@@ -200,7 +211,6 @@ function gameOverState (state) {
   losingMoves = getNewLosingMoves(state)
   bestScores = getNewBestScore(state)
   return {
-    ...state,
     bestScores,
     losingMoves,
     status: 'gameOver',

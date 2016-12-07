@@ -27,6 +27,7 @@ class PlayPage extends Component {
     activeSquarePosition: PropTypes.number,
     score: PropTypes.number.isRequired,
     bestScores: PropTypes.object.isRequired,
+    loseReason: PropTypes.string,
     history: PropTypes.arrayOf(PropTypes.shape({
       color: PropTypes.string,
       audio: PropTypes.string,
@@ -52,6 +53,7 @@ class PlayPage extends Component {
       <View style={ styles.container }>
         { this.renderHeader() }
         { this.renderGameOverAudio() }
+        { this.renderLoseReason() }
         { this.renderBoard() }
         { this.renderControls() }
         { this.renderGameOverControls() }
@@ -104,6 +106,7 @@ class PlayPage extends Component {
     }
     return (
       <Board
+        modes={ modes }
         nBack={ nBack }
         status={ status }
         lastTurn={ history[history.length - 1] }
@@ -190,6 +193,17 @@ class PlayPage extends Component {
         <FaIcon name='long-arrow-left' />
         <Text>last</Text>
       </View>
+    )
+  }
+
+  renderLoseReason () {
+    if (!this.props.loseReason) {
+      return
+    }
+    return (
+      <Text style={ styles.loseReason }>
+        { this.props.loseReason }
+      </Text>
     )
   }
 
@@ -321,6 +335,11 @@ const styles = {
   gameOverAudio: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+
+  loseReason: {
+    fontSize: 20,
+    color: 'red',
   },
 
   controls: {

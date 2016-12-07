@@ -24,6 +24,7 @@ class PlayContainer extends Component {
     activeSquareColor: PropTypes.string,
     activeSquarePosition: PropTypes.number,
     score: PropTypes.number.isRequired,
+    loseReason: PropTypes.string,
     history: PropTypes.arrayOf(PropTypes.shape({
       color: PropTypes.string,
       letter: PropTypes.string,
@@ -70,6 +71,7 @@ class PlayContainer extends Component {
       <div className={ styles.container }>
         { this.renderHeader() }
         { this.renderGameOverAudio() }
+        { this.renderLoseReason() }
         { this.renderBoard() }
         { this.renderControls() }
         { this.renderGameOverControls() }
@@ -120,6 +122,17 @@ class PlayContainer extends Component {
     )
   }
 
+  renderLoseReason () {
+    if (!this.props.loseReason) {
+      return
+    }
+    return (
+      <div className={ styles.loseReason }>
+        { this.props.loseReason }
+      </div>
+    )
+  }
+
   renderBoard () {
     const { modes, history, nBack, status, activeSquareColor, activeSquarePosition } = this.props
     if (!modes.color && !modes.position) {
@@ -127,6 +140,7 @@ class PlayContainer extends Component {
     }
     return (
       <Board
+        modes={ modes }
         nBack={ nBack }
         status={ status }
         lastTurn={ history[history.length - 1] }
