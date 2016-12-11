@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { View, Text, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Actions } from 'react-native-router-flux'
+import { Actions, ActionConst } from 'react-native-router-flux'
 
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 import FdIcon from 'react-native-vector-icons/Foundation'
@@ -44,8 +44,8 @@ class PlayPage extends Component {
     this.loadSoundFiles()
   }
 
-  componentWillReceiveProps (playSound) {
-    this.playSound(playSound)
+  componentWillReceiveProps (nextProps) {
+    this.playSound(nextProps)
   }
 
   render () {
@@ -272,7 +272,7 @@ class PlayPage extends Component {
   }
 
   routeToHome = () => {
-    Actions.home()
+    Actions.home({ type: ActionConst.RESET })
   }
 
 }
