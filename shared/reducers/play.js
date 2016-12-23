@@ -210,6 +210,7 @@ export default handleActions({
     return {
       ...state,
       bestScores: getMaxBestScores(state.bestScores, action.payload.bestScores),
+      losingMoves: getCombinedLosingMoves(state.losingMoves, action.payload.losingMoves),
     }
   },
 
@@ -217,6 +218,7 @@ export default handleActions({
     return {
       ...state,
       bestScores: getMaxBestScores(state.bestScores, action.payload.bestScores),
+      losingMoves: getCombinedLosingMoves(state.losingMoves, action.payload.losingMoves),
     }
   },
 
@@ -224,6 +226,7 @@ export default handleActions({
     return {
       ...state,
       bestScores: getMaxBestScores(state.bestScores, action.payload.bestScores),
+      losingMoves: getCombinedLosingMoves(state.losingMoves, action.payload.losingMoves),
     }
   },
 
@@ -276,7 +279,15 @@ function getTurn (state) {
 function getMaxBestScores (stateBestScores, serverBestScores) {
   const res = Object.assign({}, stateBestScores)
   for (const mode in serverBestScores) {
-    res[mode] = Math.max(serverBestScores[mode] || 0, res[mode] || 0) // fallback to 0 to avoid NaN for comparing with undefined
+    res[mode] = Math.max(serverBestScores[mode], res[mode] || 0) // fallback to 0 to avoid NaN for comparing with undefined
+  }
+  return res
+}
+
+function getCombinedLosingMoves (stateLosingMoves, serverLosingMoves) {
+  const res = Object.assign({}, stateLosingMoves)
+  for (const mode in serverLosingMoves) {
+    res[mode] = serverLosingMoves[mode].concat(res[mode] || [])
   }
   return res
 }
