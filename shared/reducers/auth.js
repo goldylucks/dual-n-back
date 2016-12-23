@@ -183,6 +183,13 @@ export default handleActions({
     }
   },
 
+  'logout' (state, action) {
+    return {
+      ...state,
+      user: {},
+    }
+  },
+
 }, initialState)
 
 function getSignupPasswordError ({ password, rePassword }) {

@@ -5,6 +5,7 @@ import { Link, hashHistory } from 'react-router'
 
 import * as utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
+import * as authActions from '../../../shared/actions/auth'
 
 import styles from './Home.css'
 
@@ -17,6 +18,7 @@ class HomeContainer extends Component {
     bestScores: PropTypes.object.isRequired,
     user: PropTypes.object,
     actions: PropTypes.shape({
+      logout: PropTypes.func.isRequired,
       toggleMode: PropTypes.func.isRequired,
       incrementN: PropTypes.func.isRequired,
       decrementN: PropTypes.func.isRequired,
@@ -65,7 +67,7 @@ class HomeContainer extends Component {
           </a>
         </div>
         <div className={ styles.play }>
-          { this.renderLogin() }
+          { this.renderAuth() }
           <Link to={ '/play' } { ...this._test('routeToPlay') }>
             <i className={ [styles.playIcon, 'fa fa-play-circle'].join(' ') } />
           </Link>
@@ -77,9 +79,13 @@ class HomeContainer extends Component {
     )
   }
 
-  renderLogin () {
+  renderAuth () {
     if (this.props.user.name) {
-      return
+      return (
+        <a className={ styles.auth } onClick={ this.onLogout } { ...this._test('logout') }>
+          <i className={ [styles.authIcon, 'fa fa-sign-out'].join(' ') } />
+        </a>
+      )
     }
     return (
       <Link to={ '/auth' } className={ styles.auth } { ...this._test('routeToAuth') }>
@@ -114,6 +120,13 @@ class HomeContainer extends Component {
     }
   }
 
+  onLogout = () => {
+    if (!global.confirm('logout?')) {
+      return
+    }
+    this.props.actions.logout()
+  }
+
 }
 
 function mapStateToProps (state) {
@@ -125,7 +138,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch),
+    actions: bindActionCreators(Object.assign({}, actions, authActions), dispatch),
   }
 }
 
