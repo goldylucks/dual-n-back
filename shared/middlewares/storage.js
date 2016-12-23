@@ -33,6 +33,7 @@ export default class StorageMiddleware {
         localStorage.setItem('user', JSON.stringify(action.payload))
         next(action)
         localStorage.setItem('bestScores', JSON.stringify(store.getState().play.bestScores))
+        localStorage.setItem('losingMoves', JSON.stringify(store.getState().play.losingMoves))
         return
       }
 

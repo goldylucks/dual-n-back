@@ -45,7 +45,7 @@ export default class UserMiddleware {
   refreshUser (store) {
     const { _id } = store.getState().auth.user
     axios.get(`${API_URL}/users/${_id}`)
-      .then(user => store.dispatch(refreshUserSuccess(user)))
+      .then(({ data: user }) => store.dispatch(refreshUserSuccess(user)))
       .catch(err => store.dispatch(refreshUserError(err)))
   }
 
