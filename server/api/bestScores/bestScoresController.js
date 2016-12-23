@@ -1,8 +1,6 @@
 const BestScores = require('./bestScoresModel')
 
-module.exports = {
-  addOrUpdate: addOrUpdate,
-}
+module.exports = { addOrUpdate }
 
 function addOrUpdate (req, res, next) {
   const userId = req.user._id

@@ -6,14 +6,7 @@ const service = require('./usersService')
 const Users = require('./usersModel')
 const BestScores = require('../bestScores/bestScoresModel')
 
-module.exports = {
-  get: get,
-  getOne: getOne,
-  login: login,
-  fbAuth: fbAuth,
-  post: post, // signup
-  put: put,
-}
+module.exports = { get, getOne, login, fbAuth, post, put }
 
 function get (req, res, next) {
   Users.find()
@@ -23,7 +16,7 @@ function get (req, res, next) {
 
 function getOne (req, res, next) {
   let user
-  const id = req.params.id
+  const { id } = req.params
   Users.findById(id)
     .then(_user => {
       if (!_user) {
@@ -46,8 +39,7 @@ function getOne (req, res, next) {
 
 function login (req, res, next) {
   let user
-  const email = req.body.email
-  const password = req.body.password
+  const { email, password } = req.body
   Users.findOne({ email }).select('+password')
     .then(_user => validateUserCredentials(_user, password))
     .then(prepareUser)
@@ -85,18 +77,17 @@ function put (req, res, next) {
 
 function fbAuth (req, res, next) {
   let user
-  const body = req.query
-  const email = body.email
-  const fbClientAccessToken = body.accessToken
+  const { email, name, userID, picture } = req.query
+  const fbClientAccessToken = req.query.accessToken
   const update = {
-    name: body.name,
-    fbUserId: body.userID,
-    email: email,
-    fbPictureUrl: body.picture && body.picture.split('"url":"')[1].split('"')[0],
+    name: name,
+    fbUserId: userID,
+    email,
+    fbPictureUrl: picture && picture.split('"url":"')[1].split('"')[0],
   }
   // Find or create user
   const options = { upsert: true, new: true, setDefaultsOnInsert: true }
-  Users.findOneAndUpdate({ email: email }, update, options)
+  Users.findOneAndUpdate({ email }, update, options)
   .then(prepareUser)
   .then(_user => user = _user)
   .then(bestScores => {
