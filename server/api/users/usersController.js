@@ -4,6 +4,7 @@ const axios = require('axios')
 const config = require('../../config')
 const service = require('./usersService')
 const Users = require('./usersModel')
+const BestScores = require('../bestScores/bestScoresModel')
 
 module.exports = {
   get: get,
@@ -28,21 +29,30 @@ function getOne (req, res, next) {
 }
 
 function login (req, res, next) {
+  let user
   const email = req.body.email
   const password = req.body.password
   Users.findOne({ email }).select('+password')
-    .then(user => {
-      if (!user || !bcrypt.compareSync(password, user.password)) {
+    .then(_user => {
+      if (!_user || !bcrypt.compareSync(password, _user.password)) {
         throw new CustomError('custom error', {
           code: 400,
         })('user with that email does not exist or password is incorrect')
       }
-      return user
+      return _user
     })
-    .then(user => {
-      user = user.toObject()
-      delete user.password
-      user.token = service.signToken(user._id)
+    .then(_user => {
+      _user = _user.toObject()
+      delete _user.password
+      _user.token = service.signToken(_user._id)
+      user = _user
+    })
+    .then(() => {
+      return BestScores.find({ userId: user._id })
+    })
+    .then(bestScores => {
+      user.bestScores = {}
+      bestScores.forEach(bs => user.bestScores[bs.mode] = bs.score)
       res.json(user)
     })
     .catch(next)

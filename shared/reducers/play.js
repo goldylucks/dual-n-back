@@ -204,6 +204,29 @@ export default handleActions({
     }
   },
 
+  // the next methods probably don't belong here
+  // will be refactored once bestScores is moved to user reducer
+  'facebook authSuccess' (state, action) {
+    return {
+      ...state,
+      bestScores: getMaxBestScores(state.bestScores, action.payload.bestScores),
+    }
+  },
+
+  'login success' (state, action) {
+    return {
+      ...state,
+      bestScores: getMaxBestScores(state.bestScores, action.payload.bestScores),
+    }
+  },
+
+  'refresh userSuccess' (state, action) {
+    return {
+      ...state,
+      bestScores: getMaxBestScores(state.bestScores, action.payload.bestScores),
+    }
+  },
+
 }, initialState)
 
 function gameOverState (state) {
@@ -248,6 +271,14 @@ function getTurn (state) {
     turn.audio = _.sample(state.letters)
   }
   return turn
+}
+
+function getMaxBestScores (stateBestScores, serverBestScores) {
+  const res = Object.assign({}, stateBestScores)
+  for (const mode in serverBestScores) {
+    res[mode] = Math.max(serverBestScores[mode] || 0, res[mode] || 0) // fallback to 0 to avoid NaN for comparing with undefined
+  }
+  return res
 }
 
 const _TEST_TURNS = [

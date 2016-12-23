@@ -22,7 +22,8 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-store.dispatch(initApp())
 if (__DEV__) {
   require('../shared/utils/dev')(store)
 }
+
+store.dispatch(initApp())

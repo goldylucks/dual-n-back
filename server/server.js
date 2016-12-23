@@ -9,6 +9,11 @@ const api = require('./api')
 
 mongoose.connect(config.db.url)
 
+// dev/tests
+if (config.seed) {
+  require('./utils/seed')
+}
+
 require('./middlewares/appMiddleware')(app)
 
 app.use('/api', api)

@@ -29,9 +29,10 @@ export default class StorageMiddleware {
         return
       }
 
-      if (action.type === 'facebook authSuccess') {
+      if (action.type.match(/facebook authSuccess|login success|signup success|refresh userSuccess/)) {
         localStorage.setItem('user', JSON.stringify(action.payload))
         next(action)
+        localStorage.setItem('bestScores', JSON.stringify(store.getState().play.bestScores))
         return
       }
 

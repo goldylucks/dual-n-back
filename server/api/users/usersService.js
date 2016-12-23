@@ -20,7 +20,6 @@ function decodeToken (req, res, next) {
   if (req.query && req.query.hasOwnProperty('access_token')) {
     req.headers.authorization = 'Bearer ' + req.query.access_token
   }
-
   const authorization = req.headers.authorization || req.headers.Authorization
   if (!authorization || !authorization.match('Bearer ')) {
     next()
