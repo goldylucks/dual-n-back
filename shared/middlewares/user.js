@@ -56,7 +56,7 @@ export default class UserMiddleware {
   storeLosingMovesInDB (store) {
     const { _id } = store.getState().auth.user
     const { losingMoves } = store.getState().play
-    axios.put(`${API_URL}/users/${_id}`, losingMoves)
+    axios.put(`${API_URL}/users/${_id}`, { losingMoves })
       .then(() => logger.log('store losing moves to DB:', losingMoves))
       .catch(err => logger.error('store losing moves to DB error:', err))
   }
