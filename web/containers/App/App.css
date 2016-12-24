@@ -8,12 +8,12 @@ body {
 }
 
 .container {
+  border: 1px solid gray;
   margin: 100px auto 0;
   width: 380px;
-  border: 1px solid gray;
 }
 
 a {
-  text-decoration: none;
   cursor: pointer;
+  text-decoration: none;
 }

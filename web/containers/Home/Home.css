@@ -1,22 +1,22 @@
 .container {
-  flex: 1;
   background-color: blue;
+  flex: 1;
 }
 
 .headline {
-  flex: 0.5;
-  text-align: center;
   color: white;
+  flex: 0.5;
   font-size: 80px;
+  text-align: center;
 }
 
 .settings {
+  border-top: 1px solid white;
   display: flex;
   flex: 0.15;
   flex-direction: row;
-  border-top: 1px solid white;
-  padding-top: 10px;
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .settings.modes {
@@ -24,11 +24,11 @@
 }
 
 .settings.modes i {
-  font-size: 30px;
   color: #fff;
   cursor: pointer;
+  font-size: 30px;
   opacity: 0.5;
-  transition: opacity .5s;
+  transition: opacity 0.5s;
 }
 
 .settings.modes i.active {
@@ -36,11 +36,11 @@
 }
 
 .leftSetting {
+  align-items: center;
+  border-right: 1px solid white;
   display: flex;
   flex: 0.2;
   justify-content: center;
-  align-items: center;
-  border-right: 1px solid white;
 }
 
 .leftSettingIcon {
@@ -49,23 +49,23 @@
 }
 
 .middleSetting {
+  align-items: center;
   display: flex;
   flex: 0.6;
-  align-items: center;
   justify-content: center;
 }
 
 .middleSettingText {
-  font-size: 50px;
   color: white;
+  font-size: 50px;
 }
 
 .rightSetting {
+  align-items: center;
+  border-left: 1px solid white;
   display: flex;
   flex: 0.2;
   justify-content: center;
-  align-items: center;
-  border-left: 1px solid white;
 }
 
 .rightSettingIcon {
@@ -74,18 +74,18 @@
 }
 
 .play {
-  display: flex;
-  flex: 0.2;
-  justify-content: center;
   align-items: center;
   border-bottom: 1px solid white;
   border-top: 1px solid white;
+  display: flex;
+  flex: 0.2;
+  justify-content: center;
   position: relative;
 }
 
 .auth {
-  position: absolute;
   left: 10px;
+  position: absolute;
 }
 
 .authIcon {
@@ -99,8 +99,8 @@
 }
 
 .record {
-  flex: 0.1;
-  text-align: center;
   color: white;
+  flex: 0.1;
   font-size: 25px;
+  text-align: center;
 }
