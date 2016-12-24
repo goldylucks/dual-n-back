@@ -63,7 +63,7 @@ export default class UserMiddleware {
 
   storeBestScoresInDB (store) {
     const { score, modes, nBack } = store.getState().play
-    const mode = utils.getBestScoreKey(modes, nBack)
+    const mode = utils.getModeKey(modes, nBack)
     axios.put(`${API_URL}/bestScores/addOrUpdate`, { mode, score })
       .then(() => logger.log('store bestScore to DB: success', { mode, score }))
       .catch(err => logger.error('store bestScore to DB: error:', err))

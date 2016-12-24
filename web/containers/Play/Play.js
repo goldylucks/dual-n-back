@@ -171,21 +171,21 @@ class PlayContainer extends Component {
     return (
       <div className={ styles.controls }>
         {
-          utils.renderIf(position)(
+          position && (
             <a className={ styles.control } onClick={ this.guessPosition } { ...this._test('guessPosition') }>
               <i className={ ['fa fa-th', styles.controlIcon].join(' ') } />
             </a>
           )
         }
         {
-          utils.renderIf(color)(
+          color && (
             <a className={ styles.control } onClick={ this.guessColor } { ...this._test('guessColor') }>
               <i className={ ['fa fa-paint-brush', styles.controlIcon].join(' ') } />
             </a>
           )
         }
         {
-          utils.renderIf(audio)(
+          audio && (
             <a className={ styles.control } onClick={ this.guessAudio } { ...this._test('guessAudio') }>
               <i className={ ['fa fa-headphones', styles.controlIcon].join(' ') } />
             </a>

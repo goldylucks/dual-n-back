@@ -8,17 +8,17 @@ describe('shared/middlewares/play', () => {
 
   before('setup spies', () => {
     stub(utils, 'isMatch')
-    stub(utils, 'missedAMatch')
+    stub(utils, 'missingMatches')
   })
 
   after('tearup spies', () => {
     utils.isMatch.restore()
-    utils.missedAMatch.restore()
+    utils.missingMatches.restore()
   })
 
   beforeEach('mock cut, reset spies', () => {
     utils.isMatch.reset()
-    utils.missedAMatch.reset()
+    utils.missingMatches.reset()
     cut = new PlayMiddleware({
       interval: 1,
       resetBoardTimeout: 2,
@@ -30,10 +30,10 @@ describe('shared/middlewares/play', () => {
       cut.endGame = spy()
     })
 
-    it('should call utils.missedAMatch(history, nBack, modes, guessed), dispatch(missAMatch()), cut.endGame, not call dispatch(playInterval()) and setTimeout', () => {
+    it('should call utils.missingMatches(history, nBack, modes, guessed), dispatch(missAMatch()), cut.endGame, not call dispatch(playInterval()) and setTimeout', () => {
       // given
       const missed = ['color']
-      utils.missedAMatch.returns(missed)
+      utils.missingMatches.returns(missed)
       const history = []
       const speed = 500
       const nBack = 1
@@ -51,15 +51,15 @@ describe('shared/middlewares/play', () => {
       cut.onTick(playState, dispatch)
 
       // then
-      expect(utils.missedAMatch).to.have.been.calledWith(history, nBack, modes, guessed)
+      expect(utils.missingMatches).to.have.been.calledWith(history, nBack, modes, guessed)
       expect(dispatch).to.have.been.calledWith(missAMatch(missed))
       expect(dispatch).to.not.have.been.calledWith(playInterval())
       expect(setTimeout).to.not.have.been.called
     })
 
-    it('should call utils.missedAMatch(history, nBack, history, nBack, modes, guessed), call dispatch(playInterval()) and setTimeout, not call dispatch(missAMatch()), cut.endGame', () => {
+    it('should call utils.missingMatches(history, nBack, history, nBack, modes, guessed), call dispatch(playInterval()) and setTimeout, not call dispatch(missAMatch()), cut.endGame', () => {
       // given
-      utils.missedAMatch.returns(false)
+      utils.missingMatches.returns(false)
       const history = []
       const speed = 500
       const nBack = 1
@@ -77,7 +77,7 @@ describe('shared/middlewares/play', () => {
       cut.onTick(playState, dispatch)
 
       // then
-      expect(utils.missedAMatch).to.have.been.calledWith(history, nBack, modes, guessed)
+      expect(utils.missingMatches).to.have.been.calledWith(history, nBack, modes, guessed)
       expect(dispatch).to.not.have.been.calledWith(missAMatch())
       expect(cut.endGame).to.not.have.been.called
       expect(dispatch).to.have.been.calledWith(playInterval())

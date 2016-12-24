@@ -125,27 +125,26 @@ class PlayPage extends Component {
     return (
       <View style={ styles.controls }>
         {
-          utils.renderIf(modes.position)(
+          modes.position && (
             <TouchableHighlight style={ styles.control } onPress={ this.guessPosition } disabled={ this.isGuessDisabled() }>
               <FaIcon style={ styles.controlIcon } name='th' />
             </TouchableHighlight>
           )
         }
         {
-          utils.renderIf(modes.color)(
+          modes.color && (
             <TouchableHighlight style={ styles.control } onPress={ this.guessColor } disabled={ this.isGuessDisabled() }>
               <FdIcon style={ styles.controlIcon } name='paint-bucket' />
             </TouchableHighlight>
           )
         }
         {
-          utils.renderIf(modes.audio)(
+          modes.audio && (
             <TouchableHighlight style={ styles.control } onPress={ this.guessAudio } disabled={ this.isGuessDisabled() }>
               <FaIcon style={ styles.controlIcon } name='headphones' />
             </TouchableHighlight>
           )
         }
-
       </View>
     )
   }

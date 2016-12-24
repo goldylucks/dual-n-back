@@ -19,7 +19,7 @@
   font-size: 18px;
 }
 
-::global .kep-login-facebook {
+:global .kep-login-facebook { /* stylelint-disable-line */
   margin-bottom: 20px;
   width: 100%;
 }

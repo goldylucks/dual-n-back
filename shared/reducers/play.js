@@ -251,7 +251,7 @@ function getNewBestScore ({ modes, nBack, bestScores, score }) {
 }
 
 function getNewLosingMoves ({ modes, nBack, history, losingMoves }) {
-  const losingMovesKey = utils.getBestScoreKey(modes, nBack)
+  const losingMovesKey = utils.getModeKey(modes, nBack)
   const lastMoves = history.slice(history.length - nBack - 1)
   const prevMoves = losingMoves[losingMovesKey] || []
   return Object.assign({}, losingMoves, {
