@@ -1,12 +1,12 @@
 .container {
-  background-color: blue;
-  width: 100px;
-  height: 100px;
-  font-size: 20px;
-  display: flex;
   align-items: center;
+  background-color: blue;
+  display: flex;
+  font-size: 20px;
+  height: 100px;
   justify-content: center;
   text-align: center;
+  width: 100px;
 }
 
 .container > * {

@@ -4,24 +4,24 @@
 }
 
 .leadContainer {
-  display: flex;
   align-items: center;
+  display: flex;
   margin-bottom: 10px;
 }
 
 .backIcon {
+  color: rgb(0, 100, 255);
   font-size: 30px;
   margin-right: 10px;
-  color: rgb(0, 100, 255);
 }
 
 .lead {
   font-size: 18px;
 }
 
-:global .kep-login-facebook {
-  width: 100%;
+::global .kep-login-facebook {
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .or {
@@ -29,14 +29,14 @@
 }
 
 .toggleMode {
-  display: block;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  text-align: center;
   color: blue;
-  text-decoration: underline;
-  margin-top: 10px;
+  display: block;
   margin-bottom: 20px;
+  margin-top: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  text-align: center;
+  text-decoration: underline;
 }
 
 .toggleMode:hover {
@@ -54,12 +54,12 @@
 }
 
 .formControl input {
+  border: 1px solid #d3cfcf;
+  border-radius: 5px;
+  box-shadow: none;
   display: block;
   padding: 10px;
-  border-radius: 5px;
   width: 100%;
-  border: 1px solid #d3cfcf;
-  box-shadow: none;
 }
 
 .error {
