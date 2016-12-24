@@ -18,6 +18,7 @@ export const showSignupErrors = createAction('show signupErrors')
 export const login = createAction('login')
 export const loginSuccess = createAction('login success')
 export const loginError = createAction('login error')
+export const logout = createAction('logout')
 
 export const signup = createAction('signup')
 export const signupSuccess = createAction('signup success')

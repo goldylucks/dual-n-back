@@ -3,7 +3,7 @@ import isEmail from 'validator/lib/isEmail'
 
 const initialState = {
   user: {},
-  modes: 'signup',
+  mode: 'signup',
   name: '',
   nameValid: false,
   nameError: null,
@@ -30,7 +30,7 @@ export default handleActions({
   'toggle authMode' (state, action) {
     return {
       ...state,
-      modes: state.modes === 'login' ? 'signup' : 'login',
+      mode: state.mode === 'login' ? 'signup' : 'login',
     }
   },
 
@@ -180,6 +180,13 @@ export default handleActions({
       ...state,
       isProcessing: false,
       serverError: action.payload,
+    }
+  },
+
+  'logout' (state, action) {
+    return {
+      ...state,
+      user: {},
     }
   },
 
