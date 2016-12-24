@@ -1,16 +1,27 @@
 import testToMiddleware from 'redux-middleware-test-helper'
 import { playInterval, missAMatch, resetBoard, guessCorrect, guessWrong } from '../actions/play'
 import PlayMiddleware from './play'
+import * as utils from '../utils'
 
 describe('shared/middlewares/play', () => {
   let cut
 
-  beforeEach('mock cut', () => {
+  before('setup spies', () => {
+    stub(utils, 'isMatch')
+    stub(utils, 'missedAMatch')
+  })
+
+  after('tearup spies', () => {
+    utils.isMatch.restore()
+    utils.missedAMatch.restore()
+  })
+
+  beforeEach('mock cut, reset spies', () => {
+    utils.isMatch.reset()
+    utils.missedAMatch.reset()
     cut = new PlayMiddleware({
       interval: 1,
       resetBoardTimeout: 2,
-      isMatch: stub(),
-      missedAMatch: stub(),
     })
   })
 
@@ -19,10 +30,10 @@ describe('shared/middlewares/play', () => {
       cut.endGame = spy()
     })
 
-    it('should call cut.missedAMatch(history, nBack, modes, guessed), dispatch(missAMatch()), cut.endGame, not call dispatch(playInterval()) and setTimeout', () => {
+    it('should call utils.missedAMatch(history, nBack, modes, guessed), dispatch(missAMatch()), cut.endGame, not call dispatch(playInterval()) and setTimeout', () => {
       // given
       const missed = ['color']
-      cut.missedAMatch.returns(missed)
+      utils.missedAMatch.returns(missed)
       const history = []
       const speed = 500
       const nBack = 1
@@ -40,15 +51,15 @@ describe('shared/middlewares/play', () => {
       cut.onTick(playState, dispatch)
 
       // then
-      expect(cut.missedAMatch).to.have.been.calledWith(history, nBack, modes, guessed)
+      expect(utils.missedAMatch).to.have.been.calledWith(history, nBack, modes, guessed)
       expect(dispatch).to.have.been.calledWith(missAMatch(missed))
       expect(dispatch).to.not.have.been.calledWith(playInterval())
       expect(setTimeout).to.not.have.been.called
     })
 
-    it('should call cut.missedAMatch(history, nBack, history, nBack, modes, guessed), call dispatch(playInterval()) and setTimeout, not call dispatch(missAMatch()), cut.endGame', () => {
+    it('should call utils.missedAMatch(history, nBack, history, nBack, modes, guessed), call dispatch(playInterval()) and setTimeout, not call dispatch(missAMatch()), cut.endGame', () => {
       // given
-      cut.missedAMatch.returns(false)
+      utils.missedAMatch.returns(false)
       const history = []
       const speed = 500
       const nBack = 1
@@ -66,7 +77,7 @@ describe('shared/middlewares/play', () => {
       cut.onTick(playState, dispatch)
 
       // then
-      expect(cut.missedAMatch).to.have.been.calledWith(history, nBack, modes, guessed)
+      expect(utils.missedAMatch).to.have.been.calledWith(history, nBack, modes, guessed)
       expect(dispatch).to.not.have.been.calledWith(missAMatch())
       expect(cut.endGame).to.not.have.been.called
       expect(dispatch).to.have.been.calledWith(playInterval())
@@ -112,13 +123,13 @@ describe('shared/middlewares/play', () => {
       const history = [{}]
       const nBack = 2
       const playState = { history, nBack }
-      cut.isMatch.returns(true)
+      utils.isMatch.returns(true)
 
       // when
       cut.onGuess(playState, dispatch, guess)
 
       // then
-      expect(cut.isMatch).to.have.been.calledWith(history, nBack, guess)
+      expect(utils.isMatch).to.have.been.calledWith(history, nBack, guess)
       expect(dispatch).to.not.have.been.calledWith(guessWrong(guess))
       expect(dispatch).to.have.been.calledWith(guessCorrect(guess))
     })
@@ -129,13 +140,13 @@ describe('shared/middlewares/play', () => {
       const history = [{}]
       const nBack = 2
       const playState = { history, nBack }
-      cut.isMatch.returns(false)
+      utils.isMatch.returns(false)
 
       // when
       cut.onGuess(playState, dispatch, guess)
 
       // then
-      expect(cut.isMatch).to.have.been.calledWith(history, nBack, guess)
+      expect(utils.isMatch).to.have.been.calledWith(history, nBack, guess)
       expect(dispatch).to.have.been.calledWith(guessWrong(guess))
       expect(dispatch).to.not.have.been.calledWith(guessCorrect(guess))
     })
