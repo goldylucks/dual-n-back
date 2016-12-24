@@ -54,7 +54,7 @@ export default class StorageMiddleware {
       return
     }
     try {
-      await AsyncStorage.mergeItem('bestScores', JSON.stringify({ [utils.getBestScoreKey(modes, nBack)]: score }))
+      await AsyncStorage.mergeItem('bestScores', JSON.stringify({ [utils.getModeKey(modes, nBack)]: score }))
     } catch (err) {
       logger.error('[StorageMiddleware] Error saving bestScores:', err)
     }

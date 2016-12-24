@@ -7,7 +7,6 @@ import _ from 'lodash'
 
 import Button from '../../components/Button'
 import * as actions from '../../../shared/actions/auth'
-import * as utils from '../../../shared/utils'
 
 import styles from './Auth.css'
 
@@ -82,7 +81,7 @@ class AuthContainer extends Component {
     const { mode, name, nameError, email, emailError, password, passwordError, rePassword, serverError } = this.props
     return (
       <form onSubmit={ this.onSubmit }>
-        { utils.renderIf(mode === 'signup')(
+        { mode === 'signup' && (
           <div className={ styles.formControl }>
             <label>Name <small>(public)</small></label>
             <input onChange={ this.onNameChange } value={ name } type='text' onBlur={ this.onNameBlur } placeholder='put your user name here' />
@@ -100,7 +99,7 @@ class AuthContainer extends Component {
           <input onChange={ this.onPasswordChange } value={ password } type='password' onBlur={ this.onPasswordBlur } placeholder='put your password here' />
           { !passwordError ? '' : <span className={ styles.error }>{ passwordError }</span> }
         </div>
-        { utils.renderIf(mode === 'signup')(
+        { mode === 'signup' && (
           <div className={ styles.formControl }>
             <label>Repeat Password</label>
             <input onChange={ this.onRePasswordChange } value={ rePassword } type='password' onBlur={ this.onRePasswordBlur } placeholder='put your password again here' />

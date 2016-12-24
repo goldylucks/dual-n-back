@@ -52,7 +52,7 @@ export default class PlayMiddleware {
   }
 
   onTick ({ speed, history, nBack, modes, guessed }, dispatch) {
-    const missed = utils.missedAMatch(history, nBack, modes, guessed)
+    const missed = utils.missingMatches(history, nBack, modes, guessed)
     if (missed.length) {
       dispatch(missAMatch(missed))
       return
