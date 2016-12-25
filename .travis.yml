@@ -11,6 +11,7 @@ branches:
   only:
   - master
   - "/v\\d\\./"
+  - /^greenkeeper-.*$/
 matrix:
   include:
   - env: SCRIPT=lint
