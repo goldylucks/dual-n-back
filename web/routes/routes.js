@@ -1,16 +1,13 @@
 
 import React, { Component, PropTypes } from 'react'
 
-import { Router, Route, useRouterHistory, IndexRedirect } from 'react-router'
-import { createHashHistory } from 'history'
+import { Router, Route, browserHistory, IndexRedirect } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import AppContainer from '../containers/App'
 import HomeContainer from '../containers/Home'
 import PlayContainer from '../containers/Play'
 import AuthContainer from '../containers/Auth'
-
-const routerHistory = useRouterHistory(createHashHistory)()
 
 export default class Routes extends Component {
 
@@ -19,7 +16,8 @@ export default class Routes extends Component {
   }
 
   render () {
-    const history = syncHistoryWithStore(routerHistory, this.props.store)
+    // const history = syncHistoryWithStore(routerHistory, this.props.store)
+    const history = syncHistoryWithStore(browserHistory, this.props.store)
     return (
       <Router history={ history }>
         <Route path={ '/' } component={ AppContainer }>
