@@ -107,6 +107,7 @@
     "replace": "^0.3.0",
     "rucksack-css": "^0.9.1",
     "selenium-server-standalone-jar": "^3.0.1",
+    "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.0",
     "stylefmt": "^5.0.3",
