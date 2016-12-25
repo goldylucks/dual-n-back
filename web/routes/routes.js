@@ -16,7 +16,6 @@ export default class Routes extends Component {
   }
 
   render () {
-    // const history = syncHistoryWithStore(routerHistory, this.props.store)
     const history = syncHistoryWithStore(browserHistory, this.props.store)
     return (
       <Router history={ history }>
