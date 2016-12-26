@@ -50,6 +50,10 @@
     "redux": "^3.6.0",
     "redux-actions": "^1.2.0",
     "redux-logger": "^2.7.4",
+    "react-native-router-flux": "^3.37.0",
+    "react-router": "^3.0.0",
+    "react-router-redux": "^4.0.0",
+    "redux": "^3.3.1",
     "validator": "^6.1.0"
   },
   "devDependencies": {
@@ -97,11 +101,6 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "react-native-gradle-config": "^1.1.0",
     "react-native-keep-awake": "^1.0.7",
-    "react-native-router-flux": "^3.37.0",
-    "react-redux": "^5.0.1",
-    "react-router": "^3.0.0",
-    "react-router-redux": "^4.0.0",
-    "redux": "^3.3.1",
     "redux-middleware-test-helper": "0.0.5",
     "replace": "^0.3.0",
     "rucksack-css": "^0.9.1",
