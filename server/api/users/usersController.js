@@ -76,7 +76,7 @@ function put (req, res, next) {
 
 function fbAuth (req, res, next) {
   let user
-  const { email, name, userID, fbPictureUrl, accessToken: fbClientAccessToken } = req.query
+  const { email, name, userID, fbPictureUrl, accessToken: fbClientAccessToken, isMobile } = req.query
   const update = {
     name,
     fbUserId: userID,
@@ -100,11 +100,11 @@ function fbAuth (req, res, next) {
   // exchange client token for long term server token behind the scenes
   // and save it on user collection
   .then(() => {
-    return axios.get(`https://graph.facebook.com/oauth/access_token?client_id=${config.fbId}&client_secret=${config.fbSecret}&grant_type=fb_exchange_token&fb_exchange_token=${fbClientAccessToken}`)
+    return isMobile ? fbClientAccessToken : axios.get(`https://graph.facebook.com/oauth/access_token?client_id=${config.fbId}&client_secret=${config.fbSecret}&grant_type=fb_exchange_token&fb_exchange_token=${fbClientAccessToken}`)
   })
   .then(fbRes => {
-    const fbServerAccessToken = fbRes.data.split('=')[1]
-    Users.findOneAndUpdate({ _id: user._id }, { $set: { fbAccessToken: fbServerAccessToken } })
+    const fbServerAccessToken = isMobile ? fbRes : fbRes.data.split('=')[1]
+    return Users.findOneAndUpdate({ _id: user._id }, { $set: { fbAccessToken: fbServerAccessToken } })
   })
   .catch(next)
 }

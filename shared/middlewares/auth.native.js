@@ -32,6 +32,7 @@ export default class AuthMiddleware {
 
   async onFacebookAuth (dispatch, fbResponse) {
     const params = {
+      isMobile: true,
       email: fbResponse.profile.email,
       name: fbResponse.profile.name,
       userID: fbResponse.credentials.userId,

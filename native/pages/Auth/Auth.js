@@ -72,6 +72,12 @@ class AuthContainer extends Component {
         loginBehavior={ FBLoginManager.LoginBehaviors.Native }
         buttonView={ this.facebookAuthButton() }
         onLogin={ this.props.actions.facebookAuth }
+        onLogout={ evt => {} }
+        onLoginFound={ evt => {} }
+        onLoginNotFound={ evt => {} }
+        onError={ evt => {} }
+        onCancel={ evt => {} }
+        onPermissionsMissing={ evt => {} }
       />
     )
   }
