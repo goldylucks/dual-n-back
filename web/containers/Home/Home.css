@@ -73,7 +73,7 @@
   font-size: 50px;
 }
 
-.play {
+.actions {
   align-items: center;
   border-bottom: 1px solid white;
   border-top: 1px solid white;
@@ -83,17 +83,17 @@
   position: relative;
 }
 
-.auth {
+.actionsAuth {
   left: 10px;
   position: absolute;
 }
 
-.authIcon {
+.actionsAuthIcon {
   color: #eee;
   font-size: 30px;
 }
 
-.playIcon {
+.actionsPlayIcon {
   color: white;
   font-size: 60px;
 }

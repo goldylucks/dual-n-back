@@ -86,7 +86,7 @@ class PlayContainer extends Component {
     if (status === 'idle') {
       return (
         <div className={ styles.header }>
-          <Link to='/home' { ...this._test('home') } className={ styles.home }><i className='fa fa-home' /></Link>
+          <Link to='/home' { ...this._test('home') } className={ styles.home }><i className='fa fa-arrow-left' /></Link>
           <a onClick={ this.startGame } className={ styles.start } { ...this._test('start') }>Start</a>
         </div>
       )

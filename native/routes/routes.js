@@ -4,6 +4,7 @@ import { LOCATION_CHANGE } from 'react-router-redux'
 
 import Home from '../pages/Home'
 import Play from '../pages/Play'
+import Auth from '../pages/Auth'
 
 export default class Routes extends Component {
 
@@ -15,6 +16,7 @@ export default class Routes extends Component {
     return (
       <Router hideNavBar createReducer={ this.createReducer }>
         <Scene key='root'>
+          <Scene key='auth' component={ Auth } />
           <Scene key='home' component={ Home } />
           <Scene key='play' component={ Play } />
         </Scene>

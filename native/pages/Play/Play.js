@@ -67,7 +67,7 @@ class PlayPage extends Component {
     if (status === 'idle') {
       return (
         <View style={ styles.header }>
-          <FaIcon onPress={ this.routeToHome } name='home' style={ styles.home } />
+          <FaIcon onPress={ this.routeToHome } name='arrow-left' style={ styles.home } />
           <Text onPress={ this.startGame } style={ styles.headerText }>Start</Text>
         </View>
       )
