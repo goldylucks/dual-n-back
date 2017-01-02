@@ -89,7 +89,10 @@ function fbAuth (req, res, next) {
   const options = { upsert: true, new: true, setDefaultsOnInsert: true }
   Users.findOneAndUpdate({ email }, update, options)
   .then(prepareUser)
-  .then(_user => user = _user)
+  .then(_user => {
+    user = _user
+    return BestScores.find({ userId: user._id })
+  })
   .then(bestScores => {
     user.bestScores = attachBestScores(bestScores)
     res.json(user)
