@@ -11,7 +11,7 @@ describe('shared/middlewares/auth', () => {
   before('setup spies', () => {
     stub(axios, 'get')
     stub(axios, 'post')
-    router.hashHistory = { push: spy() }
+    router.browserHistory = { push: spy() }
   })
 
   after('setup spies', () => {
@@ -22,7 +22,7 @@ describe('shared/middlewares/auth', () => {
   beforeEach('mock cut, reset spies', () => {
     axios.get.reset()
     axios.post.reset()
-    router.hashHistory.push.reset()
+    router.browserHistory.push.reset()
     cut = new AuthMiddleware()
   })
 
@@ -46,8 +46,8 @@ describe('shared/middlewares/auth', () => {
       // when
       await cut.onFacebookAuth(dispatch, {})
       expect(global.alert).to.have.been.calledOnce
-      expect(router.hashHistory.push).to.have.been.calledOnce
-      expect(router.hashHistory.push).to.have.been.calledWith('/home')
+      expect(router.browserHistory.push).to.have.been.calledOnce
+      expect(router.browserHistory.push).to.have.been.calledWith('/home')
       expect(dispatch).to.have.been.calledOnce
       expect(dispatch).to.have.been.calledWith(facebookAuthSuccess(user))
     })
@@ -88,8 +88,8 @@ describe('shared/middlewares/auth', () => {
 
       // then
       expect(global.alert).to.have.been.calledOnce
-      expect(router.hashHistory.push).to.have.been.calledOnce
-      expect(router.hashHistory.push).to.have.been.calledWith('/home')
+      expect(router.browserHistory.push).to.have.been.calledOnce
+      expect(router.browserHistory.push).to.have.been.calledWith('/home')
       expect(dispatch).to.have.been.calledOnce
       expect(dispatch).to.have.been.calledWith(loginSuccess(auth))
     })
@@ -134,8 +134,8 @@ describe('shared/middlewares/auth', () => {
 
       // then
       expect(global.alert).to.have.been.calledOnce
-      expect(router.hashHistory.push).to.have.been.calledOnce
-      expect(router.hashHistory.push).to.have.been.calledWith('/home')
+      expect(router.browserHistory.push).to.have.been.calledOnce
+      expect(router.browserHistory.push).to.have.been.calledWith('/home')
       expect(dispatch).to.have.been.calledOnce
       expect(dispatch).to.have.been.calledWith(signupSuccess(auth))
     })

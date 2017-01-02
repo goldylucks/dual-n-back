@@ -20,8 +20,7 @@ function getOne (req, res, next) {
   Users.findById(id)
     .then(_user => {
       if (!_user) {
-        res.status(404).send("user doesn't exist")
-        return
+        throw Error('user doesn\'t exist')
       }
       return _user
     })
@@ -77,13 +76,12 @@ function put (req, res, next) {
 
 function fbAuth (req, res, next) {
   let user
-  const { email, name, userID, picture } = req.query
-  const fbClientAccessToken = req.query.accessToken
+  const { email, name, userID, fbPictureUrl, accessToken: fbClientAccessToken } = req.query
   const update = {
-    name: name,
+    name,
     fbUserId: userID,
     email,
-    fbPictureUrl: picture && picture.split('"url":"')[1].split('"')[0],
+    fbPictureUrl,
   }
   // Find or create user
   const options = { upsert: true, new: true, setDefaultsOnInsert: true }

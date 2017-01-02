@@ -67,8 +67,11 @@ class AuthContainer extends Component {
   renderFacebookAuth () {
     return (
       <FBLogin
+        permissions={ [''] }
         ref={ fbLogin => this.fbLogin = fbLogin }
         loginBehavior={ FBLoginManager.LoginBehaviors.Native }
+        buttonView={ this.facebookAuthButton() }
+        onLogin={ this.props.actions.facebookAuth }
       />
     )
   }
@@ -116,6 +119,15 @@ class AuthContainer extends Component {
       return <Button onPress={ this.signup } isProcessing={ isProcessing }>Signup</Button>
     }
     return <Button onPress={ this.login } isProcessing={ isProcessing }>Login</Button>
+  }
+
+  facebookAuthButton () {
+    return (
+      <View style={ styles.fb }>
+        <FaIcon name='facebook' style={ styles.fbIcon } />
+        <Text style={ styles.fbText }>LOG IN WITH FACEBOOK</Text>
+      </View>
+    )
   }
 
   toggleAuthMode = () => {
@@ -213,8 +225,26 @@ const styles = {
     fontSize: 18,
   },
 
-  facebook: {
+  fb: {
+    flexDirection: 'row',
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
     marginBottom: 20,
+    backgroundColor: 'rgb(0, 100, 255)',
+  },
+
+  fbIcon: {
+    marginRight: 10,
+    color: '#fff',
+    fontSize: 25,
+  },
+
+  fbText: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 
   or: {
@@ -247,10 +277,6 @@ const styles = {
   error: {
     color: 'red',
     fontSize: 12,
-  },
-
-  actions: {
-    marginTop: 10,
   },
 
 }

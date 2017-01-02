@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
@@ -111,10 +111,14 @@ class HomePage extends Component {
   }
 
   onLogout = () => {
-    if (!global.confirm('logout?')) {
-      return
-    }
-    this.props.actions.logout()
+    Alert.alert(
+      'Really logout?',
+      null,
+      [
+        { text: 'Cancel', onPress: () => global.alert('A wise decision ;)') },
+        { text: 'Logout', onPress: () => this.props.actions.logout() },
+      ]
+    )
   }
 
 }

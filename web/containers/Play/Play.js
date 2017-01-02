@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Link, hashHistory } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import Sound from 'react-sound'
 import _ from 'lodash'
 import mPath from '../../../shared/assets/m.wav'
@@ -299,12 +299,12 @@ class PlayContainer extends Component {
     }
 
     if (keyCode === 109 && status === 'gameOver') { // m
-      hashHistory.push('/home')
+      browserHistory.push('/home')
       return
     }
 
     if (keyCode === 104 && status.match(/idle|gameOver/)) { // m
-      hashHistory.push('/home')
+      browserHistory.push('/home')
       return
     }
 

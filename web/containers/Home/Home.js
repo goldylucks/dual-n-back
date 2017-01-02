@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Link, hashHistory } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 
 import * as utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
@@ -116,7 +116,7 @@ class HomeContainer extends Component {
 
   onKeyPress = ({ keyCode }) => {
     if (keyCode === 13 || keyCode === 32) { // enter or spacebar
-      hashHistory.push('/play')
+      browserHistory.push('/play')
     }
   }
 

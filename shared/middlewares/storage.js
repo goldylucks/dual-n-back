@@ -43,6 +43,12 @@ export default class StorageMiddleware {
         return
       }
 
+      if (action.type === 'refresh userError') {
+        localStorage.removeItem('user')
+        next(action)
+        return
+      }
+
       next(action)
     }
   }

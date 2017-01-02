@@ -16,8 +16,8 @@ export default class Routes extends Component {
     return (
       <Router hideNavBar createReducer={ this.createReducer }>
         <Scene key='root'>
-          <Scene key='auth' component={ Auth } />
           <Scene key='home' component={ Home } />
+          <Scene key='auth' component={ Auth } />
           <Scene key='play' component={ Play } />
         </Scene>
       </Router>
