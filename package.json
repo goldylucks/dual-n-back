@@ -21,6 +21,7 @@
     "deployToGhPages": "./scripts/deployToGhPages.sh",
     "installHooks": "./scripts/hooks.sh",
     "lint": "eslint native shared web server --ignore-path .gitignore",
+    "lint:fix": "npm run lint -- --fix",
     "lintstyle": "stylelint 'web/**/*.css'",
     "lintstyle:fix": "stylefmt -r web/**/*.css",
     "startOld": "node node_modules/react-native/local-cli/cli.js start"
