@@ -49,7 +49,7 @@ class AuthContainer extends Component {
     return (
       <div className={ styles.container }>
         <div className={ styles.leadContainer }>
-          <Link to='home' className={ styles.backIcon }><i className='fa fa-home' /></Link>
+          <Link to='home' className={ styles.backIcon }><i className='fa fa-arrow-left' /></Link>
           <p className={ styles.lead }>
             { _.capitalize(this.props.mode) } to backup and sync your progress between devices
           </p>

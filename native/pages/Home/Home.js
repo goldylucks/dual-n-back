@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, TouchableHighlight } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
@@ -8,11 +8,13 @@ import FaIcon from 'react-native-vector-icons/FontAwesome'
 
 import * as utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
+import * as authActions from '../../../shared/actions/auth'
 
 class HomePage extends Component {
 
   static propTypes = {
     modes: PropTypes.object.isRequired,
+    user: PropTypes.object,
     nBack: PropTypes.number.isRequired,
     speed: PropTypes.number.isRequired,
     bestScores: PropTypes.object.isRequired,
@@ -22,6 +24,7 @@ class HomePage extends Component {
       decrementN: PropTypes.func.isRequired,
       incrementSpeed: PropTypes.func.isRequired,
       decrementSpeed: PropTypes.func.isRequired,
+      logout: PropTypes.func.isRequired,
     }).isRequired,
   }
 
@@ -57,15 +60,25 @@ class HomePage extends Component {
             <FaIcon onPress={ this.incrementSpeed } name='plus' style={ styles.rightSettingIcon } />
           </View>
         </View>
-        <View style={ styles.play }>
-          <TouchableHighlight onPress={ this.routeToGame }>
-            <FaIcon name='play-circle' style={ styles.playIcon } />
-          </TouchableHighlight>
+        <View style={ styles.actions }>
+          { this.renderAuth() }
+          <FaIcon name='play-circle' style={ styles.actionsPlay } onPress={ this.routeToGame } />
         </View>
         <Text style={ styles.record }>
           BEST SCORE: { utils.getBestScore(modes, nBack, bestScores) }
         </Text>
       </View>
+    )
+  }
+
+  renderAuth () {
+    if (this.props.user.name) {
+      return (
+        <FaIcon name='sign-out' style={ styles.actionsAuth } onPress={ this.onLogout } />
+      )
+    }
+    return (
+      <FaIcon name='sign-in' style={ styles.actionsAuth } onPress={ this.onLogin } />
     )
   }
 
@@ -93,15 +106,33 @@ class HomePage extends Component {
     this.props.actions.decrementSpeed()
   }
 
+  onLogin = () => {
+    Actions.auth()
+  }
+
+  onLogout = () => {
+    Alert.alert(
+      'Really logout?',
+      null,
+      [
+        { text: 'Cancel', onPress: () => global.alert('A wise decision ;)') },
+        { text: 'Logout', onPress: () => this.props.actions.logout() },
+      ]
+    )
+  }
+
 }
 
 function mapStateToProps (state) {
-  return state.play
+  return {
+    ...state.play,
+    user: state.auth.user,
+  }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch),
+    actions: bindActionCreators(Object.assign({}, actions, authActions), dispatch),
   }
 }
 
@@ -187,7 +218,8 @@ const styles = {
     fontSize: 50,
   },
 
-  play: {
+  actions: {
+    flexDirection: 'row',
     flex: 0.2,
     justifyContent: 'center',
     alignItems: 'center',
@@ -198,9 +230,19 @@ const styles = {
     borderStyle: 'solid',
   },
 
-  playIcon: {
+  actionsPlay: {
     color: 'white',
     fontSize: 60,
+  },
+
+  actionsAuth: {
+    color: 'white',
+    position: 'absolute',
+    left: 10,
+    top: 0,
+    textAlignVertical: 'center',
+    bottom: 0,
+    fontSize: 40,
   },
 
   record: {

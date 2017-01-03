@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { browserHistory } from 'react-router'
+import { Actions } from 'react-native-router-flux'
 import _ from 'lodash'
 import { API_URL } from '../constants'
 import { facebookAuthSuccess, facebookAuthError, loginSuccess, loginError, signupSuccess, signupError } from '../actions/auth'
@@ -30,16 +30,20 @@ export default class AuthMiddleware {
     }
   }
 
-  async onFacebookAuth (dispatch, fbUser) {
+  async onFacebookAuth (dispatch, fbResponse) {
     const params = {
-      ...fbUser,
-      fbPictureUrl: fbUser.picture && fbUser.picture.data && fbUser.picture.data.url,
+      isMobile: true,
+      email: fbResponse.profile.email,
+      name: fbResponse.profile.name,
+      userID: fbResponse.credentials.userId,
+      accessToken: fbResponse.credentials.token,
+      fbPictureUrl: fbResponse.profile.picture && fbResponse.profile.picture.data && fbResponse.profile.picture.data.url,
     }
     try {
       const { data: user } = await axios.get(`${API_URL}/users/fbAuth`, { params })
       dispatch(facebookAuthSuccess(user))
       global.alert('successfully logged in as ' + user.name)
-      browserHistory.push('/home')
+      Actions.home()
     } catch ({ message }) {
       dispatch(facebookAuthError(message))
     }
@@ -51,7 +55,7 @@ export default class AuthMiddleware {
       const { data: user } = await axios.post(`${API_URL}/users/login`, params)
       dispatch(loginSuccess(user))
       global.alert('successfully logged in as ' + user.name)
-      browserHistory.push('/home')
+      Actions.home()
     } catch (err) {
       let { message } = err
       if (message.match(400)) {
@@ -67,7 +71,7 @@ export default class AuthMiddleware {
       const { data: user } = await axios.post(`${API_URL}/users/`, params)
       dispatch(signupSuccess(user))
       global.alert('successfully signed up as ' + user.name)
-      browserHistory.push('/home')
+      Actions.home()
     } catch (err) {
       let { message } = err
       if (message.match(400)) {

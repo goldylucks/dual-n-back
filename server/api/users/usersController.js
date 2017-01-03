@@ -20,8 +20,7 @@ function getOne (req, res, next) {
   Users.findById(id)
     .then(_user => {
       if (!_user) {
-        res.status(404).send("user doesn't exist")
-        return
+        throw Error('user doesn\'t exist')
       }
       return _user
     })
@@ -77,19 +76,21 @@ function put (req, res, next) {
 
 function fbAuth (req, res, next) {
   let user
-  const { email, name, userID, picture } = req.query
-  const fbClientAccessToken = req.query.accessToken
+  const { email, name, userID, fbPictureUrl, accessToken: fbClientAccessToken, isMobile } = req.query
   const update = {
-    name: name,
+    name,
     fbUserId: userID,
     email,
-    fbPictureUrl: picture && picture.split('"url":"')[1].split('"')[0],
+    fbPictureUrl,
   }
   // Find or create user
   const options = { upsert: true, new: true, setDefaultsOnInsert: true }
   Users.findOneAndUpdate({ email }, update, options)
   .then(prepareUser)
-  .then(_user => user = _user)
+  .then(_user => {
+    user = _user
+    return BestScores.find({ userId: user._id })
+  })
   .then(bestScores => {
     user.bestScores = attachBestScores(bestScores)
     res.json(user)
@@ -99,11 +100,11 @@ function fbAuth (req, res, next) {
   // exchange client token for long term server token behind the scenes
   // and save it on user collection
   .then(() => {
-    return axios.get(`https://graph.facebook.com/oauth/access_token?client_id=${config.fbId}&client_secret=${config.fbSecret}&grant_type=fb_exchange_token&fb_exchange_token=${fbClientAccessToken}`)
+    return isMobile ? fbClientAccessToken : axios.get(`https://graph.facebook.com/oauth/access_token?client_id=${config.fbId}&client_secret=${config.fbSecret}&grant_type=fb_exchange_token&fb_exchange_token=${fbClientAccessToken}`)
   })
   .then(fbRes => {
-    const fbServerAccessToken = fbRes.data.split('=')[1]
-    Users.findOneAndUpdate({ _id: user._id }, { $set: { fbAccessToken: fbServerAccessToken } })
+    const fbServerAccessToken = isMobile ? fbRes : fbRes.data.split('=')[1]
+    return Users.findOneAndUpdate({ _id: user._id }, { $set: { fbAccessToken: fbServerAccessToken } })
   })
   .catch(next)
 }

@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native'
 import * as utils from '../utils'
 import logger from '../utils/logger'
-import { syncBestScores, syncGameConfig } from '../actions/play'
+import { syncBestScores, syncGameConfig, syncLosingMoves } from '../actions/play'
 import { syncUser } from '../actions/auth'
 import * as lsUtils from '../utils/localStorage'
 
@@ -12,6 +12,7 @@ export default class StorageMiddleware {
       if (action.type === 'init app') {
         lsUtils.sync(store.dispatch, syncUser, 'user')
         lsUtils.sync(store.dispatch, syncBestScores, 'bestScores')
+        lsUtils.sync(store.dispatch, syncLosingMoves, 'losingMoves')
         const { modes, nBack, speed } = store.getState().play
         lsUtils.sync(store.dispatch, syncGameConfig, 'gameConfig', { modes, nBack, speed })
         next(action)
@@ -24,15 +25,29 @@ export default class StorageMiddleware {
         return
       }
 
-      if (action.type === 'guess wrong') {
+      if (action.type.match(/guess wrong|miss aMatch/)) {
         this.saveBestScores(store.getState().play)
         next(action)
         AsyncStorage.setItem('losingMoves', JSON.stringify(store.getState().play.losingMoves))
         return
       }
 
-      if (action.type === 'facebook authSuccess') {
-        this.saveUser(action.payload)
+      if (action.type.match(/facebook authSuccess|login success|signup success|refresh userSuccess/)) {
+        AsyncStorage.setItem('user', JSON.stringify(action.payload))
+        next(action)
+        AsyncStorage.setItem('bestScores', JSON.stringify(store.getState().play.bestScores))
+        AsyncStorage.setItem('losingMoves', JSON.stringify(store.getState().play.losingMoves))
+        return
+      }
+
+      if (action.type === 'logout') {
+        AsyncStorage.removeItem('user')
+        next(action)
+        return
+      }
+
+      if (action.type === 'refresh userError') {
+        AsyncStorage.removeItem('user')
         next(action)
         return
       }
@@ -57,14 +72,6 @@ export default class StorageMiddleware {
       await AsyncStorage.mergeItem('bestScores', JSON.stringify({ [utils.getModeKey(modes, nBack)]: score }))
     } catch (err) {
       logger.error('[StorageMiddleware] Error saving bestScores:', err)
-    }
-  }
-
-  async saveUser (user) {
-    try {
-      await AsyncStorage.setItem('user', JSON.stringify(user))
-    } catch (err) {
-      logger.error('[StorageMiddleware] Error saving user:', user, err)
     }
   }
 

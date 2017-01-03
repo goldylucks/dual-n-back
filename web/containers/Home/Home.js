@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Link, hashHistory } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 
 import * as utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
@@ -66,10 +66,10 @@ class HomeContainer extends Component {
             <i className={ [styles.rightSettingIcon, 'fa fa-plus'].join(' ') } />
           </a>
         </div>
-        <div className={ styles.play }>
+        <div className={ styles.actions }>
           { this.renderAuth() }
           <Link to={ '/play' } { ...this._test('routeToPlay') }>
-            <i className={ [styles.playIcon, 'fa fa-play-circle'].join(' ') } />
+            <i className={ [styles.actionsPlayIcon, 'fa fa-play-circle'].join(' ') } />
           </Link>
         </div>
         <div className={ styles.record } { ...this._test('bestScore') }>
@@ -82,14 +82,14 @@ class HomeContainer extends Component {
   renderAuth () {
     if (this.props.user.name) {
       return (
-        <a className={ styles.auth } onClick={ this.onLogout } { ...this._test('logout') }>
-          <i className={ [styles.authIcon, 'fa fa-sign-out'].join(' ') } />
+        <a className={ styles.actionsAuth } onClick={ this.onLogout } { ...this._test('logout') }>
+          <i className={ [styles.actionsAuthIcon, 'fa fa-sign-out'].join(' ') } />
         </a>
       )
     }
     return (
-      <Link to={ '/auth' } className={ styles.auth } { ...this._test('routeToAuth') }>
-        <i className={ [styles.authIcon, 'fa fa-sign-in'].join(' ') } />
+      <Link to={ '/auth' } className={ styles.actionsAuth } { ...this._test('routeToAuth') }>
+        <i className={ [styles.actionsAuthIcon, 'fa fa-sign-in'].join(' ') } />
       </Link>
     )
   }
@@ -116,7 +116,7 @@ class HomeContainer extends Component {
 
   onKeyPress = ({ keyCode }) => {
     if (keyCode === 13 || keyCode === 32) { // enter or spacebar
-      hashHistory.push('/play')
+      browserHistory.push('/play')
     }
   }
 

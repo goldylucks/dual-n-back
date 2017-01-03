@@ -2,12 +2,12 @@ package com.memoryNbackDev;
 
 import android.app.Application;
 import android.util.Log;
-
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.magus.fblogin.FacebookLoginPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
 import java.util.Arrays;
@@ -26,6 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           new RNSoundPackage(),
+          new FacebookLoginPackage(),
           new KCKeepAwakePackage()
       );
     }
