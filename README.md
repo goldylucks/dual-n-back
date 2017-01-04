@@ -73,7 +73,7 @@ The code is available under the [GPL v3 license][license-url].
 [dependencies-image]: https://img.shields.io/david/goldylucks/memory-n-back.svg
 [dependencies-url]: https://david-dm.org/goldylucks/memory-n-back
 [dev-dependencies-image]: https://img.shields.io/david/dev/goldylucks/memory-n-back.svg
-[dev-dependencies-url]: https://david-dm.org/goldylucks/memory-n-back#info=devDependencies
+[dev-dependencies-url]: https://david-dm.org/goldylucks/memory-n-back?type=dev
 [issues-url]: https://github.com/goldylucks/memory-n-back/issues
 [license-image]: https://img.shields.io/badge/license-GPL%20v3-brightgreen.svg
 [license-url]: http://www.gnu.org/licenses/gpl-3.0.en.html
