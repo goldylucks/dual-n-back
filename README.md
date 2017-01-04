@@ -53,7 +53,7 @@ $ npm run e2e # Runs nightwatch against a selenium chrome driver
 $ npm run lint # lints javascript
 $ npm run lint:fix # lints javascript and fixes errors automagically
 $ npm run lintstyle # lints css
-$ npm run lintstyle # lints css and fixes errors automagically
+$ npm run lintstyle:fix # lints css and fixes errors automagically
 ```
 
 ## Contact
