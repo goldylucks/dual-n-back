@@ -1,4 +1,4 @@
-import { playInterval, missAMatch, resetBoard, guessCorrect, guessWrong } from '../actions/play'
+import { playInterval, missAMatch, resetBoard, guessCorrect, guessWrong, replayOver } from '../actions/play'
 import * as utils from '../utils'
 
 export default class PlayMiddleware {
@@ -12,6 +12,12 @@ export default class PlayMiddleware {
     return store => next => action => {
       if (action.type === 'start game') {
         this.onStartGame(store)
+        next(action)
+        return
+      }
+
+      if (action.type === 'replay') {
+        this.onReplay(store)
         next(action)
         return
       }
@@ -34,7 +40,7 @@ export default class PlayMiddleware {
         return
       }
 
-      if (action.type.match(/guess wrong|miss aMatch/)) {
+      if (action.type.match(/guess wrong|miss aMatch|replay over/)) {
         this.resetTimers()
         next(action) // let reducer update the state before saving state to DB
         return
@@ -51,10 +57,28 @@ export default class PlayMiddleware {
     }, speed)
   }
 
+  onReplay (store) {
+    const { speed } = store.getState().play
+    this.interval = setInterval(() => {
+      this.onReplayTick(store.getState().play, store.dispatch)
+    }, speed)
+  }
+
   onTick ({ speed, history, nBack, modes, guessed }, dispatch) {
     const missed = utils.missingMatches(history, nBack, modes, guessed)
     if (missed.length) {
       dispatch(missAMatch(missed))
+      return
+    }
+    dispatch(playInterval())
+    this.resetBoardTimeout = setTimeout(() => {
+      dispatch(resetBoard())
+    }, speed * 0.8)
+  }
+
+  onReplayTick ({ speed, historyReplay }, dispatch) {
+    if (!historyReplay.length) {
+      dispatch(replayOver())
       return
     }
     dispatch(playInterval())

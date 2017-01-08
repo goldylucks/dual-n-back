@@ -6,6 +6,8 @@ import * as utils from '../utils'
 
 const initialState = {
   nBack: 2,
+  isReplayMode: false,
+  historyReplay: [],
   speed: 2000,
   modes: {
     audio: false,
@@ -86,6 +88,7 @@ export default handleActions({
   'start game' (state, action) {
     return {
       ...state,
+      isReplayMode: false,
       status: 'active',
       guessed: {
         position: false,
@@ -120,6 +123,7 @@ export default handleActions({
     const turn = getTurn(state)
     return {
       ...state,
+      historyReplay: state.isReplayMode ? state.historyReplay.slice(1) : state.historyReplay,
       activeSquareColor: turn.color || state.colors[0],
       activeSquarePosition: turn.position || 5, // middle square when there's no position
       activeAudioLetter: turn.audio,
@@ -128,7 +132,35 @@ export default handleActions({
         color: false,
         audio: false,
       },
-      history: state.history.concat(turn),
+      history: state.isReplayMode ? state.history : state.history.concat(turn),
+    }
+  },
+
+  'replay' (state, action) {
+    const { history, nBack, score } = state
+    const numberOfMovesToReplay = nBack * 3
+    return {
+      ...state,
+      isReplayMode: true,
+      historyReplay: numberOfMovesToReplay >= history.length ? history : history.slice(history.length - numberOfMovesToReplay),
+      status: 'active',
+      guessed: {
+        position: false,
+        color: false,
+        audio: false,
+      },
+      // reset in case an old game had highlighted square
+      score,
+      activeSquareColor: '',
+      activeAudioLetter: '',
+      activeSquarePosition: 0,
+    }
+  },
+
+  'replay over' (state, action) {
+    return {
+      ...state,
+      ...gameOverState(state),
     }
   },
 
@@ -260,6 +292,9 @@ function getNewLosingMoves ({ modes, nBack, history, losingMoves }) {
 }
 
 function getTurn (state) {
+  if (state.isReplayMode) {
+    return state.historyReplay[0]
+  }
   if (process.env.NODE_ENV === 'e2e') {
     return _TEST_TURNS.shift()
   }

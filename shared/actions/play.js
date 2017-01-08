@@ -8,6 +8,8 @@ export const resetBoard = createAction('reset board')
 export const missAMatch = createAction('miss aMatch')
 export const pauseGame = createAction('pause game')
 export const resumeGame = createAction('resume game')
+export const replay = createAction('replay')
+export const replayOver = createAction('replay over')
 
 export const guess = createAction('guess')
 export const guessCorrect = createAction('guess correct')

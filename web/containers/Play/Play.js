@@ -30,10 +30,16 @@ class PlayContainer extends Component {
       letter: PropTypes.string,
       position: PropTypes.number,
     })).isRequired,
+    historyReplay: PropTypes.arrayOf(PropTypes.shape({
+      color: PropTypes.string,
+      letter: PropTypes.string,
+      position: PropTypes.number,
+    })).isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,
       pauseGame: PropTypes.func.isRequired,
       resumeGame: PropTypes.func.isRequired,
+      replay: PropTypes.func.isRequired,
       guess: PropTypes.func.isRequired,
     }).isRequired,
   }
@@ -46,7 +52,10 @@ class PlayContainer extends Component {
     if (!this.props.modes.audio) {
       return
     }
-    if (nextProps.history.length === this.props.history.length) {
+    if (!nextProps.isReplayMode && nextProps.history.length === this.props.history.length) {
+      return
+    }
+    if (nextProps.isReplayMode && nextProps.historyReplay.length === this.props.historyReplay.length) {
       return
     }
     this.audioPlayed = false
@@ -56,7 +65,10 @@ class PlayContainer extends Component {
     if (!this.props.modes.audio) {
       return
     }
-    if (prevProps.history.length === this.props.history.length) {
+    if (!prevProps.isReplayMode && prevProps.history.length === this.props.history.length) {
+      return
+    }
+    if (prevProps.isReplayMode && prevProps.history.length === this.props.history.length) {
       return
     }
     this.audioPlayed = true
@@ -203,6 +215,7 @@ class PlayContainer extends Component {
       <div className={ styles.gameOverControls }>
         <Link to='/home' className={ styles.gameOverControl } { ...this._test('menu') }>MENU</Link>
         <div className={ styles.gameOverControl } onClick={ this.startGame } { ...this._test('retry') }>RETRY</div>
+        <div className={ styles.gameOverControl } onClick={ this.replay } { ...this._test('replay') }>REPLAY</div>
       </div>
     )
   }
@@ -248,6 +261,10 @@ class PlayContainer extends Component {
 
   startGame = () => {
     this.props.actions.startGame()
+  }
+
+  replay = () => {
+    this.props.actions.replay()
   }
 
   guessPosition = () => {
