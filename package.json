@@ -13,6 +13,7 @@
     "test": "mocha ./test/babel.js shared/**/*.spec.js test/setup.spec.js",
     "test:native": "mocha --opts test/mocha.native.opts shared/**/*.nspec.js test/setup.spec.js",
     "e2e:web": "nightwatch -e chrome",
+    "e2e:native": "mocha -t 90000 -R spec test/e2e-native/**/*.spec.js",
     "e2e:web:ci": "EXEC_DELAY_FACTOR=0.80 nightwatch -e saucelabs-chrome-win,saucelabs-chrome-linux,saucelabs-chrome-mac,saucelabs-firefox-win,saucelabs-firefox-linux,saucelabs-firefox-mac,saucelabs-safari-mac,saucelabs-edge",
     "apk": "./scripts/apk.sh",
     "configGradle": "configGradle",
@@ -73,6 +74,7 @@
     "babel-register": "6.18.0",
     "babel-runtime": "^6.5.0",
     "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "chromedriver": "^2.26.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
@@ -116,6 +118,7 @@
     "stylelint-config-standard": "^15.0.1",
     "stylelint-order": "^0.2.2",
     "url-loader": "^0.5.7",
+    "wd": "^1.1.1",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
     "webpack-error-notification": "^0.1.6"

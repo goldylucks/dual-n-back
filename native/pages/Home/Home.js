@@ -54,7 +54,7 @@ class HomePage extends Component {
             <FaIcon onPress={ this.decrementSpeed } name='minus' style={ styles.leftSettingIcon } />
           </View>
           <View style={ styles.middleSetting }>
-            <Text style={ styles.middleSettingText }>{ speed }</Text>
+            <Text style={ styles.middleSettingText } onPress={ () => alert('foo') } accessibilityLabel={ 'FOO' } testID={ 'FOO' }>foo</Text>
           </View>
           <View style={ styles.rightSetting }>
             <FaIcon onPress={ this.incrementSpeed } name='plus' style={ styles.rightSettingIcon } />
