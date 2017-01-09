@@ -60,7 +60,7 @@ class HomeContainer extends Component {
             <i className={ [styles.leftSettingIcon, 'fa fa-minus'].join(' ') } />
           </a>
           <div className={ styles.middleSetting }>
-            <div className={ styles.middleSettingText } { ...this._test('speed') }>{ speed }</div>
+            <div className={ styles.middleSettingText } { ...this._test('speed') }>{ utils.speedDisplay(speed) }</div>
           </div>
           <a onClick={ this.incrementSpeed } className={ styles.rightSetting } { ...this._test('speedIncrement') }>
             <i className={ [styles.rightSettingIcon, 'fa fa-plus'].join(' ') } />

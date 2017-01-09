@@ -7,8 +7,7 @@ import * as utils from '../utils'
 const initialState = {
   nBack: 2,
   isReplayMode: false,
-  historyReplay: [],
-  speed: 2000,
+  speed: 1500,
   modes: {
     audio: false,
     position: true,
@@ -52,14 +51,14 @@ export default handleActions({
   'increment speed' (state, action) {
     return {
       ...state,
-      speed: state.speed + 100,
+      speed: Math.max(500, state.speed - 500),
     }
   },
 
   'decrement speed' (state, action) {
     return {
       ...state,
-      speed: Math.max(100, state.speed - 100),
+      speed: Math.min(2500, state.speed + 500),
     }
   },
 

@@ -67,21 +67,26 @@ module.exports = {
   },
 
   'Assert default speed' (client) {
-    client.expect.element(el('HomeContainer-speed')).text.to.equal('2000')
+    client.expect.element(el('HomeContainer-speed')).text.to.equal('Normal')
   },
 
   'Assert decrement speed' (client) {
     client.click(el('HomeContainer-speedDecrement'))
-    client.expect.element(el('HomeContainer-speed')).text.to.equal('1900')
+    client.expect.element(el('HomeContainer-speed')).text.to.equal('Slow')
     // can't go below 100
-    _.times(21, () => client.click(el('HomeContainer-speedDecrement')))
-    client.expect.element(el('HomeContainer-speed')).text.to.equal('100')
+    _.times(5, () => client.click(el('HomeContainer-speedDecrement')))
+    client.expect.element(el('HomeContainer-speed')).text.to.equal('Turtle')
   },
 
   'Assert increment speed' (client) {
     client.click(el('HomeContainer-speedIncrement'))
+    client.expect.element(el('HomeContainer-speed')).text.to.equal('Slow')
     client.click(el('HomeContainer-speedIncrement'))
-    client.expect.element(el('HomeContainer-speed')).text.to.equal('300')
+    client.expect.element(el('HomeContainer-speed')).text.to.equal('Normal')
+    client.click(el('HomeContainer-speedIncrement'))
+    client.expect.element(el('HomeContainer-speed')).text.to.equal('Fast')
+    client.click(el('HomeContainer-speedIncrement'))
+    client.expect.element(el('HomeContainer-speed')).text.to.equal('INSANE')
   },
 
   'Assert bestScore when no previous games' (client) {
@@ -106,12 +111,12 @@ module.exports = {
       .waitForElementVisible('body', 5000)
   },
 
-  'Assert loading game configfrom LS' (client) {
+  'Assert loading game config from LS' (client) {
     client
-      .execute('localStorage.setItem("gameConfig", JSON.stringify({nBack: 6, speed: 200, modes:{ audio: true, color: true, position: false }}))')
+      .execute('localStorage.setItem("gameConfig", JSON.stringify({nBack: 6, speed: 500, modes:{ audio: true, color: true, position: false }}))')
       .execute('store.dispatch({ type: "init app" })')
     client.expect.element(el('HomeContainer-nBack')).text.to.equal('6')
-    client.expect.element(el('HomeContainer-speed')).text.to.equal('200')
+    client.expect.element(el('HomeContainer-speed')).text.to.equal('INSANE')
     client.expect.element(el('HomeContainer-modePosition')).to.not.have.attribute('class').contains('active')
     client.expect.element(el('HomeContainer-modeAudio')).to.have.attribute('class').contains('active')
     client.expect.element(el('HomeContainer-modeColor')).to.have.attribute('class').contains('active')
