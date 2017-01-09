@@ -33,10 +33,16 @@ class PlayPage extends Component {
       audio: PropTypes.string,
       position: PropTypes.number,
     })).isRequired,
+    historyReplay: PropTypes.arrayOf(PropTypes.shape({
+      color: PropTypes.string,
+      letter: PropTypes.string,
+      position: PropTypes.number,
+    })).isRequired,
     actions: PropTypes.shape({
       startGame: PropTypes.func.isRequired,
       pauseGame: PropTypes.func.isRequired,
       resumeGame: PropTypes.func.isRequired,
+      replay: PropTypes.func.isRequired,
       guess: PropTypes.func.isRequired,
     }).isRequired,
   }
@@ -157,6 +163,7 @@ class PlayPage extends Component {
       <View style={ styles.gameOverControls }>
         <Text style={ Object.assign({}, styles.gameOverControl, styles.gameOverControlFirst) } onPress={ this.routeToHome }>MENU</Text>
         <Text style={ styles.gameOverControl } onPress={ this.startGame }>RETRY</Text>
+        <Text style={ styles.gameOverControl } onPress={ this.replay }>REPLAY</Text>
       </View>
     )
   }
@@ -208,6 +215,10 @@ class PlayPage extends Component {
 
   startGame = () => {
     this.props.actions.startGame()
+  }
+
+  replay = () => {
+    this.props.actions.replay()
   }
 
   guessPosition = () => {
@@ -264,7 +275,10 @@ class PlayPage extends Component {
     if (!this.props.modes.audio) {
       return
     }
-    if (this.props.history.length >= nextProps.history.length) {
+    if (!nextProps.isReplayMode && this.props.history.length >= nextProps.history.length) {
+      return
+    }
+    if (nextProps.isReplayMode && this.props.historyReplay.length <= nextProps.historyReplay.length) {
       return
     }
     this.sounds[nextProps.activeAudioLetter].play()
@@ -379,11 +393,12 @@ const styles = {
     padding: 10,
     textAlignVertical: 'center',
     backgroundColor: 'gray',
+    marginLeft: 1,
     color: 'black',
   },
 
   gameOverControlFirst: {
-    marginRight: 2,
+    marginLeft: 0,
   },
 
   gameOverStats: {

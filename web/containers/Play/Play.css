@@ -83,14 +83,14 @@
   cursor: pointer;
   display: flex;
   flex: 1;
-  font-size: 25px;
+  font-size: 20px;
   height: 45px;
   justify-content: center;
   padding: 10px;
 }
 
-.gameOverControl:first-child {
-  margin-right: 2px;
+.gameOverControl:not(:first-child) {
+  margin-left: 1px;
 }
 
 .strong {
