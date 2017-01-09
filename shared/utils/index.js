@@ -32,3 +32,13 @@ export function getModeKey (modes, nBack) {
 export function isGuessDisabled (history, nBack, status) {
   return history.length - 1 < nBack || status !== 'active'
 }
+
+export function speedDisplay (speed) {
+  switch (speed) {
+    case 2500: return 'Turtle'
+    case 2000: return 'Slow'
+    case 1500: return 'Normal'
+    case 1000: return 'Fast'
+    case 500: return 'INSANE'
+  }
+}
