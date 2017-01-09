@@ -7,6 +7,7 @@ import * as utils from '../utils'
 const initialState = {
   nBack: 2,
   isReplayMode: false,
+  historyReplay: [],
   speed: 1500,
   modes: {
     audio: false,
