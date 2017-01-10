@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import KeepAwake from 'react-native-keep-awake'
+import codePush from 'react-native-code-push'
+const codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME }
 
 import Routes from './routes'
 
@@ -11,7 +13,7 @@ import { initApp } from '../shared/actions/play'
 
 const store = configureStore(middlewares())
 
-export default class memoryNBack extends Component {
+class memoryNBack extends Component {
 
   componentWillMount () {
     if (!__DEV__) {
@@ -35,6 +37,8 @@ export default class memoryNBack extends Component {
     )
   }
 }
+
+export default codePush(codePushOptions)(memoryNBack)
 
 store.dispatch(initApp())
 

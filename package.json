@@ -44,6 +44,7 @@
     "react-dom": "^15.4.1",
     "react-facebook-login": "git://github.com/keppelen/react-facebook-login.git#b74f419625cef0df078f062b07a312e7a3330562",
     "react-native": "^0.39.2",
+    "react-native-code-push": "^1.16.1-beta",
     "react-native-facebook-login": "^1.4.0",
     "react-native-fbsdk": "^0.4.0",
     "react-native-router-flux": "^3.37.0",
