@@ -43,3 +43,4 @@ buck-out/
 *.keystore
 *.log
 web-dist/
+.codepush
