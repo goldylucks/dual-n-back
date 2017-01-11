@@ -138,7 +138,7 @@ export default handleActions({
 
   'replay' (state, action) {
     const { history, nBack, score } = state
-    const numberOfMovesToReplay = nBack * 3
+    const numberOfMovesToReplay = nBack * 2
     return {
       ...state,
       isReplayMode: true,
