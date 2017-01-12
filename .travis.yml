@@ -13,7 +13,6 @@ branches:
   - "/v\\d\\./"
   - /^greenkeeper-.*$/
 matrix:
-  include:
   - env: SCRIPT=lint
   - env: SCRIPT=test
   - env: E2Eweb=true
