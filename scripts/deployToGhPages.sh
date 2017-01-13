@@ -38,9 +38,6 @@ git checkout -b "${TARGET_BRANCH}"
 echo "build web ..."
 npm run build:web
 
-# echo "setting git remote ..."
-# git remote add origin https://github.com/goldylucks/dual-n-back.git
-
 echo "add ${BUILD_FOLDER} folder"
 git add -f "${BUILD_FOLDER}"
 

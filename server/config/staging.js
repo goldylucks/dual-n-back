@@ -10,6 +10,6 @@ module.exports = {
   logging: true,
   seed: true,
   db: {
-    url: 'mongodb://localhost/memory-n-back_dev',
+    url: process.env.MONGODB_URI,
   },
 }
