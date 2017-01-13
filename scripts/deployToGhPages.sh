@@ -59,8 +59,8 @@ fi
 echo "push to ${REMOTE} ${TARGET_BRANCH} ..."
 git push "${REMOTE}" `git subtree split --prefix ${BUILD_FOLDER}`:"${TARGET_BRANCH}" --force
 
-echo "checkout branch master ..."
-git checkout master
+echo "going back to original branch ..."
+git checkout "${CURRENT_BRANCH}"
 
 echo "delete branch ${TARGET_BRANCH} ..."
 git branch -D "${TARGET_BRANCH}"
