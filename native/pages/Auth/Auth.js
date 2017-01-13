@@ -18,6 +18,7 @@ class AuthContainer extends Component {
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     rePassword: PropTypes.string.isRequired,
+    showPassword: PropTypes.bool.isRequired,
     isProcessing: PropTypes.bool.isRequired,
     nameError: PropTypes.string,
     emailError: PropTypes.string,
@@ -32,6 +33,7 @@ class AuthContainer extends Component {
       updateEmail: PropTypes.func.isRequired,
       updatePassword: PropTypes.func.isRequired,
       updateRePassword: PropTypes.func.isRequired,
+      toggleShowPassword: PropTypes.func.isRequired,
       login: PropTypes.func.isRequired,
       signup: PropTypes.func.isRequired,
       onNameBlur: PropTypes.func.isRequired,
@@ -83,7 +85,7 @@ class AuthContainer extends Component {
   }
 
   renderForm () {
-    const { mode, name, nameError, email, emailError, password, passwordError, rePassword, serverError } = this.props
+    const { mode, name, nameError, email, emailError, password, passwordError, rePassword, showPassword, serverError } = this.props
     return (
       <View>
         { mode === 'signup' && (
@@ -101,13 +103,19 @@ class AuthContainer extends Component {
         </View>
         <View style={ styles.formControl }>
           <Text style={ styles.label }>Password</Text>
-          <TextInput style={ styles.input } onChangeText={ this.onPasswordChange } value={ password } secureTextEntry onBlur={ this.onPasswordBlur } placeholder='put your password here' />
-          <Text style={ styles.error }>{ !passwordError ? '' : passwordError }</Text>
+          <View style={ styles.inputContainer }>
+            <TextInput style={ styles.input } onChangeText={ this.onPasswordChange } value={ password } secureTextEntry={ !showPassword } onBlur={ this.onPasswordBlur } placeholder='put your password here' />
+            <Text style={ styles.error }>{ !passwordError ? '' : passwordError }</Text>
+            <FaIcon style={ styles.eyeIcon } name={ showPassword ? 'eye-slash' : 'eye' } onPress={ this.toggleShowPassword } title={ showPassword ? 'hide password' : 'show password' } />
+          </View>
         </View>
         { mode === 'signup' && (
           <View style={ styles.formControl }>
             <Text style={ styles.label }>Repeat Password</Text>
-            <TextInput style={ styles.input } onChangeText={ this.onRePasswordChange } value={ rePassword } secureTextEntry onBlur={ this.onRePasswordBlur } placeholder='put your password again here' />
+            <View style={ styles.inputContainer }>
+              <TextInput style={ styles.input } onChangeText={ this.onRePasswordChange } value={ rePassword } secureTextEntry={ !showPassword } onBlur={ this.onRePasswordBlur } placeholder='put your password again here' />
+              <FaIcon style={ styles.eyeIcon } name={ showPassword ? 'eye-slash' : 'eye' } onPress={ this.toggleShowPassword } title={ showPassword ? 'hide password' : 'show password' } />
+            </View>
           </View>
           )
         }
@@ -191,6 +199,10 @@ class AuthContainer extends Component {
 
   routeHome () {
     Actions.home({ type: ActionConst.RESET })
+  }
+
+  toggleShowPassword = evt => {
+    this.props.actions.toggleShowPassword()
   }
 
 }
@@ -283,6 +295,22 @@ const styles = {
   error: {
     color: 'red',
     fontSize: 12,
+  },
+
+  inputContainer: {
+    position: 'relative',
+    borderWidth: 1,
+    borderColor: 'red',
+    borderStyle: 'dotted',
+  },
+
+  eyeIcon: {
+    top: 5,
+    color: '#d3cfcf',
+    fontSize: 25,
+    position: 'absolute',
+    right: 10,
+    zIndex: 10,
   },
 
 }
