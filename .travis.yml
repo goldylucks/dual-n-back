@@ -33,7 +33,6 @@ script:
 after_success:
 - "./scripts/deployToGhPagesCi.sh"
 deploy:
-  matrix:
   - provider: heroku
     app: memory-n-back-staging
     api_key:
