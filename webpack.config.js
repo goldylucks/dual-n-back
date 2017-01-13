@@ -5,6 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ENV = process.env.NODE_ENV || 'development'
 const isProd = ENV === 'production'
+const isStaging = ENV === 'staging'
+const isDev = ENV === 'development'
 const WebpackErrorNotificationPlugin = require('webpack-error-notification')
 const FB_ID = process.env.FB_ID || '329879750722396'
 
@@ -76,7 +78,11 @@ module.exports = {
     const plugins = [
       new HtmlWebpackPlugin({
         template: 'index.ejs',
-        ghPagesPrefix: isProd ? '/memory-n-back' : '',
+        ghPagesPrefix: (function () {
+          if (isProd) return '/memory-n-back'
+          if (isStaging) return '/memory-n-back-staging'
+          return ''
+        })(),
       }),
       new WebpackErrorNotificationPlugin(),
       new webpack.DefinePlugin({
@@ -89,7 +95,7 @@ module.exports = {
       }),
     ]
 
-    if (isProd) {
+    if (!isDev) {
       plugins.push(new CopyWebpackPlugin([
         { from: './android*', to: './' },
         { from: './apple-touch-icon.png', to: './' },
@@ -99,6 +105,9 @@ module.exports = {
         { from: './mstile-150x150.png', to: './' },
         { from: './safari-pinned-tab.svg', to: './' },
       ]))
+    }
+
+    if (isProd) {
       plugins.push(new webpack.optimize.OccurrenceOrderPlugin(false))
       plugins.push(new webpack.optimize.DedupePlugin())
       plugins.push(new webpack.optimize.UglifyJsPlugin({
