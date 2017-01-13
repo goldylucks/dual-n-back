@@ -14,6 +14,7 @@ const initialState = {
   passwordValid: false,
   passwordError: null,
   rePassword: '',
+  showPassword: false,
   isProcessing: false,
   serverError: null,
 }
@@ -66,6 +67,13 @@ export default handleActions({
       ...state,
       rePassword: action.payload,
       passwordError: null,
+    }
+  },
+
+  'toggle showPassword' (state, action) {
+    return {
+      ...state,
+      showPassword: !state.showPassword,
     }
   },
 
