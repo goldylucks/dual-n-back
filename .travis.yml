@@ -11,19 +11,19 @@ branches:
   only:
   - master
   - "/v\\d\\./"
-  - /^greenkeeper-.*$/
+  - "/^greenkeeper-.*$/"
 matrix:
-  - env: SCRIPT=lint
-  - env: SCRIPT=test
-  - env: E2Eweb=true
-before_install:  
- - export CHROME_BIN=/usr/bin/google-chrome
- - export DISPLAY=:99.0
- - sh -e /etc/init.d/xvfb start
- - sudo apt-get update
- - sudo apt-get install -y libappindicator1 fonts-liberation
- - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
- - sudo dpkg -i google-chrome*.deb
+- env: SCRIPT=lint
+- env: SCRIPT=test
+- env: E2Eweb=true
+before_install:
+- export CHROME_BIN=/usr/bin/google-chrome
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sudo apt-get update
+- sudo apt-get install -y libappindicator1 fonts-liberation
+- wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+- sudo dpkg -i google-chrome*.deb
 cache:
   directories:
   - node_modules
@@ -31,17 +31,16 @@ script:
 - if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
 - if [ "$E2Eweb" ]; then ./scripts/e2e-web-travis.sh; fi
 after_success:
-  - ./scripts/deployToGhPagesCi.sh
-
+- "./scripts/deployToGhPagesCi.sh"
 deploy:
+  matrix:
   - provider: heroku
     app: memory-n-back-staging
-    api_key:
-      secure: wNJJocSbMBYdAZ/RAkdsSxRgoXtgpuSFy8XZIbYOkbCeg1L9h3b4uLHKF0OSq3wPyjgkVKL0/ASAXxcFkE4rDpM1kJhxPTSbywLqm4k/KgbON1DAZwdAJDzHR1LOfzJyRcSWxE/eafcFgmvpHyzTjXeWlm/ibpy7jsXuTlqDhPxN3A0iQAMTBvMCTJUeEPf5ybpsjirpbfUDXMS3TtyGs1T83hraOESW+8Ogxg//+CdT1ILoYrqv4E5ywKegHE5iLg+UbIZiJzoexYspZVOqJbtuA8Xdpse9R4qgL1GdEP9H+92FfqHhANqIeYWn1hzIJLZ77RekVClCbsR5aSDr+RL0nu3OUEuORrXmGYrb7vmqGGPCGdJ0rxgCJW/+sk/TVzsG/7tGoWgMWrt6bWeuV1cIw2Pv0b0pTw5jxomGn/nupkdWj0AOVsmWGYo4YyE/ilO/reRszZEY375XmNrV30KVN2iP2rdK0JmylZMevLhk0CerJwiGMygdBqgEaB6qdQZ12pWT45qdmd2xiVSlVCrAFAXBkdqGu3SpHdGsRv4mXSeXrKyV6BrK/nd83czXE+zXTwRBD/vv9WWTP2v6OMUY0FSRiKVcOAB1xMCejWRHNCy8ljuTEPGFNbuTnXUG4vwAZ1+gkORJVM4v3TIeBkM7C2kx6lCMzEoow86KyTY=
   - provider: heroku
     app: memory-n-back
-    api_key:
-      secure: wNJJocSbMBYdAZ/RAkdsSxRgoXtgpuSFy8XZIbYOkbCeg1L9h3b4uLHKF0OSq3wPyjgkVKL0/ASAXxcFkE4rDpM1kJhxPTSbywLqm4k/KgbON1DAZwdAJDzHR1LOfzJyRcSWxE/eafcFgmvpHyzTjXeWlm/ibpy7jsXuTlqDhPxN3A0iQAMTBvMCTJUeEPf5ybpsjirpbfUDXMS3TtyGs1T83hraOESW+8Ogxg//+CdT1ILoYrqv4E5ywKegHE5iLg+UbIZiJzoexYspZVOqJbtuA8Xdpse9R4qgL1GdEP9H+92FfqHhANqIeYWn1hzIJLZ77RekVClCbsR5aSDr+RL0nu3OUEuORrXmGYrb7vmqGGPCGdJ0rxgCJW/+sk/TVzsG/7tGoWgMWrt6bWeuV1cIw2Pv0b0pTw5jxomGn/nupkdWj0AOVsmWGYo4YyE/ilO/reRszZEY375XmNrV30KVN2iP2rdK0JmylZMevLhk0CerJwiGMygdBqgEaB6qdQZ12pWT45qdmd2xiVSlVCrAFAXBkdqGu3SpHdGsRv4mXSeXrKyV6BrK/nd83czXE+zXTwRBD/vv9WWTP2v6OMUY0FSRiKVcOAB1xMCejWRHNCy8ljuTEPGFNbuTnXUG4vwAZ1+gkORJVM4v3TIeBkM7C2kx6lCMzEoow86KyTY=
     on:
       tags: true
-      all_branches: true # needed due to travis limitation, we deploy only on master
+      all_branches: true
+  api_key:
+    # heroku api key
+    secure: OwqgiIYmgg88izpJsXqKfoQy8EcM+bCvQmuXMJPZUQGzM0fBOOoE/XbkdAj+sL5Fp95ffQ30H6pNktkgtFpEalrx5EzT/wih5hIRiflUanOMhpC1BYByk2a/riUtNGniBQbeL+u/bAqsuUcwrVEaky+94KbDcBD9JWBvkpytzY1cxw5E4/UJWki59r0MbZFbRoL6zpW5ZC4hV9yyrPqQsCoDExZNxG6lfM5MHvh2eGiJWlbBMK5JxE9F3zHw1uKltkeCu0BXz4gjEw1l8cPXrVJLvVqkw7Y7OznQByYLMzr4czlBQ/572pKNr29PSaAGK+OyR2GKCkpLynh6AOApni3GR/1T9RZ1lIaN4ySfBsNBSuPr9wogv1yEG/2Z1Zrf0BFrfwJoXyA+aYkIzFBXaz5hQMPxKQ+FX4tsG2n6CuGJ+Bu93KHEaz4thBPDJPIDn+0YfigcYEb4t252yZdh+6452dZABmMg6nNPhzpgoeXckuVMODHag74PaxkEA3ZAC0tRECqtTED5WDGM9utNnAwFkq8VHiMyoR4kpiyDf2ZKEeVvWSPbLvPCd8YQeycrswFATHrFf+LrlecbD2SeFdt7E1m1YaG2NXAzuboqkjzREpDy7tfebMVuWQPqvNrmPkdyjaM5Q2O1EeT+teMLkBXsY/EgzlO5/UpDRYx+dEU=
