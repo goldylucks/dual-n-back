@@ -16,6 +16,7 @@ fi
 #   exit 0;
 # fi
 
+# set repo
 REPO="$TRAVIS_REPO_SLUG"
 if [ -z "$var" ]; then
   echo "no tag detected, deploying to staging"
@@ -30,8 +31,16 @@ SHA=`git rev-parse --verify HEAD`
 git config --global user.email "admin@travis-ci.com"
 git config --global user.name "Travis CI"
 
+# build
+if [ -z "$var" ]; then
+  echo "npm run build:web:staging"
+  npm run build:web:staging
+else
+  echo "npm run build:web:prod"
+  npm run build:web:prod
+fi
+
 # deploy
-npm run build:web
 cd web-dist
 git init
 git add .
