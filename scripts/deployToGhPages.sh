@@ -8,7 +8,7 @@ STAGING_REPO="goldylucks/memory-n-back-staging"
 REMOTE="staging"
 
 # if production flag is passed, confirm with user
-if [ "$1" = -p ] || [ "$1" = --production ]; then
+if [ "$1" = -p ] || [ "$1" = --prod ]; then
   read -r -p "Deploy to production, R U SURE? [y/N] " response
   response=${response,,}    # tolower
   if [[ $response =~ ^(yes|y)$ ]]; then
@@ -35,11 +35,14 @@ echo "check out fresh branch ${TARGET_BRANCH} ..."
 git branch -D "${TARGET_BRANCH}" || true
 git checkout -b "${TARGET_BRANCH}"
 
-echo "build web ..."
-npm run build:web
-
-# echo "setting git remote ..."
-# git remote add origin https://github.com/goldylucks/dual-n-back.git
+# build
+if [ "$1" = -p ] || [ "$1" = --prod ]; then
+  echo "build web:prod ..."
+  npm run build:web:prod
+else
+  echo "build web:staging ..."
+  npm run build:web:staging
+fi
 
 echo "add ${BUILD_FOLDER} folder"
 git add -f "${BUILD_FOLDER}"

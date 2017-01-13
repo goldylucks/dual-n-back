@@ -4,6 +4,7 @@ const config = {
   dev: 'development',
   test: 'testing',
   prod: 'production',
+  staging: 'staging',
   jwtSecret: process.env.JWT_SECRET || 'JWT_SECRET',
   fbSecret: process.env.FACEBOOK_SECRET || '702669633f14078d15180cea1246a76d',
   fbId: process.env.FACEBOOK_ID || '329879750722396',

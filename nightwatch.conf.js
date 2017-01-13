@@ -49,58 +49,7 @@ module.exports = {
         'acceptSslCerts': true,
       },
     },
-    'saucelabs-edge': saucelab('Windows 10', 'MicrosoftEdge'),
-    'saucelabs-chrome-win': saucelab('Windows 10', 'chrome'),
-    'saucelabs-chrome-linux': saucelab('Linux', 'chrome'),
-    'saucelabs-chrome-mac': saucelab('OS X 10.11', 'chrome'),
-    'saucelabs-firefox-win': saucelab('Windows 10', 'firefox'),
-    'saucelabs-firefox-linux': saucelab('Linux', 'firefox'),
-    'saucelabs-firefox-mac': saucelab('OS X 10.11', 'firefox'),
-    'saucelabs-safari-mac': saucelab('OS X 10.11', 'safari'),
+
   },
 
-}
-
-function saucelab (platform, browserName, browserVersion) {
-  const config = {
-    'selenium_host': 'ondemand.saucelabs.com',
-    'selenium_port': 80,
-    'username': '${SAUCE_USERNAME}',
-    'access_key': '${SAUCE_ACCESS_KEY}',
-    'use_ssl': false,
-    'silent': true,
-    'output': true,
-    'screenshots': {
-      'enabled': false,
-      'path': '',
-    },
-    'desiredCapabilities': {
-      'tunnel-identifier': '${TRAVIS_JOB_NUMBER}',
-      'build': 'build-${TRAVIS_JOB_NUMBER}',
-      'name': 'dual-n-back',
-      'browserName': browserName,
-      'unexpectedAlertBehaviour': 'accept',
-      'platform': platform,
-      'cssSelectorsEnabled': true,
-      'javascriptEnabled': true,
-      'databaseEnabled': true,
-      'locationContextEnabled': true,
-      'applicationCacheEnabled': true,
-      'browserConnectionEnabled': true,
-      'webStorageEnabled': true,
-      'acceptSslCerts': true,
-      'rotatable': true,
-      'ignoreProtectedModeSettings': true,
-      'nativeEvents': true,
-    },
-    'selenium': {
-      'start_process': true,
-    },
-  }
-
-  if (browserVersion) {
-    config.desiredCapabilities.version = browserVersion
-  }
-
-  return config
 }

@@ -76,7 +76,7 @@ module.exports = {
     const plugins = [
       new HtmlWebpackPlugin({
         template: 'index.ejs',
-        ghPagesPrefix: isProd ? '/dual-n-back' : '',
+        ghPagesPrefix: isProd ? '/memory-n-back' : '',
       }),
       new WebpackErrorNotificationPlugin(),
       new webpack.DefinePlugin({

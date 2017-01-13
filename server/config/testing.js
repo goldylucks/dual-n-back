@@ -11,6 +11,6 @@ module.exports = {
   seed: true,
 
   db: {
-    url: process.env.DB_URL || 'mongodb://localhost/dual-n-back_test',
+    url: process.env.DB_URL || 'mongodb://localhost/memory-n-back_test',
   },
 }
