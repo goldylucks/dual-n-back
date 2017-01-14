@@ -6,6 +6,7 @@ const ENV = process.env.NODE_ENV || 'development'
 const isProd = ENV === 'production'
 const isStaging = ENV === 'staging'
 const isDev = ENV === 'development'
+const isE2e = ENV === 'e2e'
 const WebpackErrorNotificationPlugin = require('webpack-error-notification')
 const FB_ID = process.env.FB_ID || '329879750722396'
 
@@ -100,7 +101,7 @@ module.exports = {
       }),
     ]
 
-    if (isDev) {
+    if (isDev || isE2e) {
       plugins.push(new webpack.HotModuleReplacementPlugin())// enable HMR globally
       plugins.push(new webpack.NamedModulesPlugin()) // prints more readable module names in the browser console on HMR updates)
     }
@@ -137,5 +138,6 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'web'),
     hot: true,
     publicPath: '/',
+    historyApiFallback: true,
   },
 }
