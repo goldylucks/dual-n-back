@@ -13,9 +13,10 @@ branches:
   - "/v\\d\\./"
   - "/^greenkeeper-.*$/"
 matrix:
-- env: SCRIPT=lint
-- env: SCRIPT=test
-- env: E2Eweb=true
+  - include:
+    - env: SCRIPT=lint
+    - env: SCRIPT=test
+    - env: E2Eweb=true
 before_install:
 - export CHROME_BIN=/usr/bin/google-chrome
 - export DISPLAY=:99.0
