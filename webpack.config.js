@@ -1,4 +1,3 @@
-const rucksack = require('rucksack-css')
 const webpack = require('webpack')
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -11,69 +10,75 @@ const WebpackErrorNotificationPlugin = require('webpack-error-notification')
 const FB_ID = process.env.FB_ID || '329879750722396'
 
 module.exports = {
-  debug: !isProd,
   cache: !isProd,
   devtool: isProd ? '#eval' : '#cheap-module-eval-source-map',
   context: path.join(__dirname, 'web'),
-  entry: {
-    index: './index.js',
-  },
+  entry: [
+    'react-hot-loader/patch',
+    // activate HMR for React
+
+    'webpack-dev-server/client?http://localhost:8080',
+    // bundle the client for webpack-dev-server
+    // and connect to the provided endpoint
+
+    'webpack/hot/only-dev-server',
+    // bundle the client for hot reloading
+    // only- means to only hot reload for successful updates
+
+    './index.js',
+    // the entry point of our app
+  ],
   output: {
     path: path.join(__dirname, 'web-dist'),
     filename: '[name].[hash].js',
+    publicPath: '/',
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
         include: [/web/, /shared/],
-        loader: getBabelLoader(),
-      },
-      {
-        test: /\.json$/,
-        loader: 'json',
+        use: 'babel-loader',
       },
       {
         test: /\.html$/,
-        loader: 'file?name=[name].[ext]',
+        use: 'file-loader?name=[name].[ext]',
       },
       {
         test: /\.css$/,
         include: /web/,
-        loaders: [
-          'style',
-          'css?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-          'postcss',
+        use: [
+          'style-loader',
+          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'postcss-loader',
         ],
       },
       {
         test: /\.css$/,
         exclude: /web/,
-        loader: 'style!css',
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
       },
       {
         test: /\.(png|jpg|wav)$/,
-        loader: 'file',
+        use: 'file-loader',
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url?limit=10000&mimetype=application/font-woff',
+        use: 'url-loader?limit=10000&mimetype=application/font-woff',
       },
       {
         test: /\.(woff(2)|ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file',
+        use: 'file-loader',
       },
     ],
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     unsafeCache: true,
   },
-  postcss: [
-    rucksack({
-      autoprefixer: true,
-    }),
-  ],
   plugins: (function () {
     const plugins = [
       new HtmlWebpackPlugin({
@@ -94,6 +99,11 @@ module.exports = {
         },
       }),
     ]
+
+    if (isDev) {
+      plugins.push(new webpack.HotModuleReplacementPlugin())// enable HMR globally
+      plugins.push(new webpack.NamedModulesPlugin()) // prints more readable module names in the browser console on HMR updates)
+    }
 
     if (!isDev) {
       plugins.push(new CopyWebpackPlugin([
@@ -124,12 +134,8 @@ module.exports = {
     return plugins
   }()),
   devServer: {
-    contentBase: './web',
-    hot: !isProd,
+    contentBase: path.resolve(__dirname, 'web'),
+    hot: true,
+    publicPath: '/',
   },
-}
-
-// we load it here instead of a .babelrc file so react native won't be affected
-function getBabelLoader () {
-  return 'babel?presets[]=es2015,presets[]=stage-0,presets[]=react&plugins[]=react-hot-loader/babel,plugins[]=transform-async-to-generator,plugins[]=transform-runtime'
 }
