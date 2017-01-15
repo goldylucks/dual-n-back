@@ -23,6 +23,10 @@
     "installHooks": "./scripts/hooks.sh",
     "lint": "eslint native shared web server --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix",
+    "predeploy:web:staging": "npm run build:web:staging",
+    "deploy:web:staging": "surge -p ./web-dist -d memory-n-back-staging.surge.sh",
+    "predeploy:web:prod": "npm run build:web:prod",
+    "deploy:web:prod": "surge -p ./web-dist -d memory-n-back.surge.sh",
     "lintstyle": "stylelint 'web/**/*.css'",
     "lintstyle:fix": "stylefmt -r web/**/*.css",
     "startOld": "node node_modules/react-native/local-cli/cli.js start"
@@ -119,6 +123,7 @@
     "stylelint": "^7.7.1",
     "stylelint-config-standard": "^15.0.1",
     "stylelint-order": "^0.2.2",
+    "surge": "^0.18.0",
     "url-loader": "^0.5.7",
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-server": "^2.1.0-beta.0",

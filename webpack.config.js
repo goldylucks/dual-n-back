@@ -4,7 +4,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ENV = process.env.NODE_ENV || 'development'
 const isProd = ENV === 'production'
-const isStaging = ENV === 'staging'
 const isDev = ENV === 'development'
 const isE2e = ENV === 'e2e'
 const WebpackErrorNotificationPlugin = require('webpack-error-notification')
@@ -14,21 +13,24 @@ module.exports = {
   cache: !isProd,
   devtool: isProd ? '#eval' : '#cheap-module-eval-source-map',
   context: path.join(__dirname, 'web'),
-  entry: [
-    'react-hot-loader/patch',
-    // activate HMR for React
+  entry: (function () {
+    const entries = []
+    if (isDev) {
+      entries.concat([
+        'react-hot-loader/patch',
+        // activate HMR for React
 
-    'webpack-dev-server/client?http://localhost:8080',
-    // bundle the client for webpack-dev-server
-    // and connect to the provided endpoint
+        'webpack-dev-server/client?http://localhost:8080',
+        // bundle the client for webpack-dev-server
+        // and connect to the provided endpoint
 
-    'webpack/hot/only-dev-server',
-    // bundle the client for hot reloading
-    // only- means to only hot reload for successful updates
-
-    './index.js',
-    // the entry point of our app
-  ],
+        'webpack/hot/only-dev-server',
+        // bundle the client for hot reloading
+        // only- means to only hot reload for successful updates
+      ])
+    }
+    return entries.concat('./index.js')
+  })(),
   output: {
     path: path.join(__dirname, 'web-dist'),
     filename: '[name].[hash].js',
@@ -84,11 +86,6 @@ module.exports = {
     const plugins = [
       new HtmlWebpackPlugin({
         template: 'index.ejs',
-        ghPagesPrefix: (function () {
-          if (isProd) return '/memory-n-back'
-          if (isStaging) return '/memory-n-back-staging'
-          return ''
-        })(),
       }),
       new WebpackErrorNotificationPlugin(),
       new webpack.DefinePlugin({
@@ -136,7 +133,7 @@ module.exports = {
   }()),
   devServer: {
     contentBase: path.resolve(__dirname, 'web'),
-    hot: true,
+    hot: isDev,
     publicPath: '/',
     historyApiFallback: true,
   },
