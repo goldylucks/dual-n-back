@@ -10,5 +10,5 @@ function apiUrl () {
   if (isStaging) {
     return 'https://memory-n-back-staging.herokuapp.com/api'
   }
-  return 'http://10.0.0.7:3001/api' // use local machine IP to support react native http calls
+  return 'http://localhost:3001/api' // TODO :: automatically switch to local machine IP to support react native http calls
 }
