@@ -1,7 +1,7 @@
 # Memory N Back
 ## React Native and mobile
 
-[![Build Status][travis-image]][travis-url] [![Production Web App][web-app-image]][web-app-url] [![Web Test App][web-test-app-image]][web-test-app-url] [![dependencies][dependencies-image]][dependencies-url] [![devDependencies][dev-dependencies-image]][dev-dependencies-url] [![GPLv3][license-image]][license-url]
+[![Build Status][travis-image]][travis-url] [![Production Web App][web-app-image]][web-app-url] [![Staging Web App][web-staging-app-image]][web-staging-app-url] [![dependencies][dependencies-image]][dependencies-url] [![devDependencies][dev-dependencies-image]][dev-dependencies-url] [![GPLv3][license-image]][license-url]
 
 <p align='center'>
   <a href='https://play.google.com/store/apps/details?id=com.memoryNback'>
@@ -14,8 +14,8 @@ This project shares (almost) 100% of the logic (redux) between native and web, l
 ## Use
 [Google store][google-store-url] (stable, latest release)  
 [Production Web App][web-app-url] (stable, latest release)  
-[Test Web App][web-test-app-url] (latest master)  
-Memory N Back web version is kindly hosted on [github pages](https://pages.github.com/)
+[Staging Web App][web-staging-app-url] (latest master)  
+Memory N Back web version is kindly hosted on [surge](https://surge.sh/)
 
 ### Install
 ```bash
@@ -64,16 +64,23 @@ The code is available under the [GPL v3 license][license-url].
 
 [travis-image]: https://travis-ci.org/goldylucks/memory-n-back.svg?branch=master
 [travis-url]: https://travis-ci.org/goldylucks/memory-n-back
+
 [google-store-url]: https://play.google.com/store/apps/details?id=com.memoryNback
 [google-store-image]: ./android/app/src/main/res/mipmap-hdpi/icon.png
-[web-app-url]: https://goldylucks.github.io/memory-n-back/
-[web-app-image]: https://img.shields.io/website-up-down-green-red/https://goldylucks.github.io/memory-n-back/.svg?label=web%20app
-[web-test-app-url]: https://goldylucks.github.io/memory-n-back-staging
-[web-test-app-image]: https://img.shields.io/website-up-down-green-red/https://goldylucks.github.io/memory-n-back-staging.svg?label=web%20staging%20app
+
+[web-app-url]: https://memory-n-back.surge.sh/
+[web-app-image]: https://img.shields.io/website-up-down-green-red/https://memory-n-back.surge.sh/.svg?label=web%20app
+
+[web-staging-app-url]: https://memory-n-back-staging.surge.sh/
+[web-staging-app-image]: https://img.shields.io/website-up-down-green-red/https://memory-n-back-staging.surge.sh/.svg?label=web%20staging%20app
+
 [dependencies-image]: https://img.shields.io/david/goldylucks/memory-n-back.svg
 [dependencies-url]: https://david-dm.org/goldylucks/memory-n-back
+
 [dev-dependencies-image]: https://img.shields.io/david/dev/goldylucks/memory-n-back.svg
 [dev-dependencies-url]: https://david-dm.org/goldylucks/memory-n-back?type=dev
-[issues-url]: https://github.com/goldylucks/memory-n-back/issues
+
 [license-image]: https://img.shields.io/badge/license-GPL%20v3-brightgreen.svg
 [license-url]: http://www.gnu.org/licenses/gpl-3.0.en.html
+
+[issues-url]: https://github.com/goldylucks/memory-n-back/issues
