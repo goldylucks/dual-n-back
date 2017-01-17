@@ -6,6 +6,7 @@
     "start": "webpack-dev-server",
     "start:e2e": "NODE_ENV=e2e webpack-dev-server",
     "server": "nodemon server/server.js",
+    "server:prod": "NODE_ENV=production node server/server.js",
     "clean:web": "rm -rf web-dist",
     "prebuild:web:prod": "npm run clean:web",
     "prebuild:web:staging": "npm run clean:web",
