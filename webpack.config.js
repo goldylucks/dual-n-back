@@ -41,7 +41,12 @@ module.exports = {
       {
         test: /\.js$/,
         include: [/web/, /shared/],
-        use: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            extends: path.join(__dirname, '.babelrc-web'),
+          },
+        },
       },
       {
         test: /\.html$/,
