@@ -30,7 +30,8 @@
     "deploy:web:prod": "surge -p ./web-dist -d memory-n-back.surge.sh",
     "lintstyle": "stylelint 'web/**/*.css'",
     "lintstyle:fix": "stylefmt -r web/**/*.css",
-    "startOld": "node node_modules/react-native/local-cli/cli.js start"
+    "startOld": "node node_modules/react-native/local-cli/cli.js start",
+    "buildUtils": "buildUtils"
   },
   "dependencies": {
     "axios": "^0.15.2",
@@ -112,6 +113,7 @@
     "postcss-loader": "^0.9.1",
     "postcss-sorting": "^1.7.0",
     "react-hot-loader": "^3.0.0-beta.6",
+    "react-native-build-utils": "^1.0.1",
     "react-native-gradle-config": "^2.0.0",
     "react-native-install-on-device": "^1.0.1",
     "react-native-keep-awake": "^1.0.7",
