@@ -29,8 +29,8 @@ export function getModeKey (modes, nBack) {
   return activeModes + nBack
 }
 
-export function isGuessDisabled (history, nBack, status) {
-  return history.length - 1 < nBack || status !== 'active'
+export function isGuessDisabled (history, nBack, status, isReplayMode) {
+  return history.length - 1 < nBack || status !== 'active' || isReplayMode
 }
 
 export function speedDisplay (speed) {
