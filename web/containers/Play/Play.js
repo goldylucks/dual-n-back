@@ -16,6 +16,7 @@ import styles from './Play.css'
 class PlayContainer extends Component {
 
   static propTypes = {
+    isReplayMode: PropTypes.bool.isRequired,
     nBack: PropTypes.number.isRequired,
     modes: PropTypes.object.isRequired,
     status: PropTypes.string.isRequired,
@@ -332,8 +333,8 @@ class PlayContainer extends Component {
   }
 
   isGuessDisabled () {
-    const { history, nBack, status } = this.props
-    return utils.isGuessDisabled(history, nBack, status)
+    const { history, nBack, status, isReplayMode } = this.props
+    return utils.isGuessDisabled(history, nBack, status, isReplayMode)
   }
 
 }

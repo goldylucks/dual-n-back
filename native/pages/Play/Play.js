@@ -18,6 +18,7 @@ import Board from '../../components/Board'
 class PlayPage extends Component {
 
   static propTypes = {
+    isReplayMode: PropTypes.bool.isRequired,
     nBack: PropTypes.number.isRequired,
     modes: PropTypes.object.isRequired,
     letters: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -251,8 +252,8 @@ class PlayPage extends Component {
   }
 
   isGuessDisabled () {
-    const { history, nBack, status } = this.props
-    return utils.isGuessDisabled(history, nBack, status)
+    const { history, nBack, status, isReplayMode } = this.props
+    return utils.isGuessDisabled(history, nBack, status, isReplayMode)
   }
 
   loadSoundFiles () {
