@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux'
 
 import FaIcon from 'react-native-vector-icons/FontAwesome'
 
-import * as utils from '../../../shared/utils'
+import utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
 import * as authActions from '../../../shared/actions/auth'
 
