@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 
-import * as utils from '../../../shared/utils'
+import utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
 import * as authActions from '../../../shared/actions/auth'
 

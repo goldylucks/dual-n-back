@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import _ from 'lodash'
 
-import * as utils from '../utils'
+import utils from '../utils'
 
 const initialState = {
   nBack: 2,

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import _ from 'lodash'
 import logger from '../utils/logger'
-import * as utils from '../utils'
+import utils from '../utils'
 import { API_URL } from '../constants'
 import { refreshUserSuccess, refreshUserError } from '../actions/user'
 

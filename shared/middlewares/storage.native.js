@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-import * as utils from '../utils'
+import utils from '../utils'
 import logger from '../utils/logger'
 import { syncBestScores, syncGameConfig, syncLosingMoves } from '../actions/play'
 import { syncUser } from '../actions/auth'

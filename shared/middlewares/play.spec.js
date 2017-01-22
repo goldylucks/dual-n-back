@@ -1,7 +1,7 @@
 import testToMiddleware from 'redux-middleware-test-helper'
 import { playInterval, missAMatch, resetBoard, guessCorrect, guessWrong } from '../actions/play'
 import PlayMiddleware from './play'
-import * as utils from '../utils'
+import utils from '../utils'
 
 describe('shared/middlewares/play', () => {
   let cut

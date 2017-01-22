@@ -7,7 +7,7 @@ import _ from 'lodash'
 import mPath from '../../../shared/assets/m.wav'
 import qPath from '../../../shared/assets/q.wav'
 import rPath from '../../../shared/assets/r.wav'
-import * as utils from '../../../shared/utils'
+import utils from '../../../shared/utils'
 import * as actions from '../../../shared/actions/play'
 import Board from '../../components/Board'
 

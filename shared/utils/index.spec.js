@@ -1,4 +1,4 @@
-import * as utils from './'
+import utils from './'
 
 describe('shared/utils/index', () => {
   describe('getBestScore', () => {

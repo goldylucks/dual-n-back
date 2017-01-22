@@ -9,7 +9,7 @@ import FdIcon from 'react-native-vector-icons/Foundation'
 import Sound from 'react-native-sound'
 import _ from 'lodash'
 
-import * as utils from '../../../shared/utils'
+import utils from '../../../shared/utils'
 import logger from '../../../shared/utils/logger'
 import * as actions from '../../../shared/actions/play'
 
