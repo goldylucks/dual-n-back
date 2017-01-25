@@ -7,6 +7,11 @@ env:
   global:
   # GITHUB_TOKEN (deploy to github pages)
   - secure: SGmI2gSHYSL7iM9KIWYsOdZ3iS0KpVxXsJsTaobEvvY6n0tpDM6BVlatrDSggQjX/YT4V6vz14Fv3SXLaL/eZGQ3K0gOK7NMv7kkg4pEkLwVMjUe4DvSyLOp2GDDfQR3SKXy/+5iRHIX+gLf2QJMlK2T92cyftt3DgnBiZPke7LUa9roMP1jPaWacRwgu3TNEmd7wQ7sdf8QZNWhQDxIUQNjnQDrdXyta6ist4smzK3BNCdJh8NpsxK9gdi2Y3tvRlvfYAE70kkadIPwc/pZpZPxMaX2U3Ac4z7Dgjbv3gCGNt9kKZ4iBnRAzZ+gaQAkYV1v7AURT2Ccm2sPGD0yQX5ZUAqI+wWrjZdK52j6rI01A+0WsYxZYO5k+dGVUkBbPXJE93WFmaA1YDZ6G0ijojanMINwYKiPVfipZPe/aeD1/uxUFLRjx4n3aEe3GmJRkcbU6maX5dk7hVD+XLLQ7dUuBOdcrOuJNYtDXmbUeLFzHZLMOVc8fzyhrbKgVujgSTXn7X+Xn51fANUBKlbbTSJ7xWday7w/Ni3tuPm92HZTT3/Nnuc4uIiLHVIRJjZQ/9MYltDRn4uzcPBXzyYM+daMiD3b3Sza9PbDfdnyGr2bg6xNR0GOeV5YoSjOa+Kkc2EszNs5s6t9CjVki+h/G4ljAq5sep8fFhRusPJ/15w=
+  # SURGE_LOGIN
+  - secure: akXDx89+ClwBWSzvUPynMzn+TlUhn9hrxe0ryxnTN00HcENoT3STf6loKXmBs1qzLIKBKqBQ63mQoLMSkQqSY+qLLo9sC47wOh4wlBQwl/9vTyrZYEvYnZQchzaNTX2hrjUn3ssW9miDc4/+3mRSIyCw2KjooCnlv7qjgF+a5S7GzAgQZIsXyK4n91EuiBfK/cJsOKemm+QR/OsFnp6LXNJBP3UE2ps9ZHirYK/W/t579WMpyJ2yHB1qwR9X+OVeAIsRQkrsTL9BHdua1qK6Lq1zSGrPpT9JixFzgHeKDXPs9m1/tOVV/p8usv6If2ewcak6JDpZ+3nLHgDNOBbKAsQEedHOA3YfnTQtrMWZdGZR3dF65RiyA4mO9s9e4qqm+M14786kEOsBZ+dEiJqYPQIqhlDFpGBW4XMdHjMO/opjIyb3MkcWYpDk3UxB+ASQmyDHGl4ah/dd1OGX6S9N4yzFbC7XmY1UGVjS2hVK1AufRS9Lg72TTPZShdkNfJt8MEgh1ysZCkJ6jI6tmQ0mSWHu1wwYjbDpJwWBW+DttKdAfivkQNbFbNSvuJ2dR2LqW/QWhjMxV50q/Fm783rhKJW8vjP7AzjJf+fBXleViEunBH7zcEvRMrIcUMLawDGxqpQPNY+2aHfqMSXDqN68S2pKp1fdzeUibOgq6WoP6Yw=
+  # SURGE_TOKEN
+  - secure: jnb/lZeApI1OKqH3KEjWrv1BhNx3pqx047v0BegSbnkG/O8/aqIbNi+ZcfRWsHNZ3IrTVKYy4mhZOJ8wV4cQCu+9kOJZAflYiMLa3jIPXKq9QIqkNiBrU/MSneM2Zv/eQe17ZOnit6lSjK5cVumJgYAthhopHU4Oae8VFsn0hNAQz4ffz1TAhpVCNPwa1394/RKMjYgXpsDOfZzjz9v1psx0WN4YKndcBQBt5TL66KjvV81W8Po6XtoFCMPTDx/ODdyytL2rPzn7PELY2uYvhDzUMEPZyBf7zrgfExERN5L0/YvgSOM7ENa0MZMiAu2zdqUpT+6t1kndNqGoSUujDeTqavGwXYRpuOUd2vsQKr1iMVolzSU6UWUb0eZSkPUhH+NyBca/wRF0Zp9VQKfi74iBYLjtIyRI8s7cV+uLa/LUmX4fr32UNjGd1/ixmq2QgMQGNKRc8ncryJMc+rGEIx5A7S04pfS1V9rq+p6omjsH0gvkdwhWvjxeKm1jV0ohf+3T2N7nCjCLujVah3eW0hGS+plAyx/C7ZYmRciRBBImIyixeDMjHf93BC2tHSMl3PekEQzXggKazfoZRDfo1wqQ6+hXKOkGj1wnbdE8y6/N26BC8UzfrvkNEmRDToWlC81tmR/KKTOtAy+iHIgrRp9kNSvr0VqTQYzeVrRfL2s=
+
   matrix:
     - SCRIPT=lint
     - SCRIPT=test
@@ -44,3 +49,11 @@ deploy:
     on:
       tags: true
       all_branches: true
+  - provider: surge
+    project: ./web-dist/
+    domain: memory-n-back-staging.surge.sh
+  - provider: surge
+    project: ./web-dist/
+    domain: memory-n-back.surge.sh
+    on:
+      tags: true
