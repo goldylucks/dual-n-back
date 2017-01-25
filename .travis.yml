@@ -36,6 +36,9 @@ script:
 - if [ "$SCRIPT" ]; then npm run $SCRIPT; fi
 - if [ "$E2Eweb" ]; then ./scripts/e2e-web-travis.sh; fi
 
+after_success:
+- "./scripts/deployToSurgePagesCi.sh"
+
 deploy:
   - provider: heroku
     app: memory-n-back-staging
@@ -48,11 +51,3 @@ deploy:
     on:
       tags: true
       all_branches: true
-  - provider: surge
-    project: ./web-dist/
-    domain: memory-n-back-staging.surge.sh
-  - provider: surge
-    project: ./web-dist/
-    domain: memory-n-back.surge.sh
-    on:
-      tags: true
