@@ -4,10 +4,15 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ENV = process.env.NODE_ENV || 'development'
 const isProd = ENV === 'production'
+const isStaging = ENV === 'staging'
 const isDev = ENV === 'development'
 const isE2e = ENV === 'e2e'
 const WebpackErrorNotificationPlugin = require('webpack-error-notification')
-const FB_ID = process.env.FB_ID || '329879750722396'
+const FB_ID = (() => {
+  if (isProd) return '962957950472632'
+  if (isStaging) return '724784051023090'
+  if (isDev) return '329879750722396'
+})()
 
 module.exports = {
   cache: !isProd,
