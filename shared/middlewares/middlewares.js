@@ -8,7 +8,7 @@ import User from './user'
 export default function middlewares () {
   const logger = createLogger({
     collapsed: true,
-    predicate: () => __DEV__,
+    predicate: () => global.IS_LOGGING,
   })
   const play = new Play()
   const storage = new Storage()
