@@ -10,12 +10,6 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   exit 0;
 fi
 
-# dont deploy non master branch
-if [ "$TRAVIS_BRANCH" != "master" ]; then
-  echo not master branch, bailing
-  exit 0;
-fi
-
 # store src commit hash
 SHA=`git rev-parse --verify HEAD`
 
