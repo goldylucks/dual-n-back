@@ -37,7 +37,7 @@ script:
 - if [ "$E2Eweb" ]; then ./scripts/e2e-web-travis.sh; fi
 
 after_success:
-- "./scripts/deployToSurgePagesCi.sh"
+- "./scripts/deployToSurgeCi.sh"
 
 deploy:
   - provider: heroku
