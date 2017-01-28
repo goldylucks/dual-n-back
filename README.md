@@ -1,6 +1,8 @@
 # Memory N Back
 ## React Native and mobile
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/goldylucks/memory-n-back.svg)](https://greenkeeper.io/)
+
 [![Build Status][travis-image]][travis-url] [![Production Web App][web-app-image]][web-app-url] [![Staging Web App][web-staging-app-image]][web-staging-app-url] [![dependencies][dependencies-image]][dependencies-url] [![devDependencies][dev-dependencies-image]][dev-dependencies-url] [![GPLv3][license-image]][license-url]
 
 <p align='center'>
