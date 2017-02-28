@@ -86,7 +86,7 @@
     "deasync": "^0.1.9",
     "eslint": "^3.14.1",
     "eslint-config-semistandard": "^7.0.0",
-    "eslint-config-standard": "^6.2.1",
+    "eslint-config-standard": "^7.0.0",
     "eslint-config-standard-react": "^4.2.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-react": "^6.8.0",
