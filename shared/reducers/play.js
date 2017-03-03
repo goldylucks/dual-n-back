@@ -24,7 +24,7 @@ const initialState = {
   activeAudioLetter: undefined,
   activeSquarePosition: undefined,
   idxs: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  colors: ['red', 'purple', 'yellow'],
+  colors: ['red', 'green', 'blue'],
   letters: ['m', 'q', 'r'],
   history: [],
   losingMoves: {},

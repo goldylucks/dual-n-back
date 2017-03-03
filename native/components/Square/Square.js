@@ -36,7 +36,7 @@ export default class Square extends Component {
 
 const style = {
   container: {
-    backgroundColor: 'blue',
+    backgroundColor: 'black',
     width: 100,
     height: 100,
     fontSize: 20,

@@ -361,19 +361,11 @@ const styles = {
     flexDirection: 'row',
   },
 
-  firstControl: {
-    flex: 1,
-    alignItems: 'center',
-    marginRight: 2,
-    justifyContent: 'center',
-    backgroundColor: 'green',
-  },
-
   control: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'green',
+    backgroundColor: 'rgb(122, 122, 122)',
   },
 
   controlIcon: {
