@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken')
 const expressJwt = require('express-jwt')
 const config = require('../../config')
-const checkToken = expressJwt({ secret: config.jwtSecret })
 const User = require('../users/usersModel')
 
+const checkToken = expressJwt({ secret: config.jwtSecret })
 module.exports = { signToken, decodeToken, isOwner, isSystem, getFreshUser }
 
 function signToken (_id) {

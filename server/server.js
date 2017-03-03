@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
-mongoose.Promise = global.Promise
 const express = require('express')
-const app = express()
-
 const logger = require('./utils/logger')
 const config = require('./config')
 const api = require('./api')
+
+mongoose.Promise = global.Promise
+const app = express()
 
 mongoose.connect(config.db.url)
 

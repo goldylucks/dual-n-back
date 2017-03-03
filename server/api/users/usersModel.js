@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 require('mongoose-type-email')
 const bcrypt = require('bcryptjs')
-const Schema = mongoose.Schema
 const uniqueValidator = require('mongoose-unique-validator')
 
+const Schema = mongoose.Schema
 const UsersSchema = getSchema()
 
 UsersSchema.pre('save', preSave)

@@ -2,6 +2,7 @@ const config = require('../config')
 const bodyParser = require('body-parser')
 const override = require('method-override')
 const cors = require('cors')
+
 module.exports = function (app) {
   if (config.logging) {
     app.use(require('morgan')('dev'))

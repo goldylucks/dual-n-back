@@ -1,6 +1,7 @@
 import { syncBestScores, syncGameConfig, syncLosingMoves } from '../actions/play'
 import { syncUser } from '../actions/auth'
 import * as lsUtils from '../utils/localStorage'
+
 export default class StorageMiddleware {
 
   toMiddleware () {

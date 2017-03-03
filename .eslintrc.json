@@ -6,7 +6,8 @@
     "node": true
   },
   "plugins": [
-    "react"
+    "react",
+    "import"
   ],
   "globals": {
     "expect": true,
@@ -46,6 +47,7 @@
     "jsx-quotes": [2, "prefer-single"],
     "react/no-multi-comp": 2,
     "no-return-assign": 0,
+    "import/newline-after-import": [2, { "count": 1 }],
     "generator-star-spacing": 0,
     "object-curly-spacing": [2, "always"],
     "arrow-parens": [2, "as-needed"],

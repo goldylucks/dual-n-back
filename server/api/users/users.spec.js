@@ -2,8 +2,8 @@ const expect = require('chai').expect
 const request = require('supertest-as-promised')
 const _ = require('lodash')
 const server = require('../../server.js')
-const app = request(server)
 
+const app = request(server)
 const seedData = require('../../utils/seed.json')
 
 describe('api/users', () => {

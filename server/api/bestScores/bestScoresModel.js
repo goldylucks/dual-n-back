@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
 
+const Schema = mongoose.Schema
 const BestScoresSchema = getSchema()
 
 module.exports = mongoose.model('bestScores', BestScoresSchema)

@@ -6,10 +6,8 @@ import '../shared/utils/test'
 import './reset.css'
 import './404.html'
 import 'style-loader!css-loader!less-loader!font-awesome-webpack/font-awesome-styles.loader!font-awesome-webpack/font-awesome.config.js'
-
 import middlewares from '../shared/middlewares'
 import Routes from './routes'
-
 import configureStore from '../shared/store'
 
 import { initApp } from '../shared/actions/play'

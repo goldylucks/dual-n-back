@@ -5,12 +5,13 @@ const config = require('../config')
 // models
 const BestScores = require('../api/bestScores/bestScoresModel')
 const Users = require('../api/users/usersModel')
-const Models = [BestScores, Users]
 const usersService = require('../api/users/usersService')
 
 // data
 const seedData = require('./seedData')
+
 const { bestScores, users } = seedData
+const Models = [BestScores, Users]
 
 // init
 logger.log(`Seeding ${config.env} DB ...`)
