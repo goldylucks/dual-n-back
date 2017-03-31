@@ -84,7 +84,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.23.1",
     "deasync": "^0.1.9",
-    "eslint": "^3.14.1",
+    "eslint": "^3.19.0",
     "eslint-config-semistandard": "^7.0.0",
     "eslint-config-standard": "^6.2.1",
     "eslint-config-standard-react": "^4.2.0",
