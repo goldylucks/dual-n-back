@@ -28,7 +28,7 @@
     "buildUtils": "buildUtils"
   },
   "dependencies": {
-    "axios": "^0.15.2",
+    "axios": "^0.16.0",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "colors": "^1.1.2",
