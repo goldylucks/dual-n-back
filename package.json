@@ -57,7 +57,7 @@
     "react-router-redux": "^4.0.0",
     "react-sound": "^0.5.2",
     "redux": "^3.3.1",
-    "redux-actions": "^1.2.0",
+    "redux-actions": "^2.0.2",
     "redux-logger": "^2.7.4",
     "validator": "^6.1.0"
   },
