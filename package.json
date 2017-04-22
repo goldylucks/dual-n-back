@@ -109,7 +109,7 @@
     "postcss-loader": "^0.9.1",
     "postcss-sorting": "^1.7.0",
     "react-hot-loader": "^3.0.0-beta.6",
-    "react-native-build-utils": "^1.0.1",
+    "react-native-build-utils": "^1.1.0",
     "react-native-gradle-config": "^2.0.0",
     "react-native-install-on-device": "^1.0.1",
     "react-native-keep-awake": "^2.0.2",
