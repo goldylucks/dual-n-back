@@ -50,7 +50,7 @@
     "react-native-facebook-login": "^1.4.0",
     "react-native-fbsdk": "^0.4.0",
     "react-native-router-flux": "^3.37.0",
-    "react-native-sound": "^0.8.3",
+    "react-native-sound": "^0.10.1",
     "react-native-vector-icons": "^3.0.0",
     "react-redux": "^5.0.1",
     "react-router": "^3.0.0",
