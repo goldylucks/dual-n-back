@@ -34,7 +34,7 @@
     "colors": "^1.1.2",
     "cors": "^2.8.1",
     "custom-error-generator": "^7.0.0",
-    "express": "^4.14.0",
+    "express": "^4.15.3",
     "express-jwt": "^5.1.0",
     "font-awesome": "^4.6.3",
     "jsonwebtoken": "^7.1.9",
