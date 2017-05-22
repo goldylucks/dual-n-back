@@ -82,7 +82,7 @@
     "chai": "^3.5.0",
     "chromedriver": "^2.26.1",
     "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.23.1",
+    "css-loader": "^0.28.2",
     "deasync": "^0.1.9",
     "eslint": "^3.14.1",
     "eslint-config-semistandard": "^7.0.0",
