@@ -107,7 +107,7 @@
     "nodemon": "^1.11.0",
     "postcss": "^5.2.6",
     "postcss-loader": "^0.9.1",
-    "postcss-sorting": "^1.7.0",
+    "postcss-sorting": "^2.1.0",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-native-build-utils": "^1.0.1",
     "react-native-gradle-config": "^2.0.0",
